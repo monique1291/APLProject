@@ -1,10 +1,12 @@
 import string
-
+import keyword
+import re
 reserved = {
    'if' : 'IF',
    'then' : 'THEN',
    'else' : 'ELSE',
-   'while' : 'WHILE',
+    'elif' : 'ELIF',
+    'while' : 'WHILE',
     'for' : 'FOR',
     'do' : 'DO',
     'until' : 'UNTIL',
@@ -21,6 +23,17 @@ reserved = {
     'true' : 'TRUE',
     'class' : 'CLASS',
     'import' : 'IMPORT',
+    'global' : 'GLOBAL',
+    'not' : 'NOT',
+    'or' : 'OR',
+    'is' : 'IS',
+    'in' : 'IN',
+    'finally' : 'FINALLY',
+    'def' : 'DEF',
+    'break' : 'BREAK',
+    'case' : 'CASE',
+    'switch' : 'SWITCH'
+
 }
 tokens = [
    'NUMBER',
@@ -56,8 +69,11 @@ def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
 def t_IDENTIFIER(t):
-    r'[A-Z_][a-z_0-9]*'
-    t.value = string(t.value)
+    r'[A-Z_][a-zA-Z_0-9]*'
+    t.value = t.value
+    return t
+def is_valid_identifier(s):
+    return s.isidentifier() and not keyword.iskeyword(s)
 def t_ID(t):
     r'[a-zA-Z_][a-zA-Z_0-9]*'
     t.type = reserved.get(t.value,'ID')    # Check for reserved words
