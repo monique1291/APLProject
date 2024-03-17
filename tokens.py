@@ -61,7 +61,7 @@ tokens = [
              'VERTICALBAR',
              'QUOTATION',
              'APOSTROPHE',
-             'PERIOD'
+             'PERIOD',
              # Identifier
              'IDENTIFIER',
          ] + list(reserved.values())  # + literals #may be able to remove literals
