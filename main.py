@@ -5,7 +5,7 @@ lexer = lex.lex(module=tokens)
 data = '''
 3 + 4
 '''
-lexer.input("b=4-3")
+lexer.input("Major Landing in sequence.")
 
 for tok in lexer:
     print(tok)
