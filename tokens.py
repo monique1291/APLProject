@@ -1,4 +1,5 @@
 import ply.yacc as yacc
+
 reserved = {
     'if': 'IF',
     'then': 'THEN',
@@ -77,13 +78,13 @@ t_RCURVEDBRACE = r'\}'
 t_LSQUAREDBRACKET = r'\['
 t_RSQUAREDBRACKET = r'\]'
 t_COMMA = r'\,'
-t_LESSTHAN = r'\<'          # Less than symbol
-t_GREATERTHAN = r'\>'       # More than symbol
-t_TILDE = r'\~'             # Tilde
-t_BACKSLASH = r'\\'         # Backslash
-t_VERTICALBAR = r'\|'       # Vertical bar
-t_QUOTATION = r'\”'         # Quotation
-t_APOSTROPHE = r'\''          # Apostrophe
+t_LESSTHAN = r'\<'  # Less than symbol
+t_GREATERTHAN = r'\>'  # More than symbol
+t_TILDE = r'\~'  # Tilde
+t_BACKSLASH = r'\\'  # Backslash
+t_VERTICALBAR = r'\|'  # Vertical bar
+t_QUOTATION = r'\”'  # Quotation
+t_APOSTROPHE = r'\''  # Apostrophe
 
 
 # A regular expression rule with some action code
@@ -178,3 +179,16 @@ def p_factor_expr(p):
 # Error rule for syntax errors
 def p_error(p):
     print("Syntax error in input!")
+
+
+def p_expr_uminus(p):
+    'expression : MINUS expression %prec UMINUS'
+    p[0] = -p[2]
+
+
+precedence = (
+    ('left', 'PLUS', 'MINUS'),
+    ('left', 'TIMES', 'DIVIDE'),
+    ('left', 'UMINUS'),
+    ('left', 'LPAREN', 'RPAREN')
+)

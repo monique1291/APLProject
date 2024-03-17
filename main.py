@@ -5,7 +5,8 @@ lexer = lex.lex(module=tokens)
 data = '''
 3 + 4
 '''
-lexer.input("M = ( 3 * 6) - Y + (6 / 2) , moni 9.9")
+lexer.input("b=4-3")
 
 for tok in lexer:
     print(tok)
+
