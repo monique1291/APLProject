@@ -1,14 +1,19 @@
 A = 8
 B = 4.5
-C = 0.8
 
 #- is for comments
 
 #Error \ should be an illegal character
 A+3\3
 
-#Error is a acccepted?
-a=3
+#Error is a common letter word acccepted?
+arnold = 3
+
+#Test for Signs and symbols
+ * a == 4 != 6 >= 8 <= 0
 
 
-A=(3+1) * a == 4 != 6 >= 8 <= 0
+if (A<B) then
+    A=(3+1)
+elif (A>=B 0r B==1) then
+    B=(3.5*7)

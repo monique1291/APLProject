@@ -39,7 +39,7 @@ tokens = [
              'STRING',
              'FLOAT',
              # Comparison Operators
-             'EQUAL',
+             'EQUALEQUAL',
              'NOTEQUAL',
              'LESSTHAN',
              'GREATERTHAN',
@@ -80,7 +80,7 @@ t_RSQUAREDBRACKET = r'\]'
 t_COMMA = r'\,'
 
 # Regular expression rule for comparison operators
-t_EQUAL = r'=='
+t_EQUALEQUAL = r'=='
 t_NOTEQUAL = r'!='
 t_LESSTHAN = r'<'
 t_GREATERTHAN = r'>'
@@ -112,8 +112,8 @@ def t_newline(t):
 
 
 def t_IDENTIFIER(t):
-    r'[A-Z_][a-zA-Z_0-9]*'
-    t.value = t.value
+    r'[a-zA-Z_][a-zA-Z_0-9]*'
+    t.type = reserved.get(t.value, 'IDENTIFIER')  # Check if it's a reserved word
     return t
 
 
