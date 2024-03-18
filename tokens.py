@@ -196,9 +196,3 @@ def p_factor_expr(p):
 def p_error(p):
     print("Syntax error in input!")
 
-
-# Error handling rule for single brackets
-def t_SINGLE_BRACKET_ERROR(t):
-    r'[(){}[\]]'
-    print(f"Unexpected single bracket '{t.value}' at line {t.lineno}")
-    t.lexer.skip(1)
