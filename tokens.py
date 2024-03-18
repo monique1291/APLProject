@@ -198,7 +198,6 @@ def p_error(p):
 
 
 # Error handling rule for single brackets
-# Error handling rule for single brackets
 def t_SINGLE_BRACKET_ERROR(t):
     r'[(){}[\]]'
     print(f"Unexpected single bracket '{t.value}' at line {t.lineno}")
