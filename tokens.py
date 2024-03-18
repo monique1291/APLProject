@@ -1,4 +1,5 @@
 import ply.yacc as yacc
+
 reserved = {
     'if': 'IF',
     'then': 'THEN',
@@ -33,7 +34,7 @@ reserved = {
     'switch': 'SWITCH'
 
 }
-literals = ['+', '-', '*', '/', '=', '<', '>', '(', ')', '{', '}', '[', ']', ',',]
+literals = ['+', '-', '*', '/', '=', '<', '>', '(', ')', '{', '}', '[', ']', ',', ]
 tokens = [
              'INTEGER',
              'STRING',
@@ -95,10 +96,12 @@ t_GREATERTHAN = r'>'
 t_LESSEQUAL = r'<='
 t_GREATEREQUAL = r'>='
 
+
 # Regular expression rule for comments
 def t_COMMENT(t):
     r'\#.*'
     pass  # Discard comments
+
 
 # A regular expression rule with some action code
 def t_FLOAT(t):
@@ -193,3 +196,9 @@ def p_factor_expr(p):
 def p_error(p):
     print("Syntax error in input!")
 
+
+# Error rule for empty source code or unexpected end of file
+def t_eof(t):
+    if t is None or t.value == '':
+        print("Unexpected end of file")
+        return None
