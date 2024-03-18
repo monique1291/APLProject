@@ -33,7 +33,7 @@ reserved = {
     'switch': 'SWITCH'
 
 }
-literals = ['+', '-', '*', '/', '=', '<', '>', '(', ')', '{', '}', '[', ']', ',', ';']
+literals = ['+', '-', '*', '/', '=', '<', '>', '(', ')', '{', '}', '[', ']', ',',]
 tokens = [
              'INTEGER',
              'STRING',
@@ -60,7 +60,6 @@ tokens = [
              'RSQUAREDBRACKET',
              # Other symbols
              'COMMA',
-             'COLON',
              # Identifier
              'IDENTIFIER',
              'COMMENTS',
@@ -79,7 +78,6 @@ t_RCURVEDBRACE = r'\}'
 t_LSQUAREDBRACKET = r'\['
 t_RSQUAREDBRACKET = r'\]'
 t_COMMA = r'\,'
-t_COLON = r'\:'
 
 # Regular expression rule for comparison operators
 t_EQUALEQUAL = r'=='

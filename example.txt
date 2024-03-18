@@ -16,4 +16,4 @@ arnold = 3
 if (A<B) then
     A=(3+1)
 elif (A>=B 0r B==1) then
-    B=(3.5*7)
+    B=(3.5*7);
