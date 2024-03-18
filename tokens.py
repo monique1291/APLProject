@@ -51,6 +51,10 @@ tokens = [
              'TIMES',
              'DIVIDE',
              'EQUALSIGN',
+             'PLUSEQUAL',
+             'MINUSEQUAL',
+             'TIMESEQUAL',
+             'DIVIDEEQUAL',
              # Parentheses
              'LPAREN',
              'RPAREN',
@@ -73,6 +77,10 @@ t_DIVIDE = r'/'
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
 t_EQUALSIGN = r'\='
+t_PLUSEQUAL = r'\+='
+t_MINUSEQUAL = r'-='
+t_TIMESEQUAL = r'\*='
+t_DIVIDEEQUAL = r'/='
 t_LCURVEDBRACE = r'\{'
 t_RCURVEDBRACE = r'\}'
 t_LSQUAREDBRACKET = r'\['
