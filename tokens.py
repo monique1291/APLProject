@@ -38,6 +38,13 @@ tokens = [
              'INTEGER',
              'STRING',
              'FLOAT',
+             # Comparison Operators
+             'EQUAL',
+             'NOTEQUAL',
+             'LESSTHAN',
+             'GREATERTHAN',
+             'LESSEQUAL',
+             'GREATEREQUAL',
              # Operators
              'PLUS',
              'MINUS',
@@ -71,6 +78,14 @@ t_RCURVEDBRACE = r'\}'
 t_LSQUAREDBRACKET = r'\['
 t_RSQUAREDBRACKET = r'\]'
 t_COMMA = r'\,'
+
+# Regular expression rule for comparison operators
+t_EQUAL = r'=='
+t_NOTEQUAL = r'!='
+t_LESSTHAN = r'<'
+t_GREATERTHAN = r'>'
+t_LESSEQUAL = r'<='
+t_GREATEREQUAL = r'>='
 
 # Regular expression rule for comments
 def t_COMMENT(t):
