@@ -1,12 +1,14 @@
 import ply.lex as lex
 import tokens
 
+with open('example.txt', 'r') as file:
+    # Read the contents of the file and store them in a variable
+    file_contents = file.read()
+
 lexer = lex.lex(module=tokens)
-data = '''
-3 + 4
-'''
-lexer.input("M = ( 3 * 6) - Y + (6 / 2) , moni 9.9")
+# Open the file in read mode
+
+lexer.input(file_contents)
 
 for tok in lexer:
     print(tok)
-

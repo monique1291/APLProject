@@ -55,6 +55,7 @@ tokens = [
              'COMMA',
              # Identifier
              'IDENTIFIER',
+             'COMMENTS',
          ] + list(reserved.values())  # + literals #may be able to remove literals
 
 # Regular expression rules for simple tokens
@@ -71,6 +72,10 @@ t_LSQUAREDBRACKET = r'\['
 t_RSQUAREDBRACKET = r'\]'
 t_COMMA = r'\,'
 
+# Regular expression rule for comments
+def t_COMMENT(t):
+    r'\#.*'
+    pass  # Discard comments
 
 # A regular expression rule with some action code
 def t_FLOAT(t):

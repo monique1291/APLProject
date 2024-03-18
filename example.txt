@@ -1,0 +1,14 @@
+A = 8
+B = 4.5
+C = 0.8
+
+#- is for comments
+
+#Error \ should be an illegal character
+A+3\3
+
+#Error is a acccepted?
+a=3
+
+
+A=(3+1) * a
