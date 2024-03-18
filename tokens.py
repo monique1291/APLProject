@@ -196,9 +196,3 @@ def p_factor_expr(p):
 def p_error(p):
     print("Syntax error in input!")
 
-
-# Error rule for empty source code or unexpected end of file
-def t_eof(t):
-    if t is None or t.value == '':
-        print("Unexpected end of file")
-        return None
