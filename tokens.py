@@ -130,9 +130,9 @@ def t_IDENTIFIER(t):
 
 # Error handling rule for identifiers not in PascalCase
 def t_IDENTIFIER_error(t):
-    r"""[a-z][a-zA-Z0-9]*(?=\s*[=+\-*/<>=]|$)"""  # Check for lowercase identifiers
+    r"""[a-z][a-zA-Z0-9]*(?=\s*[=+\-*/<>=]|$)"""  # Check for lowercase identifiers before any symbol
     print(f"Error: Variable '{t.value}' should be in PascalCase format")
-    t.lexer.skip(1)
+    t.lexer.skip(1) #skip the value and tokenize the rest of the line or just pass the whole line?
 
 
 def t_STRING(t):
