@@ -65,6 +65,8 @@ tokens = [
              'RSQUAREDBRACKET',
              # Other symbols
              'COMMA',
+             'DOUBLEQUOTES',
+             'SINGLEQUOTES',
              # Identifier
              'IDENTIFIER',
              'COMMENTS',
@@ -87,6 +89,8 @@ t_RCURVEDBRACE = r'\}'
 t_LSQUAREDBRACKET = r'\['
 t_RSQUAREDBRACKET = r'\]'
 t_COMMA = r'\,'
+t_DOUBLEQUOTES = r'\"'
+t_SINGLEQUOTES = r'\''
 
 # Regular expression rule for comparison operators
 t_EQUALEQUAL = r'=='
@@ -129,7 +133,7 @@ def t_IDENTIFIER(t):
 
 
 def t_STRING(t):
-    r'[a-zA-Z_][a-zA-Z_0-9]*'  # should i let all strings have same rules as identifiers?
+    r'\"[a-zA-Z_][a-zA-Z_0-9]*\"'  # should i let all strings have same rules as identifiers?
     t.value = t.value
     return t
 
