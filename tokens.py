@@ -123,13 +123,20 @@ def t_newline(t):
 
 
 def t_IDENTIFIER(t):
-    r'[a-zA-Z_][a-zA-Z_0-9]*'
+    r'[A-Z][a-zA-Z0-9]*'  # PascalCase pattern
     t.type = reserved.get(t.value, 'IDENTIFIER')  # Check if it's a reserved word
     return t
 
 
+# Error handling rule for identifiers not in PascalCase
+def t_IDENTIFIER_error(t):
+    r"""[a-z][a-zA-Z0-9]*(?=\s*[=+\-*/<>=]|$)"""  # Check for lowercase identifiers
+    print(f"Error: Variable '{t.value}' should be in PascalCase format")
+    t.lexer.skip(1)
+
+
 def t_STRING(t):
-    r'[a-zA-Z_][a-zA-Z_0-9]*'  # should i let all strings have same rules as identifiers?
+    r"'[^']*'"
     t.value = t.value
     return t
 
@@ -196,3 +203,9 @@ def p_factor_expr(p):
 def p_error(p):
     print("Syntax error in input!")
 
+
+# Ensures that what comes before an equal sign must be in pascal case
+def t_ASSIGN_ERROR(t):
+    r'[a-zA-Z_0-9]+=|[=]+[a-zA-Z_0-9]+'
+    print(f"Syntax error: Invalid assignment '{t.value}'")
+    t.lexer.skip(1)
