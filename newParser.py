@@ -33,8 +33,9 @@ def p_statements(p):
     else:
         p[0] = ('statements',)
 
+
 #              | declaration
-        #      | assignment
+#      | assignment
 def p_statement(p):
     """
     statement : conditional
@@ -44,7 +45,8 @@ def p_statement(p):
     """
     p[0] = p[1]
 
-#| block_if_statement
+
+# | block_if_statement
 def p_conditional(p):
     """
     conditional : inline_if_statement
@@ -76,6 +78,8 @@ def p_block_if_statement(p):
         p[0] = ('block_if_statement', p[3], p[5], p[6])
 
 '''
+
+
 def p_for_statement(p):
     """
     for_statement : FOR expression IN range_expression
@@ -136,7 +140,12 @@ def p_empty(p):
     """
     empty :
     """
-    p[0] = ('empty',)
+    p[0] = None
+
+
+def p_error(p):
+    raise SyntaxError(f"Syntax Error: Unexpected token '{p.value}'")
+
 
 parser = yacc()
 '''
