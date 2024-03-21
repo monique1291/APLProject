@@ -1,4 +1,3 @@
-import ply.yacc as yacc
 import ply.lex as lex
 
 reserved = {
@@ -136,15 +135,15 @@ def t_STRING(t):
 
 def t_IDENTIFIER(t):
     r'[a-zA-Z_][a-zA-Z_0-9]*'
-    t.type = 'IDENTIFIER'
+    t.type = reserved.get(t.value, 'IDENTIFIER')
     return t
 
 
 # noticing an error, if an identifier starts with lower cse it will accept it as a reserved word
-def t_RESERVEDWORD(t):
+"""def t_RESERVEDWORD(t):
     r'[a-zA-Z_][a-zA-Z_0-9]*'
     t.type = reserved.get(t.value, 'RESERVEDWORD')  # Check if it's a reserved word
-    return t
+    return t"""
 
 
 # A string containing ignored characters (spaces and tabs)
