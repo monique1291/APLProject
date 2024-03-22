@@ -1,6 +1,6 @@
 import ply.lex as lex
 from newParser import parser
-import semantics
+#import semantics
 import tokens
 import sys
 
