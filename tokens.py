@@ -32,9 +32,8 @@ reserved = {
     'break': 'BREAK',
     'case': 'CASE',
     'switch': 'SWITCH'
-
 }
-literals = ['+', '-', '*', '/', '=', '<', '>', '(', ')', '{', '}', '[', ']', ',', ]
+literals = ['+', '-', '*', '/', '=', '<', '>', '(', ')', '{', '}', '[', ']', ',', ':']
 tokens = [
              'RESERVEDWORD',
              'INTEGER',
@@ -52,7 +51,7 @@ tokens = [
              'MINUS',
              'TIMES',
              'DIVIDE',
-             'EQUALSIGN',
+             'EQUAL',
              'PLUSEQUAL',
              'MINUSEQUAL',
              'TIMESEQUAL',
@@ -71,6 +70,12 @@ tokens = [
              # Identifier
              'IDENTIFIER',
              'COMMENTS',
+             'COLON',  # Add COLON token
+             'RULE_OPEN',  # Add RULE_OPEN token
+             'RULE_CLOSE',  # Add RULE_CLOSE token
+             'RANGE',  # Add RANGE token
+             'PRINT',  # Add PRINT token
+             'EQUALTO',  # Add EQUALTO token
          ] + list(reserved.values())  # + literals #may be able to remove literals
 
 # Regular expression rules for simple tokens
@@ -78,7 +83,7 @@ t_PLUS = r'\+'
 t_MINUS = r'-'
 t_TIMES = r'\*'
 t_DIVIDE = r'/'
-t_EQUALSIGN = r'\='
+t_EQUAL = r'\='
 t_PLUSEQUAL = r'\+='
 t_MINUSEQUAL = r'-='
 t_TIMESEQUAL = r'\*='
@@ -92,6 +97,7 @@ t_RSQUAREDBRACKET = r'\]'
 t_COMMA = r'\,'
 t_DOUBLEQUOTES = r'\"'
 t_SINGLEQUOTES = r'\''
+t_COLON = r'\:'  # Regular expression rule for COLON token
 
 # Regular expression rule for comparison operators
 t_EQUALEQUAL = r'=='
@@ -140,10 +146,10 @@ def t_IDENTIFIER(t):
 
 
 # noticing an error, if an identifier starts with lower cse it will accept it as a reserved word
-"""def t_RESERVEDWORD(t):
+def t_RESERVEDWORD(t):
     r'[a-zA-Z_][a-zA-Z_0-9]*'
     t.type = reserved.get(t.value, 'RESERVEDWORD')  # Check if it's a reserved word
-    return t"""
+    return t
 
 
 # A string containing ignored characters (spaces and tabs)
@@ -154,5 +160,3 @@ t_ignore = ' \t'
 def t_error(t):
     print(f"Illegal character '{t.value[0]}' at line {t.lineno}")  # prints illegal char and line num
     t.lexer.skip(1)
-
-
