@@ -1,0 +1,3020 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    AND
+    BREAK
+    Bool
+    CASE
+    CLASS
+    CODE_BLOCK
+    COMMENT
+    CONDITION
+    DEF
+    DIVIDEEQUAL
+    DO
+    Double
+    ELIF
+    ELSE_IF
+    END
+    EQUALSIGN
+    FINALLY
+    FUNC
+    Float
+    GLOBAL
+    GREATEREQUAL
+    IMPORT
+    INT
+    IS
+    LESSEQUAL
+    MAIN
+    MINUSEQUAL
+    NOT
+    NOTEQUAL
+    OR
+    PLUSEQUAL
+    RETURN
+    SINGLEQUOTES
+    SWITCH
+    Str
+    THEN
+    TIMESEQUAL
+    UNTIL
+
+Grammar
+
+Rule 0     S' -> newCode
+Rule 1     newCode -> statements
+Rule 2     statements -> statement statements
+Rule 3     statements -> statement
+Rule 4     statements -> empty
+Rule 5     statement -> conditional
+Rule 6     statement -> expression
+Rule 7     statement -> print_statement
+Rule 8     statement -> empty
+Rule 9     conditional -> inline_if_statement
+Rule 10    conditional -> for_statement
+Rule 11    conditional -> while_statement
+Rule 12    inline_if_statement -> IF LPAREN expression RPAREN COLON statements
+Rule 13    inline_if_statement -> IF expression COLON statements ELSE statements
+Rule 14    for_statement -> FOR expression IN range_expression
+Rule 15    range_expression -> RULE_OPEN RANGE NUMBER COMMA NUMBER RULE_CLOSE
+Rule 16    while_statement -> WHILE expression COLON statements
+Rule 17    bool -> TRUE
+Rule 18    bool -> FALSE
+Rule 19    print_statement -> PRINT LPAREN expression RPAREN
+Rule 20    digit -> NUMBER
+Rule 21    expression -> expression PLUS expression
+Rule 22    expression -> expression MINUS expression
+Rule 23    expression -> expression TIMES expression
+Rule 24    expression -> expression DIVIDE expression
+Rule 25    expression -> expression EQUALTO expression
+Rule 26    expression -> expression GREATERTHAN expression
+Rule 27    expression -> expression LESSTHAN expression
+Rule 28    expression -> LPAREN expression RPAREN
+Rule 29    expression -> DOUBLEQUOTES expression DOUBLEQUOTES
+Rule 30    expression -> IDENTIFIER expression
+Rule 31    expression -> bool
+Rule 32    expression -> digit
+Rule 33    expression -> empty
+Rule 34    empty -> <empty>
+
+Terminals, with rules where they appear
+
+AND                  : 
+BREAK                : 
+Bool                 : 
+CASE                 : 
+CLASS                : 
+CODE_BLOCK           : 
+COLON                : 12 13 16
+COMMA                : 15
+COMMENT              : 
+CONDITION            : 
+DEF                  : 
+DIVIDE               : 24
+DIVIDEEQUAL          : 
+DO                   : 
+DOUBLEQUOTES         : 29 29
+Double               : 
+ELIF                 : 
+ELSE                 : 13
+ELSE_IF              : 
+END                  : 
+EQUALSIGN            : 
+EQUALTO              : 25
+FALSE                : 18
+FINALLY              : 
+FOR                  : 14
+FUNC                 : 
+Float                : 
+GLOBAL               : 
+GREATEREQUAL         : 
+GREATERTHAN          : 26
+IDENTIFIER           : 30
+IF                   : 12 13
+IMPORT               : 
+IN                   : 14
+INT                  : 
+IS                   : 
+LESSEQUAL            : 
+LESSTHAN             : 27
+LPAREN               : 12 19 28
+MAIN                 : 
+MINUS                : 22
+MINUSEQUAL           : 
+NOT                  : 
+NOTEQUAL             : 
+NUMBER               : 15 15 20
+OR                   : 
+PLUS                 : 21
+PLUSEQUAL            : 
+PRINT                : 19
+RANGE                : 15
+RETURN               : 
+RPAREN               : 12 19 28
+RULE_CLOSE           : 15
+RULE_OPEN            : 15
+SINGLEQUOTES         : 
+SWITCH               : 
+Str                  : 
+THEN                 : 
+TIMES                : 23
+TIMESEQUAL           : 
+TRUE                 : 17
+UNTIL                : 
+WHILE                : 16
+error                : 
+
+Nonterminals, with rules where they appear
+
+bool                 : 31
+conditional          : 5
+digit                : 32
+empty                : 4 8 33
+expression           : 6 12 13 14 16 19 21 21 22 22 23 23 24 24 25 25 26 26 27 27 28 29 30
+for_statement        : 10
+inline_if_statement  : 9
+newCode              : 0
+print_statement      : 7
+range_expression     : 14
+statement            : 2 3
+statements           : 1 2 12 13 13 16
+while_statement      : 11
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . newCode
+    (1) newCode -> . statements
+    (2) statements -> . statement statements
+    (3) statements -> . statement
+    (4) statements -> . empty
+    (5) statement -> . conditional
+    (6) statement -> . expression
+    (7) statement -> . print_statement
+    (8) statement -> . empty
+    (34) empty -> .
+    (9) conditional -> . inline_if_statement
+    (10) conditional -> . for_statement
+    (11) conditional -> . while_statement
+    (21) expression -> . expression PLUS expression
+    (22) expression -> . expression MINUS expression
+    (23) expression -> . expression TIMES expression
+    (24) expression -> . expression DIVIDE expression
+    (25) expression -> . expression EQUALTO expression
+    (26) expression -> . expression GREATERTHAN expression
+    (27) expression -> . expression LESSTHAN expression
+    (28) expression -> . LPAREN expression RPAREN
+    (29) expression -> . DOUBLEQUOTES expression DOUBLEQUOTES
+    (30) expression -> . IDENTIFIER expression
+    (31) expression -> . bool
+    (32) expression -> . digit
+    (33) expression -> . empty
+    (19) print_statement -> . PRINT LPAREN expression RPAREN
+    (12) inline_if_statement -> . IF LPAREN expression RPAREN COLON statements
+    (13) inline_if_statement -> . IF expression COLON statements ELSE statements
+    (14) for_statement -> . FOR expression IN range_expression
+    (16) while_statement -> . WHILE expression COLON statements
+    (17) bool -> . TRUE
+    (18) bool -> . FALSE
+    (20) digit -> . NUMBER
+
+  ! shift/reduce conflict for LPAREN resolved as shift
+  ! shift/reduce conflict for DOUBLEQUOTES resolved as shift
+  ! shift/reduce conflict for IDENTIFIER resolved as shift
+  ! shift/reduce conflict for PRINT resolved as shift
+  ! shift/reduce conflict for IF resolved as shift
+  ! shift/reduce conflict for FOR resolved as shift
+  ! shift/reduce conflict for WHILE resolved as shift
+  ! shift/reduce conflict for TRUE resolved as shift
+  ! shift/reduce conflict for FALSE resolved as shift
+  ! shift/reduce conflict for NUMBER resolved as shift
+    $end            reduce using rule 34 (empty -> .)
+    PLUS            reduce using rule 34 (empty -> .)
+    MINUS           reduce using rule 34 (empty -> .)
+    TIMES           reduce using rule 34 (empty -> .)
+    DIVIDE          reduce using rule 34 (empty -> .)
+    EQUALTO         reduce using rule 34 (empty -> .)
+    GREATERTHAN     reduce using rule 34 (empty -> .)
+    LESSTHAN        reduce using rule 34 (empty -> .)
+    LPAREN          shift and go to state 11
+    DOUBLEQUOTES    shift and go to state 12
+    IDENTIFIER      shift and go to state 13
+    PRINT           shift and go to state 16
+    IF              shift and go to state 17
+    FOR             shift and go to state 18
+    WHILE           shift and go to state 19
+    TRUE            shift and go to state 20
+    FALSE           shift and go to state 21
+    NUMBER          shift and go to state 22
+
+  ! LPAREN          [ reduce using rule 34 (empty -> .) ]
+  ! DOUBLEQUOTES    [ reduce using rule 34 (empty -> .) ]
+  ! IDENTIFIER      [ reduce using rule 34 (empty -> .) ]
+  ! PRINT           [ reduce using rule 34 (empty -> .) ]
+  ! IF              [ reduce using rule 34 (empty -> .) ]
+  ! FOR             [ reduce using rule 34 (empty -> .) ]
+  ! WHILE           [ reduce using rule 34 (empty -> .) ]
+  ! TRUE            [ reduce using rule 34 (empty -> .) ]
+  ! FALSE           [ reduce using rule 34 (empty -> .) ]
+  ! NUMBER          [ reduce using rule 34 (empty -> .) ]
+
+    newCode                        shift and go to state 1
+    statements                     shift and go to state 2
+    statement                      shift and go to state 3
+    empty                          shift and go to state 4
+    conditional                    shift and go to state 5
+    expression                     shift and go to state 6
+    print_statement                shift and go to state 7
+    inline_if_statement            shift and go to state 8
+    for_statement                  shift and go to state 9
+    while_statement                shift and go to state 10
+    bool                           shift and go to state 14
+    digit                          shift and go to state 15
+
+state 1
+
+    (0) S' -> newCode .
+
+
+
+state 2
+
+    (1) newCode -> statements .
+
+    $end            reduce using rule 1 (newCode -> statements .)
+
+
+state 3
+
+    (2) statements -> statement . statements
+    (3) statements -> statement .
+    (2) statements -> . statement statements
+    (3) statements -> . statement
+    (4) statements -> . empty
+    (5) statement -> . conditional
+    (6) statement -> . expression
+    (7) statement -> . print_statement
+    (8) statement -> . empty
+    (34) empty -> .
+    (9) conditional -> . inline_if_statement
+    (10) conditional -> . for_statement
+    (11) conditional -> . while_statement
+    (21) expression -> . expression PLUS expression
+    (22) expression -> . expression MINUS expression
+    (23) expression -> . expression TIMES expression
+    (24) expression -> . expression DIVIDE expression
+    (25) expression -> . expression EQUALTO expression
+    (26) expression -> . expression GREATERTHAN expression
+    (27) expression -> . expression LESSTHAN expression
+    (28) expression -> . LPAREN expression RPAREN
+    (29) expression -> . DOUBLEQUOTES expression DOUBLEQUOTES
+    (30) expression -> . IDENTIFIER expression
+    (31) expression -> . bool
+    (32) expression -> . digit
+    (33) expression -> . empty
+    (19) print_statement -> . PRINT LPAREN expression RPAREN
+    (12) inline_if_statement -> . IF LPAREN expression RPAREN COLON statements
+    (13) inline_if_statement -> . IF expression COLON statements ELSE statements
+    (14) for_statement -> . FOR expression IN range_expression
+    (16) while_statement -> . WHILE expression COLON statements
+    (17) bool -> . TRUE
+    (18) bool -> . FALSE
+    (20) digit -> . NUMBER
+
+  ! reduce/reduce conflict for $end resolved using rule 3 (statements -> statement .)
+  ! reduce/reduce conflict for ELSE resolved using rule 3 (statements -> statement .)
+  ! reduce/reduce conflict for LPAREN resolved using rule 3 (statements -> statement .)
+  ! reduce/reduce conflict for DOUBLEQUOTES resolved using rule 3 (statements -> statement .)
+  ! reduce/reduce conflict for IDENTIFIER resolved using rule 3 (statements -> statement .)
+  ! reduce/reduce conflict for PRINT resolved using rule 3 (statements -> statement .)
+  ! reduce/reduce conflict for IF resolved using rule 3 (statements -> statement .)
+  ! reduce/reduce conflict for FOR resolved using rule 3 (statements -> statement .)
+  ! reduce/reduce conflict for WHILE resolved using rule 3 (statements -> statement .)
+  ! reduce/reduce conflict for TRUE resolved using rule 3 (statements -> statement .)
+  ! reduce/reduce conflict for FALSE resolved using rule 3 (statements -> statement .)
+  ! reduce/reduce conflict for NUMBER resolved using rule 3 (statements -> statement .)
+  ! reduce/reduce conflict for PLUS resolved using rule 3 (statements -> statement .)
+  ! reduce/reduce conflict for MINUS resolved using rule 3 (statements -> statement .)
+  ! reduce/reduce conflict for TIMES resolved using rule 3 (statements -> statement .)
+  ! reduce/reduce conflict for DIVIDE resolved using rule 3 (statements -> statement .)
+  ! reduce/reduce conflict for EQUALTO resolved using rule 3 (statements -> statement .)
+  ! reduce/reduce conflict for GREATERTHAN resolved using rule 3 (statements -> statement .)
+  ! reduce/reduce conflict for LESSTHAN resolved using rule 3 (statements -> statement .)
+  ! shift/reduce conflict for LPAREN resolved as shift
+  ! shift/reduce conflict for DOUBLEQUOTES resolved as shift
+  ! shift/reduce conflict for IDENTIFIER resolved as shift
+  ! shift/reduce conflict for PRINT resolved as shift
+  ! shift/reduce conflict for IF resolved as shift
+  ! shift/reduce conflict for FOR resolved as shift
+  ! shift/reduce conflict for WHILE resolved as shift
+  ! shift/reduce conflict for TRUE resolved as shift
+  ! shift/reduce conflict for FALSE resolved as shift
+  ! shift/reduce conflict for NUMBER resolved as shift
+    $end            reduce using rule 3 (statements -> statement .)
+    ELSE            reduce using rule 3 (statements -> statement .)
+    PLUS            reduce using rule 3 (statements -> statement .)
+    MINUS           reduce using rule 3 (statements -> statement .)
+    TIMES           reduce using rule 3 (statements -> statement .)
+    DIVIDE          reduce using rule 3 (statements -> statement .)
+    EQUALTO         reduce using rule 3 (statements -> statement .)
+    GREATERTHAN     reduce using rule 3 (statements -> statement .)
+    LESSTHAN        reduce using rule 3 (statements -> statement .)
+    LPAREN          shift and go to state 11
+    DOUBLEQUOTES    shift and go to state 12
+    IDENTIFIER      shift and go to state 13
+    PRINT           shift and go to state 16
+    IF              shift and go to state 17
+    FOR             shift and go to state 18
+    WHILE           shift and go to state 19
+    TRUE            shift and go to state 20
+    FALSE           shift and go to state 21
+    NUMBER          shift and go to state 22
+
+  ! LPAREN          [ reduce using rule 3 (statements -> statement .) ]
+  ! DOUBLEQUOTES    [ reduce using rule 3 (statements -> statement .) ]
+  ! IDENTIFIER      [ reduce using rule 3 (statements -> statement .) ]
+  ! PRINT           [ reduce using rule 3 (statements -> statement .) ]
+  ! IF              [ reduce using rule 3 (statements -> statement .) ]
+  ! FOR             [ reduce using rule 3 (statements -> statement .) ]
+  ! WHILE           [ reduce using rule 3 (statements -> statement .) ]
+  ! TRUE            [ reduce using rule 3 (statements -> statement .) ]
+  ! FALSE           [ reduce using rule 3 (statements -> statement .) ]
+  ! NUMBER          [ reduce using rule 3 (statements -> statement .) ]
+  ! $end            [ reduce using rule 34 (empty -> .) ]
+  ! ELSE            [ reduce using rule 34 (empty -> .) ]
+  ! LPAREN          [ reduce using rule 34 (empty -> .) ]
+  ! DOUBLEQUOTES    [ reduce using rule 34 (empty -> .) ]
+  ! IDENTIFIER      [ reduce using rule 34 (empty -> .) ]
+  ! PRINT           [ reduce using rule 34 (empty -> .) ]
+  ! IF              [ reduce using rule 34 (empty -> .) ]
+  ! FOR             [ reduce using rule 34 (empty -> .) ]
+  ! WHILE           [ reduce using rule 34 (empty -> .) ]
+  ! TRUE            [ reduce using rule 34 (empty -> .) ]
+  ! FALSE           [ reduce using rule 34 (empty -> .) ]
+  ! NUMBER          [ reduce using rule 34 (empty -> .) ]
+  ! PLUS            [ reduce using rule 34 (empty -> .) ]
+  ! MINUS           [ reduce using rule 34 (empty -> .) ]
+  ! TIMES           [ reduce using rule 34 (empty -> .) ]
+  ! DIVIDE          [ reduce using rule 34 (empty -> .) ]
+  ! EQUALTO         [ reduce using rule 34 (empty -> .) ]
+  ! GREATERTHAN     [ reduce using rule 34 (empty -> .) ]
+  ! LESSTHAN        [ reduce using rule 34 (empty -> .) ]
+
+    statement                      shift and go to state 3
+    statements                     shift and go to state 23
+    empty                          shift and go to state 4
+    conditional                    shift and go to state 5
+    expression                     shift and go to state 6
+    print_statement                shift and go to state 7
+    inline_if_statement            shift and go to state 8
+    for_statement                  shift and go to state 9
+    while_statement                shift and go to state 10
+    bool                           shift and go to state 14
+    digit                          shift and go to state 15
+
+state 4
+
+    (4) statements -> empty .
+    (8) statement -> empty .
+    (33) expression -> empty .
+
+  ! reduce/reduce conflict for LPAREN resolved using rule 4 (statements -> empty .)
+  ! reduce/reduce conflict for DOUBLEQUOTES resolved using rule 4 (statements -> empty .)
+  ! reduce/reduce conflict for IDENTIFIER resolved using rule 4 (statements -> empty .)
+  ! reduce/reduce conflict for PRINT resolved using rule 4 (statements -> empty .)
+  ! reduce/reduce conflict for IF resolved using rule 4 (statements -> empty .)
+  ! reduce/reduce conflict for FOR resolved using rule 4 (statements -> empty .)
+  ! reduce/reduce conflict for WHILE resolved using rule 4 (statements -> empty .)
+  ! reduce/reduce conflict for TRUE resolved using rule 4 (statements -> empty .)
+  ! reduce/reduce conflict for FALSE resolved using rule 4 (statements -> empty .)
+  ! reduce/reduce conflict for NUMBER resolved using rule 4 (statements -> empty .)
+  ! reduce/reduce conflict for PLUS resolved using rule 4 (statements -> empty .)
+  ! reduce/reduce conflict for MINUS resolved using rule 4 (statements -> empty .)
+  ! reduce/reduce conflict for TIMES resolved using rule 4 (statements -> empty .)
+  ! reduce/reduce conflict for DIVIDE resolved using rule 4 (statements -> empty .)
+  ! reduce/reduce conflict for EQUALTO resolved using rule 4 (statements -> empty .)
+  ! reduce/reduce conflict for GREATERTHAN resolved using rule 4 (statements -> empty .)
+  ! reduce/reduce conflict for LESSTHAN resolved using rule 4 (statements -> empty .)
+  ! reduce/reduce conflict for $end resolved using rule 4 (statements -> empty .)
+  ! reduce/reduce conflict for ELSE resolved using rule 4 (statements -> empty .)
+  ! reduce/reduce conflict for PLUS resolved using rule 4 (statements -> empty .)
+  ! reduce/reduce conflict for MINUS resolved using rule 4 (statements -> empty .)
+  ! reduce/reduce conflict for TIMES resolved using rule 4 (statements -> empty .)
+  ! reduce/reduce conflict for DIVIDE resolved using rule 4 (statements -> empty .)
+  ! reduce/reduce conflict for EQUALTO resolved using rule 4 (statements -> empty .)
+  ! reduce/reduce conflict for GREATERTHAN resolved using rule 4 (statements -> empty .)
+  ! reduce/reduce conflict for LESSTHAN resolved using rule 4 (statements -> empty .)
+  ! reduce/reduce conflict for LPAREN resolved using rule 4 (statements -> empty .)
+  ! reduce/reduce conflict for DOUBLEQUOTES resolved using rule 4 (statements -> empty .)
+  ! reduce/reduce conflict for IDENTIFIER resolved using rule 4 (statements -> empty .)
+  ! reduce/reduce conflict for PRINT resolved using rule 4 (statements -> empty .)
+  ! reduce/reduce conflict for IF resolved using rule 4 (statements -> empty .)
+  ! reduce/reduce conflict for FOR resolved using rule 4 (statements -> empty .)
+  ! reduce/reduce conflict for WHILE resolved using rule 4 (statements -> empty .)
+  ! reduce/reduce conflict for TRUE resolved using rule 4 (statements -> empty .)
+  ! reduce/reduce conflict for FALSE resolved using rule 4 (statements -> empty .)
+  ! reduce/reduce conflict for NUMBER resolved using rule 4 (statements -> empty .)
+  ! reduce/reduce conflict for $end resolved using rule 4 (statements -> empty .)
+  ! reduce/reduce conflict for ELSE resolved using rule 4 (statements -> empty .)
+    $end            reduce using rule 4 (statements -> empty .)
+    ELSE            reduce using rule 4 (statements -> empty .)
+    LPAREN          reduce using rule 4 (statements -> empty .)
+    DOUBLEQUOTES    reduce using rule 4 (statements -> empty .)
+    IDENTIFIER      reduce using rule 4 (statements -> empty .)
+    PRINT           reduce using rule 4 (statements -> empty .)
+    IF              reduce using rule 4 (statements -> empty .)
+    FOR             reduce using rule 4 (statements -> empty .)
+    WHILE           reduce using rule 4 (statements -> empty .)
+    TRUE            reduce using rule 4 (statements -> empty .)
+    FALSE           reduce using rule 4 (statements -> empty .)
+    NUMBER          reduce using rule 4 (statements -> empty .)
+    PLUS            reduce using rule 4 (statements -> empty .)
+    MINUS           reduce using rule 4 (statements -> empty .)
+    TIMES           reduce using rule 4 (statements -> empty .)
+    DIVIDE          reduce using rule 4 (statements -> empty .)
+    EQUALTO         reduce using rule 4 (statements -> empty .)
+    GREATERTHAN     reduce using rule 4 (statements -> empty .)
+    LESSTHAN        reduce using rule 4 (statements -> empty .)
+
+  ! LPAREN          [ reduce using rule 8 (statement -> empty .) ]
+  ! DOUBLEQUOTES    [ reduce using rule 8 (statement -> empty .) ]
+  ! IDENTIFIER      [ reduce using rule 8 (statement -> empty .) ]
+  ! PRINT           [ reduce using rule 8 (statement -> empty .) ]
+  ! IF              [ reduce using rule 8 (statement -> empty .) ]
+  ! FOR             [ reduce using rule 8 (statement -> empty .) ]
+  ! WHILE           [ reduce using rule 8 (statement -> empty .) ]
+  ! TRUE            [ reduce using rule 8 (statement -> empty .) ]
+  ! FALSE           [ reduce using rule 8 (statement -> empty .) ]
+  ! NUMBER          [ reduce using rule 8 (statement -> empty .) ]
+  ! PLUS            [ reduce using rule 8 (statement -> empty .) ]
+  ! MINUS           [ reduce using rule 8 (statement -> empty .) ]
+  ! TIMES           [ reduce using rule 8 (statement -> empty .) ]
+  ! DIVIDE          [ reduce using rule 8 (statement -> empty .) ]
+  ! EQUALTO         [ reduce using rule 8 (statement -> empty .) ]
+  ! GREATERTHAN     [ reduce using rule 8 (statement -> empty .) ]
+  ! LESSTHAN        [ reduce using rule 8 (statement -> empty .) ]
+  ! $end            [ reduce using rule 8 (statement -> empty .) ]
+  ! ELSE            [ reduce using rule 8 (statement -> empty .) ]
+  ! PLUS            [ reduce using rule 33 (expression -> empty .) ]
+  ! MINUS           [ reduce using rule 33 (expression -> empty .) ]
+  ! TIMES           [ reduce using rule 33 (expression -> empty .) ]
+  ! DIVIDE          [ reduce using rule 33 (expression -> empty .) ]
+  ! EQUALTO         [ reduce using rule 33 (expression -> empty .) ]
+  ! GREATERTHAN     [ reduce using rule 33 (expression -> empty .) ]
+  ! LESSTHAN        [ reduce using rule 33 (expression -> empty .) ]
+  ! LPAREN          [ reduce using rule 33 (expression -> empty .) ]
+  ! DOUBLEQUOTES    [ reduce using rule 33 (expression -> empty .) ]
+  ! IDENTIFIER      [ reduce using rule 33 (expression -> empty .) ]
+  ! PRINT           [ reduce using rule 33 (expression -> empty .) ]
+  ! IF              [ reduce using rule 33 (expression -> empty .) ]
+  ! FOR             [ reduce using rule 33 (expression -> empty .) ]
+  ! WHILE           [ reduce using rule 33 (expression -> empty .) ]
+  ! TRUE            [ reduce using rule 33 (expression -> empty .) ]
+  ! FALSE           [ reduce using rule 33 (expression -> empty .) ]
+  ! NUMBER          [ reduce using rule 33 (expression -> empty .) ]
+  ! $end            [ reduce using rule 33 (expression -> empty .) ]
+  ! ELSE            [ reduce using rule 33 (expression -> empty .) ]
+
+
+state 5
+
+    (5) statement -> conditional .
+
+    LPAREN          reduce using rule 5 (statement -> conditional .)
+    DOUBLEQUOTES    reduce using rule 5 (statement -> conditional .)
+    IDENTIFIER      reduce using rule 5 (statement -> conditional .)
+    PRINT           reduce using rule 5 (statement -> conditional .)
+    IF              reduce using rule 5 (statement -> conditional .)
+    FOR             reduce using rule 5 (statement -> conditional .)
+    WHILE           reduce using rule 5 (statement -> conditional .)
+    TRUE            reduce using rule 5 (statement -> conditional .)
+    FALSE           reduce using rule 5 (statement -> conditional .)
+    NUMBER          reduce using rule 5 (statement -> conditional .)
+    PLUS            reduce using rule 5 (statement -> conditional .)
+    MINUS           reduce using rule 5 (statement -> conditional .)
+    TIMES           reduce using rule 5 (statement -> conditional .)
+    DIVIDE          reduce using rule 5 (statement -> conditional .)
+    EQUALTO         reduce using rule 5 (statement -> conditional .)
+    GREATERTHAN     reduce using rule 5 (statement -> conditional .)
+    LESSTHAN        reduce using rule 5 (statement -> conditional .)
+    $end            reduce using rule 5 (statement -> conditional .)
+    ELSE            reduce using rule 5 (statement -> conditional .)
+
+
+state 6
+
+    (6) statement -> expression .
+    (21) expression -> expression . PLUS expression
+    (22) expression -> expression . MINUS expression
+    (23) expression -> expression . TIMES expression
+    (24) expression -> expression . DIVIDE expression
+    (25) expression -> expression . EQUALTO expression
+    (26) expression -> expression . GREATERTHAN expression
+    (27) expression -> expression . LESSTHAN expression
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for DIVIDE resolved as shift
+  ! shift/reduce conflict for EQUALTO resolved as shift
+  ! shift/reduce conflict for GREATERTHAN resolved as shift
+  ! shift/reduce conflict for LESSTHAN resolved as shift
+    LPAREN          reduce using rule 6 (statement -> expression .)
+    DOUBLEQUOTES    reduce using rule 6 (statement -> expression .)
+    IDENTIFIER      reduce using rule 6 (statement -> expression .)
+    PRINT           reduce using rule 6 (statement -> expression .)
+    IF              reduce using rule 6 (statement -> expression .)
+    FOR             reduce using rule 6 (statement -> expression .)
+    WHILE           reduce using rule 6 (statement -> expression .)
+    TRUE            reduce using rule 6 (statement -> expression .)
+    FALSE           reduce using rule 6 (statement -> expression .)
+    NUMBER          reduce using rule 6 (statement -> expression .)
+    $end            reduce using rule 6 (statement -> expression .)
+    ELSE            reduce using rule 6 (statement -> expression .)
+    PLUS            shift and go to state 24
+    MINUS           shift and go to state 25
+    TIMES           shift and go to state 26
+    DIVIDE          shift and go to state 27
+    EQUALTO         shift and go to state 28
+    GREATERTHAN     shift and go to state 29
+    LESSTHAN        shift and go to state 30
+
+  ! PLUS            [ reduce using rule 6 (statement -> expression .) ]
+  ! MINUS           [ reduce using rule 6 (statement -> expression .) ]
+  ! TIMES           [ reduce using rule 6 (statement -> expression .) ]
+  ! DIVIDE          [ reduce using rule 6 (statement -> expression .) ]
+  ! EQUALTO         [ reduce using rule 6 (statement -> expression .) ]
+  ! GREATERTHAN     [ reduce using rule 6 (statement -> expression .) ]
+  ! LESSTHAN        [ reduce using rule 6 (statement -> expression .) ]
+
+
+state 7
+
+    (7) statement -> print_statement .
+
+    LPAREN          reduce using rule 7 (statement -> print_statement .)
+    DOUBLEQUOTES    reduce using rule 7 (statement -> print_statement .)
+    IDENTIFIER      reduce using rule 7 (statement -> print_statement .)
+    PRINT           reduce using rule 7 (statement -> print_statement .)
+    IF              reduce using rule 7 (statement -> print_statement .)
+    FOR             reduce using rule 7 (statement -> print_statement .)
+    WHILE           reduce using rule 7 (statement -> print_statement .)
+    TRUE            reduce using rule 7 (statement -> print_statement .)
+    FALSE           reduce using rule 7 (statement -> print_statement .)
+    NUMBER          reduce using rule 7 (statement -> print_statement .)
+    PLUS            reduce using rule 7 (statement -> print_statement .)
+    MINUS           reduce using rule 7 (statement -> print_statement .)
+    TIMES           reduce using rule 7 (statement -> print_statement .)
+    DIVIDE          reduce using rule 7 (statement -> print_statement .)
+    EQUALTO         reduce using rule 7 (statement -> print_statement .)
+    GREATERTHAN     reduce using rule 7 (statement -> print_statement .)
+    LESSTHAN        reduce using rule 7 (statement -> print_statement .)
+    $end            reduce using rule 7 (statement -> print_statement .)
+    ELSE            reduce using rule 7 (statement -> print_statement .)
+
+
+state 8
+
+    (9) conditional -> inline_if_statement .
+
+    LPAREN          reduce using rule 9 (conditional -> inline_if_statement .)
+    DOUBLEQUOTES    reduce using rule 9 (conditional -> inline_if_statement .)
+    IDENTIFIER      reduce using rule 9 (conditional -> inline_if_statement .)
+    PRINT           reduce using rule 9 (conditional -> inline_if_statement .)
+    IF              reduce using rule 9 (conditional -> inline_if_statement .)
+    FOR             reduce using rule 9 (conditional -> inline_if_statement .)
+    WHILE           reduce using rule 9 (conditional -> inline_if_statement .)
+    TRUE            reduce using rule 9 (conditional -> inline_if_statement .)
+    FALSE           reduce using rule 9 (conditional -> inline_if_statement .)
+    NUMBER          reduce using rule 9 (conditional -> inline_if_statement .)
+    PLUS            reduce using rule 9 (conditional -> inline_if_statement .)
+    MINUS           reduce using rule 9 (conditional -> inline_if_statement .)
+    TIMES           reduce using rule 9 (conditional -> inline_if_statement .)
+    DIVIDE          reduce using rule 9 (conditional -> inline_if_statement .)
+    EQUALTO         reduce using rule 9 (conditional -> inline_if_statement .)
+    GREATERTHAN     reduce using rule 9 (conditional -> inline_if_statement .)
+    LESSTHAN        reduce using rule 9 (conditional -> inline_if_statement .)
+    $end            reduce using rule 9 (conditional -> inline_if_statement .)
+    ELSE            reduce using rule 9 (conditional -> inline_if_statement .)
+
+
+state 9
+
+    (10) conditional -> for_statement .
+
+    LPAREN          reduce using rule 10 (conditional -> for_statement .)
+    DOUBLEQUOTES    reduce using rule 10 (conditional -> for_statement .)
+    IDENTIFIER      reduce using rule 10 (conditional -> for_statement .)
+    PRINT           reduce using rule 10 (conditional -> for_statement .)
+    IF              reduce using rule 10 (conditional -> for_statement .)
+    FOR             reduce using rule 10 (conditional -> for_statement .)
+    WHILE           reduce using rule 10 (conditional -> for_statement .)
+    TRUE            reduce using rule 10 (conditional -> for_statement .)
+    FALSE           reduce using rule 10 (conditional -> for_statement .)
+    NUMBER          reduce using rule 10 (conditional -> for_statement .)
+    PLUS            reduce using rule 10 (conditional -> for_statement .)
+    MINUS           reduce using rule 10 (conditional -> for_statement .)
+    TIMES           reduce using rule 10 (conditional -> for_statement .)
+    DIVIDE          reduce using rule 10 (conditional -> for_statement .)
+    EQUALTO         reduce using rule 10 (conditional -> for_statement .)
+    GREATERTHAN     reduce using rule 10 (conditional -> for_statement .)
+    LESSTHAN        reduce using rule 10 (conditional -> for_statement .)
+    $end            reduce using rule 10 (conditional -> for_statement .)
+    ELSE            reduce using rule 10 (conditional -> for_statement .)
+
+
+state 10
+
+    (11) conditional -> while_statement .
+
+    LPAREN          reduce using rule 11 (conditional -> while_statement .)
+    DOUBLEQUOTES    reduce using rule 11 (conditional -> while_statement .)
+    IDENTIFIER      reduce using rule 11 (conditional -> while_statement .)
+    PRINT           reduce using rule 11 (conditional -> while_statement .)
+    IF              reduce using rule 11 (conditional -> while_statement .)
+    FOR             reduce using rule 11 (conditional -> while_statement .)
+    WHILE           reduce using rule 11 (conditional -> while_statement .)
+    TRUE            reduce using rule 11 (conditional -> while_statement .)
+    FALSE           reduce using rule 11 (conditional -> while_statement .)
+    NUMBER          reduce using rule 11 (conditional -> while_statement .)
+    PLUS            reduce using rule 11 (conditional -> while_statement .)
+    MINUS           reduce using rule 11 (conditional -> while_statement .)
+    TIMES           reduce using rule 11 (conditional -> while_statement .)
+    DIVIDE          reduce using rule 11 (conditional -> while_statement .)
+    EQUALTO         reduce using rule 11 (conditional -> while_statement .)
+    GREATERTHAN     reduce using rule 11 (conditional -> while_statement .)
+    LESSTHAN        reduce using rule 11 (conditional -> while_statement .)
+    $end            reduce using rule 11 (conditional -> while_statement .)
+    ELSE            reduce using rule 11 (conditional -> while_statement .)
+
+
+state 11
+
+    (28) expression -> LPAREN . expression RPAREN
+    (21) expression -> . expression PLUS expression
+    (22) expression -> . expression MINUS expression
+    (23) expression -> . expression TIMES expression
+    (24) expression -> . expression DIVIDE expression
+    (25) expression -> . expression EQUALTO expression
+    (26) expression -> . expression GREATERTHAN expression
+    (27) expression -> . expression LESSTHAN expression
+    (28) expression -> . LPAREN expression RPAREN
+    (29) expression -> . DOUBLEQUOTES expression DOUBLEQUOTES
+    (30) expression -> . IDENTIFIER expression
+    (31) expression -> . bool
+    (32) expression -> . digit
+    (33) expression -> . empty
+    (17) bool -> . TRUE
+    (18) bool -> . FALSE
+    (20) digit -> . NUMBER
+    (34) empty -> .
+
+    LPAREN          shift and go to state 11
+    DOUBLEQUOTES    shift and go to state 12
+    IDENTIFIER      shift and go to state 13
+    TRUE            shift and go to state 20
+    FALSE           shift and go to state 21
+    NUMBER          shift and go to state 22
+    RPAREN          reduce using rule 34 (empty -> .)
+    PLUS            reduce using rule 34 (empty -> .)
+    MINUS           reduce using rule 34 (empty -> .)
+    TIMES           reduce using rule 34 (empty -> .)
+    DIVIDE          reduce using rule 34 (empty -> .)
+    EQUALTO         reduce using rule 34 (empty -> .)
+    GREATERTHAN     reduce using rule 34 (empty -> .)
+    LESSTHAN        reduce using rule 34 (empty -> .)
+
+    expression                     shift and go to state 31
+    bool                           shift and go to state 14
+    digit                          shift and go to state 15
+    empty                          shift and go to state 32
+
+state 12
+
+    (29) expression -> DOUBLEQUOTES . expression DOUBLEQUOTES
+    (21) expression -> . expression PLUS expression
+    (22) expression -> . expression MINUS expression
+    (23) expression -> . expression TIMES expression
+    (24) expression -> . expression DIVIDE expression
+    (25) expression -> . expression EQUALTO expression
+    (26) expression -> . expression GREATERTHAN expression
+    (27) expression -> . expression LESSTHAN expression
+    (28) expression -> . LPAREN expression RPAREN
+    (29) expression -> . DOUBLEQUOTES expression DOUBLEQUOTES
+    (30) expression -> . IDENTIFIER expression
+    (31) expression -> . bool
+    (32) expression -> . digit
+    (33) expression -> . empty
+    (17) bool -> . TRUE
+    (18) bool -> . FALSE
+    (20) digit -> . NUMBER
+    (34) empty -> .
+
+  ! shift/reduce conflict for DOUBLEQUOTES resolved as shift
+    LPAREN          shift and go to state 11
+    DOUBLEQUOTES    shift and go to state 12
+    IDENTIFIER      shift and go to state 13
+    TRUE            shift and go to state 20
+    FALSE           shift and go to state 21
+    NUMBER          shift and go to state 22
+    PLUS            reduce using rule 34 (empty -> .)
+    MINUS           reduce using rule 34 (empty -> .)
+    TIMES           reduce using rule 34 (empty -> .)
+    DIVIDE          reduce using rule 34 (empty -> .)
+    EQUALTO         reduce using rule 34 (empty -> .)
+    GREATERTHAN     reduce using rule 34 (empty -> .)
+    LESSTHAN        reduce using rule 34 (empty -> .)
+
+  ! DOUBLEQUOTES    [ reduce using rule 34 (empty -> .) ]
+
+    expression                     shift and go to state 33
+    bool                           shift and go to state 14
+    digit                          shift and go to state 15
+    empty                          shift and go to state 32
+
+state 13
+
+    (30) expression -> IDENTIFIER . expression
+    (21) expression -> . expression PLUS expression
+    (22) expression -> . expression MINUS expression
+    (23) expression -> . expression TIMES expression
+    (24) expression -> . expression DIVIDE expression
+    (25) expression -> . expression EQUALTO expression
+    (26) expression -> . expression GREATERTHAN expression
+    (27) expression -> . expression LESSTHAN expression
+    (28) expression -> . LPAREN expression RPAREN
+    (29) expression -> . DOUBLEQUOTES expression DOUBLEQUOTES
+    (30) expression -> . IDENTIFIER expression
+    (31) expression -> . bool
+    (32) expression -> . digit
+    (33) expression -> . empty
+    (17) bool -> . TRUE
+    (18) bool -> . FALSE
+    (20) digit -> . NUMBER
+    (34) empty -> .
+
+  ! shift/reduce conflict for LPAREN resolved as shift
+  ! shift/reduce conflict for DOUBLEQUOTES resolved as shift
+  ! shift/reduce conflict for IDENTIFIER resolved as shift
+  ! shift/reduce conflict for TRUE resolved as shift
+  ! shift/reduce conflict for FALSE resolved as shift
+  ! shift/reduce conflict for NUMBER resolved as shift
+    LPAREN          shift and go to state 11
+    DOUBLEQUOTES    shift and go to state 12
+    IDENTIFIER      shift and go to state 13
+    TRUE            shift and go to state 20
+    FALSE           shift and go to state 21
+    NUMBER          shift and go to state 22
+    PLUS            reduce using rule 34 (empty -> .)
+    MINUS           reduce using rule 34 (empty -> .)
+    TIMES           reduce using rule 34 (empty -> .)
+    DIVIDE          reduce using rule 34 (empty -> .)
+    EQUALTO         reduce using rule 34 (empty -> .)
+    GREATERTHAN     reduce using rule 34 (empty -> .)
+    LESSTHAN        reduce using rule 34 (empty -> .)
+    PRINT           reduce using rule 34 (empty -> .)
+    IF              reduce using rule 34 (empty -> .)
+    FOR             reduce using rule 34 (empty -> .)
+    WHILE           reduce using rule 34 (empty -> .)
+    $end            reduce using rule 34 (empty -> .)
+    ELSE            reduce using rule 34 (empty -> .)
+    RPAREN          reduce using rule 34 (empty -> .)
+    COLON           reduce using rule 34 (empty -> .)
+    IN              reduce using rule 34 (empty -> .)
+
+  ! LPAREN          [ reduce using rule 34 (empty -> .) ]
+  ! DOUBLEQUOTES    [ reduce using rule 34 (empty -> .) ]
+  ! IDENTIFIER      [ reduce using rule 34 (empty -> .) ]
+  ! TRUE            [ reduce using rule 34 (empty -> .) ]
+  ! FALSE           [ reduce using rule 34 (empty -> .) ]
+  ! NUMBER          [ reduce using rule 34 (empty -> .) ]
+
+    expression                     shift and go to state 34
+    bool                           shift and go to state 14
+    digit                          shift and go to state 15
+    empty                          shift and go to state 32
+
+state 14
+
+    (31) expression -> bool .
+
+    PLUS            reduce using rule 31 (expression -> bool .)
+    MINUS           reduce using rule 31 (expression -> bool .)
+    TIMES           reduce using rule 31 (expression -> bool .)
+    DIVIDE          reduce using rule 31 (expression -> bool .)
+    EQUALTO         reduce using rule 31 (expression -> bool .)
+    GREATERTHAN     reduce using rule 31 (expression -> bool .)
+    LESSTHAN        reduce using rule 31 (expression -> bool .)
+    LPAREN          reduce using rule 31 (expression -> bool .)
+    DOUBLEQUOTES    reduce using rule 31 (expression -> bool .)
+    IDENTIFIER      reduce using rule 31 (expression -> bool .)
+    PRINT           reduce using rule 31 (expression -> bool .)
+    IF              reduce using rule 31 (expression -> bool .)
+    FOR             reduce using rule 31 (expression -> bool .)
+    WHILE           reduce using rule 31 (expression -> bool .)
+    TRUE            reduce using rule 31 (expression -> bool .)
+    FALSE           reduce using rule 31 (expression -> bool .)
+    NUMBER          reduce using rule 31 (expression -> bool .)
+    $end            reduce using rule 31 (expression -> bool .)
+    ELSE            reduce using rule 31 (expression -> bool .)
+    RPAREN          reduce using rule 31 (expression -> bool .)
+    COLON           reduce using rule 31 (expression -> bool .)
+    IN              reduce using rule 31 (expression -> bool .)
+
+
+state 15
+
+    (32) expression -> digit .
+
+    PLUS            reduce using rule 32 (expression -> digit .)
+    MINUS           reduce using rule 32 (expression -> digit .)
+    TIMES           reduce using rule 32 (expression -> digit .)
+    DIVIDE          reduce using rule 32 (expression -> digit .)
+    EQUALTO         reduce using rule 32 (expression -> digit .)
+    GREATERTHAN     reduce using rule 32 (expression -> digit .)
+    LESSTHAN        reduce using rule 32 (expression -> digit .)
+    LPAREN          reduce using rule 32 (expression -> digit .)
+    DOUBLEQUOTES    reduce using rule 32 (expression -> digit .)
+    IDENTIFIER      reduce using rule 32 (expression -> digit .)
+    PRINT           reduce using rule 32 (expression -> digit .)
+    IF              reduce using rule 32 (expression -> digit .)
+    FOR             reduce using rule 32 (expression -> digit .)
+    WHILE           reduce using rule 32 (expression -> digit .)
+    TRUE            reduce using rule 32 (expression -> digit .)
+    FALSE           reduce using rule 32 (expression -> digit .)
+    NUMBER          reduce using rule 32 (expression -> digit .)
+    $end            reduce using rule 32 (expression -> digit .)
+    ELSE            reduce using rule 32 (expression -> digit .)
+    RPAREN          reduce using rule 32 (expression -> digit .)
+    COLON           reduce using rule 32 (expression -> digit .)
+    IN              reduce using rule 32 (expression -> digit .)
+
+
+state 16
+
+    (19) print_statement -> PRINT . LPAREN expression RPAREN
+
+    LPAREN          shift and go to state 35
+
+
+state 17
+
+    (12) inline_if_statement -> IF . LPAREN expression RPAREN COLON statements
+    (13) inline_if_statement -> IF . expression COLON statements ELSE statements
+    (21) expression -> . expression PLUS expression
+    (22) expression -> . expression MINUS expression
+    (23) expression -> . expression TIMES expression
+    (24) expression -> . expression DIVIDE expression
+    (25) expression -> . expression EQUALTO expression
+    (26) expression -> . expression GREATERTHAN expression
+    (27) expression -> . expression LESSTHAN expression
+    (28) expression -> . LPAREN expression RPAREN
+    (29) expression -> . DOUBLEQUOTES expression DOUBLEQUOTES
+    (30) expression -> . IDENTIFIER expression
+    (31) expression -> . bool
+    (32) expression -> . digit
+    (33) expression -> . empty
+    (17) bool -> . TRUE
+    (18) bool -> . FALSE
+    (20) digit -> . NUMBER
+    (34) empty -> .
+
+    LPAREN          shift and go to state 36
+    DOUBLEQUOTES    shift and go to state 12
+    IDENTIFIER      shift and go to state 13
+    TRUE            shift and go to state 20
+    FALSE           shift and go to state 21
+    NUMBER          shift and go to state 22
+    COLON           reduce using rule 34 (empty -> .)
+    PLUS            reduce using rule 34 (empty -> .)
+    MINUS           reduce using rule 34 (empty -> .)
+    TIMES           reduce using rule 34 (empty -> .)
+    DIVIDE          reduce using rule 34 (empty -> .)
+    EQUALTO         reduce using rule 34 (empty -> .)
+    GREATERTHAN     reduce using rule 34 (empty -> .)
+    LESSTHAN        reduce using rule 34 (empty -> .)
+
+    expression                     shift and go to state 37
+    bool                           shift and go to state 14
+    digit                          shift and go to state 15
+    empty                          shift and go to state 32
+
+state 18
+
+    (14) for_statement -> FOR . expression IN range_expression
+    (21) expression -> . expression PLUS expression
+    (22) expression -> . expression MINUS expression
+    (23) expression -> . expression TIMES expression
+    (24) expression -> . expression DIVIDE expression
+    (25) expression -> . expression EQUALTO expression
+    (26) expression -> . expression GREATERTHAN expression
+    (27) expression -> . expression LESSTHAN expression
+    (28) expression -> . LPAREN expression RPAREN
+    (29) expression -> . DOUBLEQUOTES expression DOUBLEQUOTES
+    (30) expression -> . IDENTIFIER expression
+    (31) expression -> . bool
+    (32) expression -> . digit
+    (33) expression -> . empty
+    (17) bool -> . TRUE
+    (18) bool -> . FALSE
+    (20) digit -> . NUMBER
+    (34) empty -> .
+
+    LPAREN          shift and go to state 11
+    DOUBLEQUOTES    shift and go to state 12
+    IDENTIFIER      shift and go to state 13
+    TRUE            shift and go to state 20
+    FALSE           shift and go to state 21
+    NUMBER          shift and go to state 22
+    IN              reduce using rule 34 (empty -> .)
+    PLUS            reduce using rule 34 (empty -> .)
+    MINUS           reduce using rule 34 (empty -> .)
+    TIMES           reduce using rule 34 (empty -> .)
+    DIVIDE          reduce using rule 34 (empty -> .)
+    EQUALTO         reduce using rule 34 (empty -> .)
+    GREATERTHAN     reduce using rule 34 (empty -> .)
+    LESSTHAN        reduce using rule 34 (empty -> .)
+
+    expression                     shift and go to state 38
+    bool                           shift and go to state 14
+    digit                          shift and go to state 15
+    empty                          shift and go to state 32
+
+state 19
+
+    (16) while_statement -> WHILE . expression COLON statements
+    (21) expression -> . expression PLUS expression
+    (22) expression -> . expression MINUS expression
+    (23) expression -> . expression TIMES expression
+    (24) expression -> . expression DIVIDE expression
+    (25) expression -> . expression EQUALTO expression
+    (26) expression -> . expression GREATERTHAN expression
+    (27) expression -> . expression LESSTHAN expression
+    (28) expression -> . LPAREN expression RPAREN
+    (29) expression -> . DOUBLEQUOTES expression DOUBLEQUOTES
+    (30) expression -> . IDENTIFIER expression
+    (31) expression -> . bool
+    (32) expression -> . digit
+    (33) expression -> . empty
+    (17) bool -> . TRUE
+    (18) bool -> . FALSE
+    (20) digit -> . NUMBER
+    (34) empty -> .
+
+    LPAREN          shift and go to state 11
+    DOUBLEQUOTES    shift and go to state 12
+    IDENTIFIER      shift and go to state 13
+    TRUE            shift and go to state 20
+    FALSE           shift and go to state 21
+    NUMBER          shift and go to state 22
+    COLON           reduce using rule 34 (empty -> .)
+    PLUS            reduce using rule 34 (empty -> .)
+    MINUS           reduce using rule 34 (empty -> .)
+    TIMES           reduce using rule 34 (empty -> .)
+    DIVIDE          reduce using rule 34 (empty -> .)
+    EQUALTO         reduce using rule 34 (empty -> .)
+    GREATERTHAN     reduce using rule 34 (empty -> .)
+    LESSTHAN        reduce using rule 34 (empty -> .)
+
+    expression                     shift and go to state 39
+    bool                           shift and go to state 14
+    digit                          shift and go to state 15
+    empty                          shift and go to state 32
+
+state 20
+
+    (17) bool -> TRUE .
+
+    PLUS            reduce using rule 17 (bool -> TRUE .)
+    MINUS           reduce using rule 17 (bool -> TRUE .)
+    TIMES           reduce using rule 17 (bool -> TRUE .)
+    DIVIDE          reduce using rule 17 (bool -> TRUE .)
+    EQUALTO         reduce using rule 17 (bool -> TRUE .)
+    GREATERTHAN     reduce using rule 17 (bool -> TRUE .)
+    LESSTHAN        reduce using rule 17 (bool -> TRUE .)
+    LPAREN          reduce using rule 17 (bool -> TRUE .)
+    DOUBLEQUOTES    reduce using rule 17 (bool -> TRUE .)
+    IDENTIFIER      reduce using rule 17 (bool -> TRUE .)
+    PRINT           reduce using rule 17 (bool -> TRUE .)
+    IF              reduce using rule 17 (bool -> TRUE .)
+    FOR             reduce using rule 17 (bool -> TRUE .)
+    WHILE           reduce using rule 17 (bool -> TRUE .)
+    TRUE            reduce using rule 17 (bool -> TRUE .)
+    FALSE           reduce using rule 17 (bool -> TRUE .)
+    NUMBER          reduce using rule 17 (bool -> TRUE .)
+    $end            reduce using rule 17 (bool -> TRUE .)
+    ELSE            reduce using rule 17 (bool -> TRUE .)
+    RPAREN          reduce using rule 17 (bool -> TRUE .)
+    COLON           reduce using rule 17 (bool -> TRUE .)
+    IN              reduce using rule 17 (bool -> TRUE .)
+
+
+state 21
+
+    (18) bool -> FALSE .
+
+    PLUS            reduce using rule 18 (bool -> FALSE .)
+    MINUS           reduce using rule 18 (bool -> FALSE .)
+    TIMES           reduce using rule 18 (bool -> FALSE .)
+    DIVIDE          reduce using rule 18 (bool -> FALSE .)
+    EQUALTO         reduce using rule 18 (bool -> FALSE .)
+    GREATERTHAN     reduce using rule 18 (bool -> FALSE .)
+    LESSTHAN        reduce using rule 18 (bool -> FALSE .)
+    LPAREN          reduce using rule 18 (bool -> FALSE .)
+    DOUBLEQUOTES    reduce using rule 18 (bool -> FALSE .)
+    IDENTIFIER      reduce using rule 18 (bool -> FALSE .)
+    PRINT           reduce using rule 18 (bool -> FALSE .)
+    IF              reduce using rule 18 (bool -> FALSE .)
+    FOR             reduce using rule 18 (bool -> FALSE .)
+    WHILE           reduce using rule 18 (bool -> FALSE .)
+    TRUE            reduce using rule 18 (bool -> FALSE .)
+    FALSE           reduce using rule 18 (bool -> FALSE .)
+    NUMBER          reduce using rule 18 (bool -> FALSE .)
+    $end            reduce using rule 18 (bool -> FALSE .)
+    ELSE            reduce using rule 18 (bool -> FALSE .)
+    RPAREN          reduce using rule 18 (bool -> FALSE .)
+    COLON           reduce using rule 18 (bool -> FALSE .)
+    IN              reduce using rule 18 (bool -> FALSE .)
+
+
+state 22
+
+    (20) digit -> NUMBER .
+
+    PLUS            reduce using rule 20 (digit -> NUMBER .)
+    MINUS           reduce using rule 20 (digit -> NUMBER .)
+    TIMES           reduce using rule 20 (digit -> NUMBER .)
+    DIVIDE          reduce using rule 20 (digit -> NUMBER .)
+    EQUALTO         reduce using rule 20 (digit -> NUMBER .)
+    GREATERTHAN     reduce using rule 20 (digit -> NUMBER .)
+    LESSTHAN        reduce using rule 20 (digit -> NUMBER .)
+    LPAREN          reduce using rule 20 (digit -> NUMBER .)
+    DOUBLEQUOTES    reduce using rule 20 (digit -> NUMBER .)
+    IDENTIFIER      reduce using rule 20 (digit -> NUMBER .)
+    PRINT           reduce using rule 20 (digit -> NUMBER .)
+    IF              reduce using rule 20 (digit -> NUMBER .)
+    FOR             reduce using rule 20 (digit -> NUMBER .)
+    WHILE           reduce using rule 20 (digit -> NUMBER .)
+    TRUE            reduce using rule 20 (digit -> NUMBER .)
+    FALSE           reduce using rule 20 (digit -> NUMBER .)
+    NUMBER          reduce using rule 20 (digit -> NUMBER .)
+    $end            reduce using rule 20 (digit -> NUMBER .)
+    ELSE            reduce using rule 20 (digit -> NUMBER .)
+    RPAREN          reduce using rule 20 (digit -> NUMBER .)
+    COLON           reduce using rule 20 (digit -> NUMBER .)
+    IN              reduce using rule 20 (digit -> NUMBER .)
+
+
+state 23
+
+    (2) statements -> statement statements .
+
+    $end            reduce using rule 2 (statements -> statement statements .)
+    ELSE            reduce using rule 2 (statements -> statement statements .)
+    LPAREN          reduce using rule 2 (statements -> statement statements .)
+    DOUBLEQUOTES    reduce using rule 2 (statements -> statement statements .)
+    IDENTIFIER      reduce using rule 2 (statements -> statement statements .)
+    PRINT           reduce using rule 2 (statements -> statement statements .)
+    IF              reduce using rule 2 (statements -> statement statements .)
+    FOR             reduce using rule 2 (statements -> statement statements .)
+    WHILE           reduce using rule 2 (statements -> statement statements .)
+    TRUE            reduce using rule 2 (statements -> statement statements .)
+    FALSE           reduce using rule 2 (statements -> statement statements .)
+    NUMBER          reduce using rule 2 (statements -> statement statements .)
+    PLUS            reduce using rule 2 (statements -> statement statements .)
+    MINUS           reduce using rule 2 (statements -> statement statements .)
+    TIMES           reduce using rule 2 (statements -> statement statements .)
+    DIVIDE          reduce using rule 2 (statements -> statement statements .)
+    EQUALTO         reduce using rule 2 (statements -> statement statements .)
+    GREATERTHAN     reduce using rule 2 (statements -> statement statements .)
+    LESSTHAN        reduce using rule 2 (statements -> statement statements .)
+
+
+state 24
+
+    (21) expression -> expression PLUS . expression
+    (21) expression -> . expression PLUS expression
+    (22) expression -> . expression MINUS expression
+    (23) expression -> . expression TIMES expression
+    (24) expression -> . expression DIVIDE expression
+    (25) expression -> . expression EQUALTO expression
+    (26) expression -> . expression GREATERTHAN expression
+    (27) expression -> . expression LESSTHAN expression
+    (28) expression -> . LPAREN expression RPAREN
+    (29) expression -> . DOUBLEQUOTES expression DOUBLEQUOTES
+    (30) expression -> . IDENTIFIER expression
+    (31) expression -> . bool
+    (32) expression -> . digit
+    (33) expression -> . empty
+    (17) bool -> . TRUE
+    (18) bool -> . FALSE
+    (20) digit -> . NUMBER
+    (34) empty -> .
+
+  ! shift/reduce conflict for LPAREN resolved as shift
+  ! shift/reduce conflict for DOUBLEQUOTES resolved as shift
+  ! shift/reduce conflict for IDENTIFIER resolved as shift
+  ! shift/reduce conflict for TRUE resolved as shift
+  ! shift/reduce conflict for FALSE resolved as shift
+  ! shift/reduce conflict for NUMBER resolved as shift
+    LPAREN          shift and go to state 11
+    DOUBLEQUOTES    shift and go to state 12
+    IDENTIFIER      shift and go to state 13
+    TRUE            shift and go to state 20
+    FALSE           shift and go to state 21
+    NUMBER          shift and go to state 22
+    PLUS            reduce using rule 34 (empty -> .)
+    MINUS           reduce using rule 34 (empty -> .)
+    TIMES           reduce using rule 34 (empty -> .)
+    DIVIDE          reduce using rule 34 (empty -> .)
+    EQUALTO         reduce using rule 34 (empty -> .)
+    GREATERTHAN     reduce using rule 34 (empty -> .)
+    LESSTHAN        reduce using rule 34 (empty -> .)
+    PRINT           reduce using rule 34 (empty -> .)
+    IF              reduce using rule 34 (empty -> .)
+    FOR             reduce using rule 34 (empty -> .)
+    WHILE           reduce using rule 34 (empty -> .)
+    $end            reduce using rule 34 (empty -> .)
+    ELSE            reduce using rule 34 (empty -> .)
+    RPAREN          reduce using rule 34 (empty -> .)
+    COLON           reduce using rule 34 (empty -> .)
+    IN              reduce using rule 34 (empty -> .)
+
+  ! LPAREN          [ reduce using rule 34 (empty -> .) ]
+  ! DOUBLEQUOTES    [ reduce using rule 34 (empty -> .) ]
+  ! IDENTIFIER      [ reduce using rule 34 (empty -> .) ]
+  ! TRUE            [ reduce using rule 34 (empty -> .) ]
+  ! FALSE           [ reduce using rule 34 (empty -> .) ]
+  ! NUMBER          [ reduce using rule 34 (empty -> .) ]
+
+    expression                     shift and go to state 40
+    bool                           shift and go to state 14
+    digit                          shift and go to state 15
+    empty                          shift and go to state 32
+
+state 25
+
+    (22) expression -> expression MINUS . expression
+    (21) expression -> . expression PLUS expression
+    (22) expression -> . expression MINUS expression
+    (23) expression -> . expression TIMES expression
+    (24) expression -> . expression DIVIDE expression
+    (25) expression -> . expression EQUALTO expression
+    (26) expression -> . expression GREATERTHAN expression
+    (27) expression -> . expression LESSTHAN expression
+    (28) expression -> . LPAREN expression RPAREN
+    (29) expression -> . DOUBLEQUOTES expression DOUBLEQUOTES
+    (30) expression -> . IDENTIFIER expression
+    (31) expression -> . bool
+    (32) expression -> . digit
+    (33) expression -> . empty
+    (17) bool -> . TRUE
+    (18) bool -> . FALSE
+    (20) digit -> . NUMBER
+    (34) empty -> .
+
+  ! shift/reduce conflict for LPAREN resolved as shift
+  ! shift/reduce conflict for DOUBLEQUOTES resolved as shift
+  ! shift/reduce conflict for IDENTIFIER resolved as shift
+  ! shift/reduce conflict for TRUE resolved as shift
+  ! shift/reduce conflict for FALSE resolved as shift
+  ! shift/reduce conflict for NUMBER resolved as shift
+    LPAREN          shift and go to state 11
+    DOUBLEQUOTES    shift and go to state 12
+    IDENTIFIER      shift and go to state 13
+    TRUE            shift and go to state 20
+    FALSE           shift and go to state 21
+    NUMBER          shift and go to state 22
+    PLUS            reduce using rule 34 (empty -> .)
+    MINUS           reduce using rule 34 (empty -> .)
+    TIMES           reduce using rule 34 (empty -> .)
+    DIVIDE          reduce using rule 34 (empty -> .)
+    EQUALTO         reduce using rule 34 (empty -> .)
+    GREATERTHAN     reduce using rule 34 (empty -> .)
+    LESSTHAN        reduce using rule 34 (empty -> .)
+    PRINT           reduce using rule 34 (empty -> .)
+    IF              reduce using rule 34 (empty -> .)
+    FOR             reduce using rule 34 (empty -> .)
+    WHILE           reduce using rule 34 (empty -> .)
+    $end            reduce using rule 34 (empty -> .)
+    ELSE            reduce using rule 34 (empty -> .)
+    RPAREN          reduce using rule 34 (empty -> .)
+    COLON           reduce using rule 34 (empty -> .)
+    IN              reduce using rule 34 (empty -> .)
+
+  ! LPAREN          [ reduce using rule 34 (empty -> .) ]
+  ! DOUBLEQUOTES    [ reduce using rule 34 (empty -> .) ]
+  ! IDENTIFIER      [ reduce using rule 34 (empty -> .) ]
+  ! TRUE            [ reduce using rule 34 (empty -> .) ]
+  ! FALSE           [ reduce using rule 34 (empty -> .) ]
+  ! NUMBER          [ reduce using rule 34 (empty -> .) ]
+
+    expression                     shift and go to state 41
+    bool                           shift and go to state 14
+    digit                          shift and go to state 15
+    empty                          shift and go to state 32
+
+state 26
+
+    (23) expression -> expression TIMES . expression
+    (21) expression -> . expression PLUS expression
+    (22) expression -> . expression MINUS expression
+    (23) expression -> . expression TIMES expression
+    (24) expression -> . expression DIVIDE expression
+    (25) expression -> . expression EQUALTO expression
+    (26) expression -> . expression GREATERTHAN expression
+    (27) expression -> . expression LESSTHAN expression
+    (28) expression -> . LPAREN expression RPAREN
+    (29) expression -> . DOUBLEQUOTES expression DOUBLEQUOTES
+    (30) expression -> . IDENTIFIER expression
+    (31) expression -> . bool
+    (32) expression -> . digit
+    (33) expression -> . empty
+    (17) bool -> . TRUE
+    (18) bool -> . FALSE
+    (20) digit -> . NUMBER
+    (34) empty -> .
+
+  ! shift/reduce conflict for LPAREN resolved as shift
+  ! shift/reduce conflict for DOUBLEQUOTES resolved as shift
+  ! shift/reduce conflict for IDENTIFIER resolved as shift
+  ! shift/reduce conflict for TRUE resolved as shift
+  ! shift/reduce conflict for FALSE resolved as shift
+  ! shift/reduce conflict for NUMBER resolved as shift
+    LPAREN          shift and go to state 11
+    DOUBLEQUOTES    shift and go to state 12
+    IDENTIFIER      shift and go to state 13
+    TRUE            shift and go to state 20
+    FALSE           shift and go to state 21
+    NUMBER          shift and go to state 22
+    PLUS            reduce using rule 34 (empty -> .)
+    MINUS           reduce using rule 34 (empty -> .)
+    TIMES           reduce using rule 34 (empty -> .)
+    DIVIDE          reduce using rule 34 (empty -> .)
+    EQUALTO         reduce using rule 34 (empty -> .)
+    GREATERTHAN     reduce using rule 34 (empty -> .)
+    LESSTHAN        reduce using rule 34 (empty -> .)
+    PRINT           reduce using rule 34 (empty -> .)
+    IF              reduce using rule 34 (empty -> .)
+    FOR             reduce using rule 34 (empty -> .)
+    WHILE           reduce using rule 34 (empty -> .)
+    $end            reduce using rule 34 (empty -> .)
+    ELSE            reduce using rule 34 (empty -> .)
+    RPAREN          reduce using rule 34 (empty -> .)
+    COLON           reduce using rule 34 (empty -> .)
+    IN              reduce using rule 34 (empty -> .)
+
+  ! LPAREN          [ reduce using rule 34 (empty -> .) ]
+  ! DOUBLEQUOTES    [ reduce using rule 34 (empty -> .) ]
+  ! IDENTIFIER      [ reduce using rule 34 (empty -> .) ]
+  ! TRUE            [ reduce using rule 34 (empty -> .) ]
+  ! FALSE           [ reduce using rule 34 (empty -> .) ]
+  ! NUMBER          [ reduce using rule 34 (empty -> .) ]
+
+    expression                     shift and go to state 42
+    bool                           shift and go to state 14
+    digit                          shift and go to state 15
+    empty                          shift and go to state 32
+
+state 27
+
+    (24) expression -> expression DIVIDE . expression
+    (21) expression -> . expression PLUS expression
+    (22) expression -> . expression MINUS expression
+    (23) expression -> . expression TIMES expression
+    (24) expression -> . expression DIVIDE expression
+    (25) expression -> . expression EQUALTO expression
+    (26) expression -> . expression GREATERTHAN expression
+    (27) expression -> . expression LESSTHAN expression
+    (28) expression -> . LPAREN expression RPAREN
+    (29) expression -> . DOUBLEQUOTES expression DOUBLEQUOTES
+    (30) expression -> . IDENTIFIER expression
+    (31) expression -> . bool
+    (32) expression -> . digit
+    (33) expression -> . empty
+    (17) bool -> . TRUE
+    (18) bool -> . FALSE
+    (20) digit -> . NUMBER
+    (34) empty -> .
+
+  ! shift/reduce conflict for LPAREN resolved as shift
+  ! shift/reduce conflict for DOUBLEQUOTES resolved as shift
+  ! shift/reduce conflict for IDENTIFIER resolved as shift
+  ! shift/reduce conflict for TRUE resolved as shift
+  ! shift/reduce conflict for FALSE resolved as shift
+  ! shift/reduce conflict for NUMBER resolved as shift
+    LPAREN          shift and go to state 11
+    DOUBLEQUOTES    shift and go to state 12
+    IDENTIFIER      shift and go to state 13
+    TRUE            shift and go to state 20
+    FALSE           shift and go to state 21
+    NUMBER          shift and go to state 22
+    PLUS            reduce using rule 34 (empty -> .)
+    MINUS           reduce using rule 34 (empty -> .)
+    TIMES           reduce using rule 34 (empty -> .)
+    DIVIDE          reduce using rule 34 (empty -> .)
+    EQUALTO         reduce using rule 34 (empty -> .)
+    GREATERTHAN     reduce using rule 34 (empty -> .)
+    LESSTHAN        reduce using rule 34 (empty -> .)
+    PRINT           reduce using rule 34 (empty -> .)
+    IF              reduce using rule 34 (empty -> .)
+    FOR             reduce using rule 34 (empty -> .)
+    WHILE           reduce using rule 34 (empty -> .)
+    $end            reduce using rule 34 (empty -> .)
+    ELSE            reduce using rule 34 (empty -> .)
+    RPAREN          reduce using rule 34 (empty -> .)
+    COLON           reduce using rule 34 (empty -> .)
+    IN              reduce using rule 34 (empty -> .)
+
+  ! LPAREN          [ reduce using rule 34 (empty -> .) ]
+  ! DOUBLEQUOTES    [ reduce using rule 34 (empty -> .) ]
+  ! IDENTIFIER      [ reduce using rule 34 (empty -> .) ]
+  ! TRUE            [ reduce using rule 34 (empty -> .) ]
+  ! FALSE           [ reduce using rule 34 (empty -> .) ]
+  ! NUMBER          [ reduce using rule 34 (empty -> .) ]
+
+    expression                     shift and go to state 43
+    bool                           shift and go to state 14
+    digit                          shift and go to state 15
+    empty                          shift and go to state 32
+
+state 28
+
+    (25) expression -> expression EQUALTO . expression
+    (21) expression -> . expression PLUS expression
+    (22) expression -> . expression MINUS expression
+    (23) expression -> . expression TIMES expression
+    (24) expression -> . expression DIVIDE expression
+    (25) expression -> . expression EQUALTO expression
+    (26) expression -> . expression GREATERTHAN expression
+    (27) expression -> . expression LESSTHAN expression
+    (28) expression -> . LPAREN expression RPAREN
+    (29) expression -> . DOUBLEQUOTES expression DOUBLEQUOTES
+    (30) expression -> . IDENTIFIER expression
+    (31) expression -> . bool
+    (32) expression -> . digit
+    (33) expression -> . empty
+    (17) bool -> . TRUE
+    (18) bool -> . FALSE
+    (20) digit -> . NUMBER
+    (34) empty -> .
+
+  ! shift/reduce conflict for LPAREN resolved as shift
+  ! shift/reduce conflict for DOUBLEQUOTES resolved as shift
+  ! shift/reduce conflict for IDENTIFIER resolved as shift
+  ! shift/reduce conflict for TRUE resolved as shift
+  ! shift/reduce conflict for FALSE resolved as shift
+  ! shift/reduce conflict for NUMBER resolved as shift
+    LPAREN          shift and go to state 11
+    DOUBLEQUOTES    shift and go to state 12
+    IDENTIFIER      shift and go to state 13
+    TRUE            shift and go to state 20
+    FALSE           shift and go to state 21
+    NUMBER          shift and go to state 22
+    PLUS            reduce using rule 34 (empty -> .)
+    MINUS           reduce using rule 34 (empty -> .)
+    TIMES           reduce using rule 34 (empty -> .)
+    DIVIDE          reduce using rule 34 (empty -> .)
+    EQUALTO         reduce using rule 34 (empty -> .)
+    GREATERTHAN     reduce using rule 34 (empty -> .)
+    LESSTHAN        reduce using rule 34 (empty -> .)
+    PRINT           reduce using rule 34 (empty -> .)
+    IF              reduce using rule 34 (empty -> .)
+    FOR             reduce using rule 34 (empty -> .)
+    WHILE           reduce using rule 34 (empty -> .)
+    $end            reduce using rule 34 (empty -> .)
+    ELSE            reduce using rule 34 (empty -> .)
+    RPAREN          reduce using rule 34 (empty -> .)
+    COLON           reduce using rule 34 (empty -> .)
+    IN              reduce using rule 34 (empty -> .)
+
+  ! LPAREN          [ reduce using rule 34 (empty -> .) ]
+  ! DOUBLEQUOTES    [ reduce using rule 34 (empty -> .) ]
+  ! IDENTIFIER      [ reduce using rule 34 (empty -> .) ]
+  ! TRUE            [ reduce using rule 34 (empty -> .) ]
+  ! FALSE           [ reduce using rule 34 (empty -> .) ]
+  ! NUMBER          [ reduce using rule 34 (empty -> .) ]
+
+    expression                     shift and go to state 44
+    bool                           shift and go to state 14
+    digit                          shift and go to state 15
+    empty                          shift and go to state 32
+
+state 29
+
+    (26) expression -> expression GREATERTHAN . expression
+    (21) expression -> . expression PLUS expression
+    (22) expression -> . expression MINUS expression
+    (23) expression -> . expression TIMES expression
+    (24) expression -> . expression DIVIDE expression
+    (25) expression -> . expression EQUALTO expression
+    (26) expression -> . expression GREATERTHAN expression
+    (27) expression -> . expression LESSTHAN expression
+    (28) expression -> . LPAREN expression RPAREN
+    (29) expression -> . DOUBLEQUOTES expression DOUBLEQUOTES
+    (30) expression -> . IDENTIFIER expression
+    (31) expression -> . bool
+    (32) expression -> . digit
+    (33) expression -> . empty
+    (17) bool -> . TRUE
+    (18) bool -> . FALSE
+    (20) digit -> . NUMBER
+    (34) empty -> .
+
+  ! shift/reduce conflict for LPAREN resolved as shift
+  ! shift/reduce conflict for DOUBLEQUOTES resolved as shift
+  ! shift/reduce conflict for IDENTIFIER resolved as shift
+  ! shift/reduce conflict for TRUE resolved as shift
+  ! shift/reduce conflict for FALSE resolved as shift
+  ! shift/reduce conflict for NUMBER resolved as shift
+    LPAREN          shift and go to state 11
+    DOUBLEQUOTES    shift and go to state 12
+    IDENTIFIER      shift and go to state 13
+    TRUE            shift and go to state 20
+    FALSE           shift and go to state 21
+    NUMBER          shift and go to state 22
+    PLUS            reduce using rule 34 (empty -> .)
+    MINUS           reduce using rule 34 (empty -> .)
+    TIMES           reduce using rule 34 (empty -> .)
+    DIVIDE          reduce using rule 34 (empty -> .)
+    EQUALTO         reduce using rule 34 (empty -> .)
+    GREATERTHAN     reduce using rule 34 (empty -> .)
+    LESSTHAN        reduce using rule 34 (empty -> .)
+    PRINT           reduce using rule 34 (empty -> .)
+    IF              reduce using rule 34 (empty -> .)
+    FOR             reduce using rule 34 (empty -> .)
+    WHILE           reduce using rule 34 (empty -> .)
+    $end            reduce using rule 34 (empty -> .)
+    ELSE            reduce using rule 34 (empty -> .)
+    RPAREN          reduce using rule 34 (empty -> .)
+    COLON           reduce using rule 34 (empty -> .)
+    IN              reduce using rule 34 (empty -> .)
+
+  ! LPAREN          [ reduce using rule 34 (empty -> .) ]
+  ! DOUBLEQUOTES    [ reduce using rule 34 (empty -> .) ]
+  ! IDENTIFIER      [ reduce using rule 34 (empty -> .) ]
+  ! TRUE            [ reduce using rule 34 (empty -> .) ]
+  ! FALSE           [ reduce using rule 34 (empty -> .) ]
+  ! NUMBER          [ reduce using rule 34 (empty -> .) ]
+
+    expression                     shift and go to state 45
+    bool                           shift and go to state 14
+    digit                          shift and go to state 15
+    empty                          shift and go to state 32
+
+state 30
+
+    (27) expression -> expression LESSTHAN . expression
+    (21) expression -> . expression PLUS expression
+    (22) expression -> . expression MINUS expression
+    (23) expression -> . expression TIMES expression
+    (24) expression -> . expression DIVIDE expression
+    (25) expression -> . expression EQUALTO expression
+    (26) expression -> . expression GREATERTHAN expression
+    (27) expression -> . expression LESSTHAN expression
+    (28) expression -> . LPAREN expression RPAREN
+    (29) expression -> . DOUBLEQUOTES expression DOUBLEQUOTES
+    (30) expression -> . IDENTIFIER expression
+    (31) expression -> . bool
+    (32) expression -> . digit
+    (33) expression -> . empty
+    (17) bool -> . TRUE
+    (18) bool -> . FALSE
+    (20) digit -> . NUMBER
+    (34) empty -> .
+
+  ! shift/reduce conflict for LPAREN resolved as shift
+  ! shift/reduce conflict for DOUBLEQUOTES resolved as shift
+  ! shift/reduce conflict for IDENTIFIER resolved as shift
+  ! shift/reduce conflict for TRUE resolved as shift
+  ! shift/reduce conflict for FALSE resolved as shift
+  ! shift/reduce conflict for NUMBER resolved as shift
+    LPAREN          shift and go to state 11
+    DOUBLEQUOTES    shift and go to state 12
+    IDENTIFIER      shift and go to state 13
+    TRUE            shift and go to state 20
+    FALSE           shift and go to state 21
+    NUMBER          shift and go to state 22
+    PLUS            reduce using rule 34 (empty -> .)
+    MINUS           reduce using rule 34 (empty -> .)
+    TIMES           reduce using rule 34 (empty -> .)
+    DIVIDE          reduce using rule 34 (empty -> .)
+    EQUALTO         reduce using rule 34 (empty -> .)
+    GREATERTHAN     reduce using rule 34 (empty -> .)
+    LESSTHAN        reduce using rule 34 (empty -> .)
+    PRINT           reduce using rule 34 (empty -> .)
+    IF              reduce using rule 34 (empty -> .)
+    FOR             reduce using rule 34 (empty -> .)
+    WHILE           reduce using rule 34 (empty -> .)
+    $end            reduce using rule 34 (empty -> .)
+    ELSE            reduce using rule 34 (empty -> .)
+    RPAREN          reduce using rule 34 (empty -> .)
+    COLON           reduce using rule 34 (empty -> .)
+    IN              reduce using rule 34 (empty -> .)
+
+  ! LPAREN          [ reduce using rule 34 (empty -> .) ]
+  ! DOUBLEQUOTES    [ reduce using rule 34 (empty -> .) ]
+  ! IDENTIFIER      [ reduce using rule 34 (empty -> .) ]
+  ! TRUE            [ reduce using rule 34 (empty -> .) ]
+  ! FALSE           [ reduce using rule 34 (empty -> .) ]
+  ! NUMBER          [ reduce using rule 34 (empty -> .) ]
+
+    expression                     shift and go to state 46
+    bool                           shift and go to state 14
+    digit                          shift and go to state 15
+    empty                          shift and go to state 32
+
+state 31
+
+    (28) expression -> LPAREN expression . RPAREN
+    (21) expression -> expression . PLUS expression
+    (22) expression -> expression . MINUS expression
+    (23) expression -> expression . TIMES expression
+    (24) expression -> expression . DIVIDE expression
+    (25) expression -> expression . EQUALTO expression
+    (26) expression -> expression . GREATERTHAN expression
+    (27) expression -> expression . LESSTHAN expression
+
+    RPAREN          shift and go to state 47
+    PLUS            shift and go to state 24
+    MINUS           shift and go to state 25
+    TIMES           shift and go to state 26
+    DIVIDE          shift and go to state 27
+    EQUALTO         shift and go to state 28
+    GREATERTHAN     shift and go to state 29
+    LESSTHAN        shift and go to state 30
+
+
+state 32
+
+    (33) expression -> empty .
+
+    RPAREN          reduce using rule 33 (expression -> empty .)
+    PLUS            reduce using rule 33 (expression -> empty .)
+    MINUS           reduce using rule 33 (expression -> empty .)
+    TIMES           reduce using rule 33 (expression -> empty .)
+    DIVIDE          reduce using rule 33 (expression -> empty .)
+    EQUALTO         reduce using rule 33 (expression -> empty .)
+    GREATERTHAN     reduce using rule 33 (expression -> empty .)
+    LESSTHAN        reduce using rule 33 (expression -> empty .)
+    DOUBLEQUOTES    reduce using rule 33 (expression -> empty .)
+    LPAREN          reduce using rule 33 (expression -> empty .)
+    IDENTIFIER      reduce using rule 33 (expression -> empty .)
+    PRINT           reduce using rule 33 (expression -> empty .)
+    IF              reduce using rule 33 (expression -> empty .)
+    FOR             reduce using rule 33 (expression -> empty .)
+    WHILE           reduce using rule 33 (expression -> empty .)
+    TRUE            reduce using rule 33 (expression -> empty .)
+    FALSE           reduce using rule 33 (expression -> empty .)
+    NUMBER          reduce using rule 33 (expression -> empty .)
+    $end            reduce using rule 33 (expression -> empty .)
+    ELSE            reduce using rule 33 (expression -> empty .)
+    COLON           reduce using rule 33 (expression -> empty .)
+    IN              reduce using rule 33 (expression -> empty .)
+
+
+state 33
+
+    (29) expression -> DOUBLEQUOTES expression . DOUBLEQUOTES
+    (21) expression -> expression . PLUS expression
+    (22) expression -> expression . MINUS expression
+    (23) expression -> expression . TIMES expression
+    (24) expression -> expression . DIVIDE expression
+    (25) expression -> expression . EQUALTO expression
+    (26) expression -> expression . GREATERTHAN expression
+    (27) expression -> expression . LESSTHAN expression
+
+    DOUBLEQUOTES    shift and go to state 48
+    PLUS            shift and go to state 24
+    MINUS           shift and go to state 25
+    TIMES           shift and go to state 26
+    DIVIDE          shift and go to state 27
+    EQUALTO         shift and go to state 28
+    GREATERTHAN     shift and go to state 29
+    LESSTHAN        shift and go to state 30
+
+
+state 34
+
+    (30) expression -> IDENTIFIER expression .
+    (21) expression -> expression . PLUS expression
+    (22) expression -> expression . MINUS expression
+    (23) expression -> expression . TIMES expression
+    (24) expression -> expression . DIVIDE expression
+    (25) expression -> expression . EQUALTO expression
+    (26) expression -> expression . GREATERTHAN expression
+    (27) expression -> expression . LESSTHAN expression
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for DIVIDE resolved as shift
+  ! shift/reduce conflict for EQUALTO resolved as shift
+  ! shift/reduce conflict for GREATERTHAN resolved as shift
+  ! shift/reduce conflict for LESSTHAN resolved as shift
+    LPAREN          reduce using rule 30 (expression -> IDENTIFIER expression .)
+    DOUBLEQUOTES    reduce using rule 30 (expression -> IDENTIFIER expression .)
+    IDENTIFIER      reduce using rule 30 (expression -> IDENTIFIER expression .)
+    PRINT           reduce using rule 30 (expression -> IDENTIFIER expression .)
+    IF              reduce using rule 30 (expression -> IDENTIFIER expression .)
+    FOR             reduce using rule 30 (expression -> IDENTIFIER expression .)
+    WHILE           reduce using rule 30 (expression -> IDENTIFIER expression .)
+    TRUE            reduce using rule 30 (expression -> IDENTIFIER expression .)
+    FALSE           reduce using rule 30 (expression -> IDENTIFIER expression .)
+    NUMBER          reduce using rule 30 (expression -> IDENTIFIER expression .)
+    $end            reduce using rule 30 (expression -> IDENTIFIER expression .)
+    ELSE            reduce using rule 30 (expression -> IDENTIFIER expression .)
+    RPAREN          reduce using rule 30 (expression -> IDENTIFIER expression .)
+    COLON           reduce using rule 30 (expression -> IDENTIFIER expression .)
+    IN              reduce using rule 30 (expression -> IDENTIFIER expression .)
+    PLUS            shift and go to state 24
+    MINUS           shift and go to state 25
+    TIMES           shift and go to state 26
+    DIVIDE          shift and go to state 27
+    EQUALTO         shift and go to state 28
+    GREATERTHAN     shift and go to state 29
+    LESSTHAN        shift and go to state 30
+
+  ! PLUS            [ reduce using rule 30 (expression -> IDENTIFIER expression .) ]
+  ! MINUS           [ reduce using rule 30 (expression -> IDENTIFIER expression .) ]
+  ! TIMES           [ reduce using rule 30 (expression -> IDENTIFIER expression .) ]
+  ! DIVIDE          [ reduce using rule 30 (expression -> IDENTIFIER expression .) ]
+  ! EQUALTO         [ reduce using rule 30 (expression -> IDENTIFIER expression .) ]
+  ! GREATERTHAN     [ reduce using rule 30 (expression -> IDENTIFIER expression .) ]
+  ! LESSTHAN        [ reduce using rule 30 (expression -> IDENTIFIER expression .) ]
+
+
+state 35
+
+    (19) print_statement -> PRINT LPAREN . expression RPAREN
+    (21) expression -> . expression PLUS expression
+    (22) expression -> . expression MINUS expression
+    (23) expression -> . expression TIMES expression
+    (24) expression -> . expression DIVIDE expression
+    (25) expression -> . expression EQUALTO expression
+    (26) expression -> . expression GREATERTHAN expression
+    (27) expression -> . expression LESSTHAN expression
+    (28) expression -> . LPAREN expression RPAREN
+    (29) expression -> . DOUBLEQUOTES expression DOUBLEQUOTES
+    (30) expression -> . IDENTIFIER expression
+    (31) expression -> . bool
+    (32) expression -> . digit
+    (33) expression -> . empty
+    (17) bool -> . TRUE
+    (18) bool -> . FALSE
+    (20) digit -> . NUMBER
+    (34) empty -> .
+
+    LPAREN          shift and go to state 11
+    DOUBLEQUOTES    shift and go to state 12
+    IDENTIFIER      shift and go to state 13
+    TRUE            shift and go to state 20
+    FALSE           shift and go to state 21
+    NUMBER          shift and go to state 22
+    RPAREN          reduce using rule 34 (empty -> .)
+    PLUS            reduce using rule 34 (empty -> .)
+    MINUS           reduce using rule 34 (empty -> .)
+    TIMES           reduce using rule 34 (empty -> .)
+    DIVIDE          reduce using rule 34 (empty -> .)
+    EQUALTO         reduce using rule 34 (empty -> .)
+    GREATERTHAN     reduce using rule 34 (empty -> .)
+    LESSTHAN        reduce using rule 34 (empty -> .)
+
+    expression                     shift and go to state 49
+    bool                           shift and go to state 14
+    digit                          shift and go to state 15
+    empty                          shift and go to state 32
+
+state 36
+
+    (12) inline_if_statement -> IF LPAREN . expression RPAREN COLON statements
+    (28) expression -> LPAREN . expression RPAREN
+    (21) expression -> . expression PLUS expression
+    (22) expression -> . expression MINUS expression
+    (23) expression -> . expression TIMES expression
+    (24) expression -> . expression DIVIDE expression
+    (25) expression -> . expression EQUALTO expression
+    (26) expression -> . expression GREATERTHAN expression
+    (27) expression -> . expression LESSTHAN expression
+    (28) expression -> . LPAREN expression RPAREN
+    (29) expression -> . DOUBLEQUOTES expression DOUBLEQUOTES
+    (30) expression -> . IDENTIFIER expression
+    (31) expression -> . bool
+    (32) expression -> . digit
+    (33) expression -> . empty
+    (17) bool -> . TRUE
+    (18) bool -> . FALSE
+    (20) digit -> . NUMBER
+    (34) empty -> .
+
+    LPAREN          shift and go to state 11
+    DOUBLEQUOTES    shift and go to state 12
+    IDENTIFIER      shift and go to state 13
+    TRUE            shift and go to state 20
+    FALSE           shift and go to state 21
+    NUMBER          shift and go to state 22
+    RPAREN          reduce using rule 34 (empty -> .)
+    PLUS            reduce using rule 34 (empty -> .)
+    MINUS           reduce using rule 34 (empty -> .)
+    TIMES           reduce using rule 34 (empty -> .)
+    DIVIDE          reduce using rule 34 (empty -> .)
+    EQUALTO         reduce using rule 34 (empty -> .)
+    GREATERTHAN     reduce using rule 34 (empty -> .)
+    LESSTHAN        reduce using rule 34 (empty -> .)
+
+    expression                     shift and go to state 50
+    bool                           shift and go to state 14
+    digit                          shift and go to state 15
+    empty                          shift and go to state 32
+
+state 37
+
+    (13) inline_if_statement -> IF expression . COLON statements ELSE statements
+    (21) expression -> expression . PLUS expression
+    (22) expression -> expression . MINUS expression
+    (23) expression -> expression . TIMES expression
+    (24) expression -> expression . DIVIDE expression
+    (25) expression -> expression . EQUALTO expression
+    (26) expression -> expression . GREATERTHAN expression
+    (27) expression -> expression . LESSTHAN expression
+
+    COLON           shift and go to state 51
+    PLUS            shift and go to state 24
+    MINUS           shift and go to state 25
+    TIMES           shift and go to state 26
+    DIVIDE          shift and go to state 27
+    EQUALTO         shift and go to state 28
+    GREATERTHAN     shift and go to state 29
+    LESSTHAN        shift and go to state 30
+
+
+state 38
+
+    (14) for_statement -> FOR expression . IN range_expression
+    (21) expression -> expression . PLUS expression
+    (22) expression -> expression . MINUS expression
+    (23) expression -> expression . TIMES expression
+    (24) expression -> expression . DIVIDE expression
+    (25) expression -> expression . EQUALTO expression
+    (26) expression -> expression . GREATERTHAN expression
+    (27) expression -> expression . LESSTHAN expression
+
+    IN              shift and go to state 52
+    PLUS            shift and go to state 24
+    MINUS           shift and go to state 25
+    TIMES           shift and go to state 26
+    DIVIDE          shift and go to state 27
+    EQUALTO         shift and go to state 28
+    GREATERTHAN     shift and go to state 29
+    LESSTHAN        shift and go to state 30
+
+
+state 39
+
+    (16) while_statement -> WHILE expression . COLON statements
+    (21) expression -> expression . PLUS expression
+    (22) expression -> expression . MINUS expression
+    (23) expression -> expression . TIMES expression
+    (24) expression -> expression . DIVIDE expression
+    (25) expression -> expression . EQUALTO expression
+    (26) expression -> expression . GREATERTHAN expression
+    (27) expression -> expression . LESSTHAN expression
+
+    COLON           shift and go to state 53
+    PLUS            shift and go to state 24
+    MINUS           shift and go to state 25
+    TIMES           shift and go to state 26
+    DIVIDE          shift and go to state 27
+    EQUALTO         shift and go to state 28
+    GREATERTHAN     shift and go to state 29
+    LESSTHAN        shift and go to state 30
+
+
+state 40
+
+    (21) expression -> expression PLUS expression .
+    (21) expression -> expression . PLUS expression
+    (22) expression -> expression . MINUS expression
+    (23) expression -> expression . TIMES expression
+    (24) expression -> expression . DIVIDE expression
+    (25) expression -> expression . EQUALTO expression
+    (26) expression -> expression . GREATERTHAN expression
+    (27) expression -> expression . LESSTHAN expression
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for DIVIDE resolved as shift
+  ! shift/reduce conflict for EQUALTO resolved as shift
+  ! shift/reduce conflict for GREATERTHAN resolved as shift
+  ! shift/reduce conflict for LESSTHAN resolved as shift
+    LPAREN          reduce using rule 21 (expression -> expression PLUS expression .)
+    DOUBLEQUOTES    reduce using rule 21 (expression -> expression PLUS expression .)
+    IDENTIFIER      reduce using rule 21 (expression -> expression PLUS expression .)
+    PRINT           reduce using rule 21 (expression -> expression PLUS expression .)
+    IF              reduce using rule 21 (expression -> expression PLUS expression .)
+    FOR             reduce using rule 21 (expression -> expression PLUS expression .)
+    WHILE           reduce using rule 21 (expression -> expression PLUS expression .)
+    TRUE            reduce using rule 21 (expression -> expression PLUS expression .)
+    FALSE           reduce using rule 21 (expression -> expression PLUS expression .)
+    NUMBER          reduce using rule 21 (expression -> expression PLUS expression .)
+    $end            reduce using rule 21 (expression -> expression PLUS expression .)
+    ELSE            reduce using rule 21 (expression -> expression PLUS expression .)
+    RPAREN          reduce using rule 21 (expression -> expression PLUS expression .)
+    COLON           reduce using rule 21 (expression -> expression PLUS expression .)
+    IN              reduce using rule 21 (expression -> expression PLUS expression .)
+    PLUS            shift and go to state 24
+    MINUS           shift and go to state 25
+    TIMES           shift and go to state 26
+    DIVIDE          shift and go to state 27
+    EQUALTO         shift and go to state 28
+    GREATERTHAN     shift and go to state 29
+    LESSTHAN        shift and go to state 30
+
+  ! PLUS            [ reduce using rule 21 (expression -> expression PLUS expression .) ]
+  ! MINUS           [ reduce using rule 21 (expression -> expression PLUS expression .) ]
+  ! TIMES           [ reduce using rule 21 (expression -> expression PLUS expression .) ]
+  ! DIVIDE          [ reduce using rule 21 (expression -> expression PLUS expression .) ]
+  ! EQUALTO         [ reduce using rule 21 (expression -> expression PLUS expression .) ]
+  ! GREATERTHAN     [ reduce using rule 21 (expression -> expression PLUS expression .) ]
+  ! LESSTHAN        [ reduce using rule 21 (expression -> expression PLUS expression .) ]
+
+
+state 41
+
+    (22) expression -> expression MINUS expression .
+    (21) expression -> expression . PLUS expression
+    (22) expression -> expression . MINUS expression
+    (23) expression -> expression . TIMES expression
+    (24) expression -> expression . DIVIDE expression
+    (25) expression -> expression . EQUALTO expression
+    (26) expression -> expression . GREATERTHAN expression
+    (27) expression -> expression . LESSTHAN expression
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for DIVIDE resolved as shift
+  ! shift/reduce conflict for EQUALTO resolved as shift
+  ! shift/reduce conflict for GREATERTHAN resolved as shift
+  ! shift/reduce conflict for LESSTHAN resolved as shift
+    LPAREN          reduce using rule 22 (expression -> expression MINUS expression .)
+    DOUBLEQUOTES    reduce using rule 22 (expression -> expression MINUS expression .)
+    IDENTIFIER      reduce using rule 22 (expression -> expression MINUS expression .)
+    PRINT           reduce using rule 22 (expression -> expression MINUS expression .)
+    IF              reduce using rule 22 (expression -> expression MINUS expression .)
+    FOR             reduce using rule 22 (expression -> expression MINUS expression .)
+    WHILE           reduce using rule 22 (expression -> expression MINUS expression .)
+    TRUE            reduce using rule 22 (expression -> expression MINUS expression .)
+    FALSE           reduce using rule 22 (expression -> expression MINUS expression .)
+    NUMBER          reduce using rule 22 (expression -> expression MINUS expression .)
+    $end            reduce using rule 22 (expression -> expression MINUS expression .)
+    ELSE            reduce using rule 22 (expression -> expression MINUS expression .)
+    RPAREN          reduce using rule 22 (expression -> expression MINUS expression .)
+    COLON           reduce using rule 22 (expression -> expression MINUS expression .)
+    IN              reduce using rule 22 (expression -> expression MINUS expression .)
+    PLUS            shift and go to state 24
+    MINUS           shift and go to state 25
+    TIMES           shift and go to state 26
+    DIVIDE          shift and go to state 27
+    EQUALTO         shift and go to state 28
+    GREATERTHAN     shift and go to state 29
+    LESSTHAN        shift and go to state 30
+
+  ! PLUS            [ reduce using rule 22 (expression -> expression MINUS expression .) ]
+  ! MINUS           [ reduce using rule 22 (expression -> expression MINUS expression .) ]
+  ! TIMES           [ reduce using rule 22 (expression -> expression MINUS expression .) ]
+  ! DIVIDE          [ reduce using rule 22 (expression -> expression MINUS expression .) ]
+  ! EQUALTO         [ reduce using rule 22 (expression -> expression MINUS expression .) ]
+  ! GREATERTHAN     [ reduce using rule 22 (expression -> expression MINUS expression .) ]
+  ! LESSTHAN        [ reduce using rule 22 (expression -> expression MINUS expression .) ]
+
+
+state 42
+
+    (23) expression -> expression TIMES expression .
+    (21) expression -> expression . PLUS expression
+    (22) expression -> expression . MINUS expression
+    (23) expression -> expression . TIMES expression
+    (24) expression -> expression . DIVIDE expression
+    (25) expression -> expression . EQUALTO expression
+    (26) expression -> expression . GREATERTHAN expression
+    (27) expression -> expression . LESSTHAN expression
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for DIVIDE resolved as shift
+  ! shift/reduce conflict for EQUALTO resolved as shift
+  ! shift/reduce conflict for GREATERTHAN resolved as shift
+  ! shift/reduce conflict for LESSTHAN resolved as shift
+    LPAREN          reduce using rule 23 (expression -> expression TIMES expression .)
+    DOUBLEQUOTES    reduce using rule 23 (expression -> expression TIMES expression .)
+    IDENTIFIER      reduce using rule 23 (expression -> expression TIMES expression .)
+    PRINT           reduce using rule 23 (expression -> expression TIMES expression .)
+    IF              reduce using rule 23 (expression -> expression TIMES expression .)
+    FOR             reduce using rule 23 (expression -> expression TIMES expression .)
+    WHILE           reduce using rule 23 (expression -> expression TIMES expression .)
+    TRUE            reduce using rule 23 (expression -> expression TIMES expression .)
+    FALSE           reduce using rule 23 (expression -> expression TIMES expression .)
+    NUMBER          reduce using rule 23 (expression -> expression TIMES expression .)
+    $end            reduce using rule 23 (expression -> expression TIMES expression .)
+    ELSE            reduce using rule 23 (expression -> expression TIMES expression .)
+    RPAREN          reduce using rule 23 (expression -> expression TIMES expression .)
+    COLON           reduce using rule 23 (expression -> expression TIMES expression .)
+    IN              reduce using rule 23 (expression -> expression TIMES expression .)
+    PLUS            shift and go to state 24
+    MINUS           shift and go to state 25
+    TIMES           shift and go to state 26
+    DIVIDE          shift and go to state 27
+    EQUALTO         shift and go to state 28
+    GREATERTHAN     shift and go to state 29
+    LESSTHAN        shift and go to state 30
+
+  ! PLUS            [ reduce using rule 23 (expression -> expression TIMES expression .) ]
+  ! MINUS           [ reduce using rule 23 (expression -> expression TIMES expression .) ]
+  ! TIMES           [ reduce using rule 23 (expression -> expression TIMES expression .) ]
+  ! DIVIDE          [ reduce using rule 23 (expression -> expression TIMES expression .) ]
+  ! EQUALTO         [ reduce using rule 23 (expression -> expression TIMES expression .) ]
+  ! GREATERTHAN     [ reduce using rule 23 (expression -> expression TIMES expression .) ]
+  ! LESSTHAN        [ reduce using rule 23 (expression -> expression TIMES expression .) ]
+
+
+state 43
+
+    (24) expression -> expression DIVIDE expression .
+    (21) expression -> expression . PLUS expression
+    (22) expression -> expression . MINUS expression
+    (23) expression -> expression . TIMES expression
+    (24) expression -> expression . DIVIDE expression
+    (25) expression -> expression . EQUALTO expression
+    (26) expression -> expression . GREATERTHAN expression
+    (27) expression -> expression . LESSTHAN expression
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for DIVIDE resolved as shift
+  ! shift/reduce conflict for EQUALTO resolved as shift
+  ! shift/reduce conflict for GREATERTHAN resolved as shift
+  ! shift/reduce conflict for LESSTHAN resolved as shift
+    LPAREN          reduce using rule 24 (expression -> expression DIVIDE expression .)
+    DOUBLEQUOTES    reduce using rule 24 (expression -> expression DIVIDE expression .)
+    IDENTIFIER      reduce using rule 24 (expression -> expression DIVIDE expression .)
+    PRINT           reduce using rule 24 (expression -> expression DIVIDE expression .)
+    IF              reduce using rule 24 (expression -> expression DIVIDE expression .)
+    FOR             reduce using rule 24 (expression -> expression DIVIDE expression .)
+    WHILE           reduce using rule 24 (expression -> expression DIVIDE expression .)
+    TRUE            reduce using rule 24 (expression -> expression DIVIDE expression .)
+    FALSE           reduce using rule 24 (expression -> expression DIVIDE expression .)
+    NUMBER          reduce using rule 24 (expression -> expression DIVIDE expression .)
+    $end            reduce using rule 24 (expression -> expression DIVIDE expression .)
+    ELSE            reduce using rule 24 (expression -> expression DIVIDE expression .)
+    RPAREN          reduce using rule 24 (expression -> expression DIVIDE expression .)
+    COLON           reduce using rule 24 (expression -> expression DIVIDE expression .)
+    IN              reduce using rule 24 (expression -> expression DIVIDE expression .)
+    PLUS            shift and go to state 24
+    MINUS           shift and go to state 25
+    TIMES           shift and go to state 26
+    DIVIDE          shift and go to state 27
+    EQUALTO         shift and go to state 28
+    GREATERTHAN     shift and go to state 29
+    LESSTHAN        shift and go to state 30
+
+  ! PLUS            [ reduce using rule 24 (expression -> expression DIVIDE expression .) ]
+  ! MINUS           [ reduce using rule 24 (expression -> expression DIVIDE expression .) ]
+  ! TIMES           [ reduce using rule 24 (expression -> expression DIVIDE expression .) ]
+  ! DIVIDE          [ reduce using rule 24 (expression -> expression DIVIDE expression .) ]
+  ! EQUALTO         [ reduce using rule 24 (expression -> expression DIVIDE expression .) ]
+  ! GREATERTHAN     [ reduce using rule 24 (expression -> expression DIVIDE expression .) ]
+  ! LESSTHAN        [ reduce using rule 24 (expression -> expression DIVIDE expression .) ]
+
+
+state 44
+
+    (25) expression -> expression EQUALTO expression .
+    (21) expression -> expression . PLUS expression
+    (22) expression -> expression . MINUS expression
+    (23) expression -> expression . TIMES expression
+    (24) expression -> expression . DIVIDE expression
+    (25) expression -> expression . EQUALTO expression
+    (26) expression -> expression . GREATERTHAN expression
+    (27) expression -> expression . LESSTHAN expression
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for DIVIDE resolved as shift
+  ! shift/reduce conflict for EQUALTO resolved as shift
+  ! shift/reduce conflict for GREATERTHAN resolved as shift
+  ! shift/reduce conflict for LESSTHAN resolved as shift
+    LPAREN          reduce using rule 25 (expression -> expression EQUALTO expression .)
+    DOUBLEQUOTES    reduce using rule 25 (expression -> expression EQUALTO expression .)
+    IDENTIFIER      reduce using rule 25 (expression -> expression EQUALTO expression .)
+    PRINT           reduce using rule 25 (expression -> expression EQUALTO expression .)
+    IF              reduce using rule 25 (expression -> expression EQUALTO expression .)
+    FOR             reduce using rule 25 (expression -> expression EQUALTO expression .)
+    WHILE           reduce using rule 25 (expression -> expression EQUALTO expression .)
+    TRUE            reduce using rule 25 (expression -> expression EQUALTO expression .)
+    FALSE           reduce using rule 25 (expression -> expression EQUALTO expression .)
+    NUMBER          reduce using rule 25 (expression -> expression EQUALTO expression .)
+    $end            reduce using rule 25 (expression -> expression EQUALTO expression .)
+    ELSE            reduce using rule 25 (expression -> expression EQUALTO expression .)
+    RPAREN          reduce using rule 25 (expression -> expression EQUALTO expression .)
+    COLON           reduce using rule 25 (expression -> expression EQUALTO expression .)
+    IN              reduce using rule 25 (expression -> expression EQUALTO expression .)
+    PLUS            shift and go to state 24
+    MINUS           shift and go to state 25
+    TIMES           shift and go to state 26
+    DIVIDE          shift and go to state 27
+    EQUALTO         shift and go to state 28
+    GREATERTHAN     shift and go to state 29
+    LESSTHAN        shift and go to state 30
+
+  ! PLUS            [ reduce using rule 25 (expression -> expression EQUALTO expression .) ]
+  ! MINUS           [ reduce using rule 25 (expression -> expression EQUALTO expression .) ]
+  ! TIMES           [ reduce using rule 25 (expression -> expression EQUALTO expression .) ]
+  ! DIVIDE          [ reduce using rule 25 (expression -> expression EQUALTO expression .) ]
+  ! EQUALTO         [ reduce using rule 25 (expression -> expression EQUALTO expression .) ]
+  ! GREATERTHAN     [ reduce using rule 25 (expression -> expression EQUALTO expression .) ]
+  ! LESSTHAN        [ reduce using rule 25 (expression -> expression EQUALTO expression .) ]
+
+
+state 45
+
+    (26) expression -> expression GREATERTHAN expression .
+    (21) expression -> expression . PLUS expression
+    (22) expression -> expression . MINUS expression
+    (23) expression -> expression . TIMES expression
+    (24) expression -> expression . DIVIDE expression
+    (25) expression -> expression . EQUALTO expression
+    (26) expression -> expression . GREATERTHAN expression
+    (27) expression -> expression . LESSTHAN expression
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for DIVIDE resolved as shift
+  ! shift/reduce conflict for EQUALTO resolved as shift
+  ! shift/reduce conflict for GREATERTHAN resolved as shift
+  ! shift/reduce conflict for LESSTHAN resolved as shift
+    LPAREN          reduce using rule 26 (expression -> expression GREATERTHAN expression .)
+    DOUBLEQUOTES    reduce using rule 26 (expression -> expression GREATERTHAN expression .)
+    IDENTIFIER      reduce using rule 26 (expression -> expression GREATERTHAN expression .)
+    PRINT           reduce using rule 26 (expression -> expression GREATERTHAN expression .)
+    IF              reduce using rule 26 (expression -> expression GREATERTHAN expression .)
+    FOR             reduce using rule 26 (expression -> expression GREATERTHAN expression .)
+    WHILE           reduce using rule 26 (expression -> expression GREATERTHAN expression .)
+    TRUE            reduce using rule 26 (expression -> expression GREATERTHAN expression .)
+    FALSE           reduce using rule 26 (expression -> expression GREATERTHAN expression .)
+    NUMBER          reduce using rule 26 (expression -> expression GREATERTHAN expression .)
+    $end            reduce using rule 26 (expression -> expression GREATERTHAN expression .)
+    ELSE            reduce using rule 26 (expression -> expression GREATERTHAN expression .)
+    RPAREN          reduce using rule 26 (expression -> expression GREATERTHAN expression .)
+    COLON           reduce using rule 26 (expression -> expression GREATERTHAN expression .)
+    IN              reduce using rule 26 (expression -> expression GREATERTHAN expression .)
+    PLUS            shift and go to state 24
+    MINUS           shift and go to state 25
+    TIMES           shift and go to state 26
+    DIVIDE          shift and go to state 27
+    EQUALTO         shift and go to state 28
+    GREATERTHAN     shift and go to state 29
+    LESSTHAN        shift and go to state 30
+
+  ! PLUS            [ reduce using rule 26 (expression -> expression GREATERTHAN expression .) ]
+  ! MINUS           [ reduce using rule 26 (expression -> expression GREATERTHAN expression .) ]
+  ! TIMES           [ reduce using rule 26 (expression -> expression GREATERTHAN expression .) ]
+  ! DIVIDE          [ reduce using rule 26 (expression -> expression GREATERTHAN expression .) ]
+  ! EQUALTO         [ reduce using rule 26 (expression -> expression GREATERTHAN expression .) ]
+  ! GREATERTHAN     [ reduce using rule 26 (expression -> expression GREATERTHAN expression .) ]
+  ! LESSTHAN        [ reduce using rule 26 (expression -> expression GREATERTHAN expression .) ]
+
+
+state 46
+
+    (27) expression -> expression LESSTHAN expression .
+    (21) expression -> expression . PLUS expression
+    (22) expression -> expression . MINUS expression
+    (23) expression -> expression . TIMES expression
+    (24) expression -> expression . DIVIDE expression
+    (25) expression -> expression . EQUALTO expression
+    (26) expression -> expression . GREATERTHAN expression
+    (27) expression -> expression . LESSTHAN expression
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for DIVIDE resolved as shift
+  ! shift/reduce conflict for EQUALTO resolved as shift
+  ! shift/reduce conflict for GREATERTHAN resolved as shift
+  ! shift/reduce conflict for LESSTHAN resolved as shift
+    LPAREN          reduce using rule 27 (expression -> expression LESSTHAN expression .)
+    DOUBLEQUOTES    reduce using rule 27 (expression -> expression LESSTHAN expression .)
+    IDENTIFIER      reduce using rule 27 (expression -> expression LESSTHAN expression .)
+    PRINT           reduce using rule 27 (expression -> expression LESSTHAN expression .)
+    IF              reduce using rule 27 (expression -> expression LESSTHAN expression .)
+    FOR             reduce using rule 27 (expression -> expression LESSTHAN expression .)
+    WHILE           reduce using rule 27 (expression -> expression LESSTHAN expression .)
+    TRUE            reduce using rule 27 (expression -> expression LESSTHAN expression .)
+    FALSE           reduce using rule 27 (expression -> expression LESSTHAN expression .)
+    NUMBER          reduce using rule 27 (expression -> expression LESSTHAN expression .)
+    $end            reduce using rule 27 (expression -> expression LESSTHAN expression .)
+    ELSE            reduce using rule 27 (expression -> expression LESSTHAN expression .)
+    RPAREN          reduce using rule 27 (expression -> expression LESSTHAN expression .)
+    COLON           reduce using rule 27 (expression -> expression LESSTHAN expression .)
+    IN              reduce using rule 27 (expression -> expression LESSTHAN expression .)
+    PLUS            shift and go to state 24
+    MINUS           shift and go to state 25
+    TIMES           shift and go to state 26
+    DIVIDE          shift and go to state 27
+    EQUALTO         shift and go to state 28
+    GREATERTHAN     shift and go to state 29
+    LESSTHAN        shift and go to state 30
+
+  ! PLUS            [ reduce using rule 27 (expression -> expression LESSTHAN expression .) ]
+  ! MINUS           [ reduce using rule 27 (expression -> expression LESSTHAN expression .) ]
+  ! TIMES           [ reduce using rule 27 (expression -> expression LESSTHAN expression .) ]
+  ! DIVIDE          [ reduce using rule 27 (expression -> expression LESSTHAN expression .) ]
+  ! EQUALTO         [ reduce using rule 27 (expression -> expression LESSTHAN expression .) ]
+  ! GREATERTHAN     [ reduce using rule 27 (expression -> expression LESSTHAN expression .) ]
+  ! LESSTHAN        [ reduce using rule 27 (expression -> expression LESSTHAN expression .) ]
+
+
+state 47
+
+    (28) expression -> LPAREN expression RPAREN .
+
+    PLUS            reduce using rule 28 (expression -> LPAREN expression RPAREN .)
+    MINUS           reduce using rule 28 (expression -> LPAREN expression RPAREN .)
+    TIMES           reduce using rule 28 (expression -> LPAREN expression RPAREN .)
+    DIVIDE          reduce using rule 28 (expression -> LPAREN expression RPAREN .)
+    EQUALTO         reduce using rule 28 (expression -> LPAREN expression RPAREN .)
+    GREATERTHAN     reduce using rule 28 (expression -> LPAREN expression RPAREN .)
+    LESSTHAN        reduce using rule 28 (expression -> LPAREN expression RPAREN .)
+    LPAREN          reduce using rule 28 (expression -> LPAREN expression RPAREN .)
+    DOUBLEQUOTES    reduce using rule 28 (expression -> LPAREN expression RPAREN .)
+    IDENTIFIER      reduce using rule 28 (expression -> LPAREN expression RPAREN .)
+    PRINT           reduce using rule 28 (expression -> LPAREN expression RPAREN .)
+    IF              reduce using rule 28 (expression -> LPAREN expression RPAREN .)
+    FOR             reduce using rule 28 (expression -> LPAREN expression RPAREN .)
+    WHILE           reduce using rule 28 (expression -> LPAREN expression RPAREN .)
+    TRUE            reduce using rule 28 (expression -> LPAREN expression RPAREN .)
+    FALSE           reduce using rule 28 (expression -> LPAREN expression RPAREN .)
+    NUMBER          reduce using rule 28 (expression -> LPAREN expression RPAREN .)
+    $end            reduce using rule 28 (expression -> LPAREN expression RPAREN .)
+    ELSE            reduce using rule 28 (expression -> LPAREN expression RPAREN .)
+    RPAREN          reduce using rule 28 (expression -> LPAREN expression RPAREN .)
+    COLON           reduce using rule 28 (expression -> LPAREN expression RPAREN .)
+    IN              reduce using rule 28 (expression -> LPAREN expression RPAREN .)
+
+
+state 48
+
+    (29) expression -> DOUBLEQUOTES expression DOUBLEQUOTES .
+
+    PLUS            reduce using rule 29 (expression -> DOUBLEQUOTES expression DOUBLEQUOTES .)
+    MINUS           reduce using rule 29 (expression -> DOUBLEQUOTES expression DOUBLEQUOTES .)
+    TIMES           reduce using rule 29 (expression -> DOUBLEQUOTES expression DOUBLEQUOTES .)
+    DIVIDE          reduce using rule 29 (expression -> DOUBLEQUOTES expression DOUBLEQUOTES .)
+    EQUALTO         reduce using rule 29 (expression -> DOUBLEQUOTES expression DOUBLEQUOTES .)
+    GREATERTHAN     reduce using rule 29 (expression -> DOUBLEQUOTES expression DOUBLEQUOTES .)
+    LESSTHAN        reduce using rule 29 (expression -> DOUBLEQUOTES expression DOUBLEQUOTES .)
+    LPAREN          reduce using rule 29 (expression -> DOUBLEQUOTES expression DOUBLEQUOTES .)
+    DOUBLEQUOTES    reduce using rule 29 (expression -> DOUBLEQUOTES expression DOUBLEQUOTES .)
+    IDENTIFIER      reduce using rule 29 (expression -> DOUBLEQUOTES expression DOUBLEQUOTES .)
+    PRINT           reduce using rule 29 (expression -> DOUBLEQUOTES expression DOUBLEQUOTES .)
+    IF              reduce using rule 29 (expression -> DOUBLEQUOTES expression DOUBLEQUOTES .)
+    FOR             reduce using rule 29 (expression -> DOUBLEQUOTES expression DOUBLEQUOTES .)
+    WHILE           reduce using rule 29 (expression -> DOUBLEQUOTES expression DOUBLEQUOTES .)
+    TRUE            reduce using rule 29 (expression -> DOUBLEQUOTES expression DOUBLEQUOTES .)
+    FALSE           reduce using rule 29 (expression -> DOUBLEQUOTES expression DOUBLEQUOTES .)
+    NUMBER          reduce using rule 29 (expression -> DOUBLEQUOTES expression DOUBLEQUOTES .)
+    $end            reduce using rule 29 (expression -> DOUBLEQUOTES expression DOUBLEQUOTES .)
+    ELSE            reduce using rule 29 (expression -> DOUBLEQUOTES expression DOUBLEQUOTES .)
+    RPAREN          reduce using rule 29 (expression -> DOUBLEQUOTES expression DOUBLEQUOTES .)
+    COLON           reduce using rule 29 (expression -> DOUBLEQUOTES expression DOUBLEQUOTES .)
+    IN              reduce using rule 29 (expression -> DOUBLEQUOTES expression DOUBLEQUOTES .)
+
+
+state 49
+
+    (19) print_statement -> PRINT LPAREN expression . RPAREN
+    (21) expression -> expression . PLUS expression
+    (22) expression -> expression . MINUS expression
+    (23) expression -> expression . TIMES expression
+    (24) expression -> expression . DIVIDE expression
+    (25) expression -> expression . EQUALTO expression
+    (26) expression -> expression . GREATERTHAN expression
+    (27) expression -> expression . LESSTHAN expression
+
+    RPAREN          shift and go to state 54
+    PLUS            shift and go to state 24
+    MINUS           shift and go to state 25
+    TIMES           shift and go to state 26
+    DIVIDE          shift and go to state 27
+    EQUALTO         shift and go to state 28
+    GREATERTHAN     shift and go to state 29
+    LESSTHAN        shift and go to state 30
+
+
+state 50
+
+    (12) inline_if_statement -> IF LPAREN expression . RPAREN COLON statements
+    (28) expression -> LPAREN expression . RPAREN
+    (21) expression -> expression . PLUS expression
+    (22) expression -> expression . MINUS expression
+    (23) expression -> expression . TIMES expression
+    (24) expression -> expression . DIVIDE expression
+    (25) expression -> expression . EQUALTO expression
+    (26) expression -> expression . GREATERTHAN expression
+    (27) expression -> expression . LESSTHAN expression
+
+    RPAREN          shift and go to state 55
+    PLUS            shift and go to state 24
+    MINUS           shift and go to state 25
+    TIMES           shift and go to state 26
+    DIVIDE          shift and go to state 27
+    EQUALTO         shift and go to state 28
+    GREATERTHAN     shift and go to state 29
+    LESSTHAN        shift and go to state 30
+
+
+state 51
+
+    (13) inline_if_statement -> IF expression COLON . statements ELSE statements
+    (2) statements -> . statement statements
+    (3) statements -> . statement
+    (4) statements -> . empty
+    (5) statement -> . conditional
+    (6) statement -> . expression
+    (7) statement -> . print_statement
+    (8) statement -> . empty
+    (34) empty -> .
+    (9) conditional -> . inline_if_statement
+    (10) conditional -> . for_statement
+    (11) conditional -> . while_statement
+    (21) expression -> . expression PLUS expression
+    (22) expression -> . expression MINUS expression
+    (23) expression -> . expression TIMES expression
+    (24) expression -> . expression DIVIDE expression
+    (25) expression -> . expression EQUALTO expression
+    (26) expression -> . expression GREATERTHAN expression
+    (27) expression -> . expression LESSTHAN expression
+    (28) expression -> . LPAREN expression RPAREN
+    (29) expression -> . DOUBLEQUOTES expression DOUBLEQUOTES
+    (30) expression -> . IDENTIFIER expression
+    (31) expression -> . bool
+    (32) expression -> . digit
+    (33) expression -> . empty
+    (19) print_statement -> . PRINT LPAREN expression RPAREN
+    (12) inline_if_statement -> . IF LPAREN expression RPAREN COLON statements
+    (13) inline_if_statement -> . IF expression COLON statements ELSE statements
+    (14) for_statement -> . FOR expression IN range_expression
+    (16) while_statement -> . WHILE expression COLON statements
+    (17) bool -> . TRUE
+    (18) bool -> . FALSE
+    (20) digit -> . NUMBER
+
+  ! shift/reduce conflict for LPAREN resolved as shift
+  ! shift/reduce conflict for DOUBLEQUOTES resolved as shift
+  ! shift/reduce conflict for IDENTIFIER resolved as shift
+  ! shift/reduce conflict for PRINT resolved as shift
+  ! shift/reduce conflict for IF resolved as shift
+  ! shift/reduce conflict for FOR resolved as shift
+  ! shift/reduce conflict for WHILE resolved as shift
+  ! shift/reduce conflict for TRUE resolved as shift
+  ! shift/reduce conflict for FALSE resolved as shift
+  ! shift/reduce conflict for NUMBER resolved as shift
+    ELSE            reduce using rule 34 (empty -> .)
+    PLUS            reduce using rule 34 (empty -> .)
+    MINUS           reduce using rule 34 (empty -> .)
+    TIMES           reduce using rule 34 (empty -> .)
+    DIVIDE          reduce using rule 34 (empty -> .)
+    EQUALTO         reduce using rule 34 (empty -> .)
+    GREATERTHAN     reduce using rule 34 (empty -> .)
+    LESSTHAN        reduce using rule 34 (empty -> .)
+    LPAREN          shift and go to state 11
+    DOUBLEQUOTES    shift and go to state 12
+    IDENTIFIER      shift and go to state 13
+    PRINT           shift and go to state 16
+    IF              shift and go to state 17
+    FOR             shift and go to state 18
+    WHILE           shift and go to state 19
+    TRUE            shift and go to state 20
+    FALSE           shift and go to state 21
+    NUMBER          shift and go to state 22
+
+  ! LPAREN          [ reduce using rule 34 (empty -> .) ]
+  ! DOUBLEQUOTES    [ reduce using rule 34 (empty -> .) ]
+  ! IDENTIFIER      [ reduce using rule 34 (empty -> .) ]
+  ! PRINT           [ reduce using rule 34 (empty -> .) ]
+  ! IF              [ reduce using rule 34 (empty -> .) ]
+  ! FOR             [ reduce using rule 34 (empty -> .) ]
+  ! WHILE           [ reduce using rule 34 (empty -> .) ]
+  ! TRUE            [ reduce using rule 34 (empty -> .) ]
+  ! FALSE           [ reduce using rule 34 (empty -> .) ]
+  ! NUMBER          [ reduce using rule 34 (empty -> .) ]
+
+    expression                     shift and go to state 6
+    statements                     shift and go to state 56
+    statement                      shift and go to state 3
+    empty                          shift and go to state 4
+    conditional                    shift and go to state 5
+    print_statement                shift and go to state 7
+    inline_if_statement            shift and go to state 8
+    for_statement                  shift and go to state 9
+    while_statement                shift and go to state 10
+    bool                           shift and go to state 14
+    digit                          shift and go to state 15
+
+state 52
+
+    (14) for_statement -> FOR expression IN . range_expression
+    (15) range_expression -> . RULE_OPEN RANGE NUMBER COMMA NUMBER RULE_CLOSE
+
+    RULE_OPEN       shift and go to state 58
+
+    range_expression               shift and go to state 57
+
+state 53
+
+    (16) while_statement -> WHILE expression COLON . statements
+    (2) statements -> . statement statements
+    (3) statements -> . statement
+    (4) statements -> . empty
+    (5) statement -> . conditional
+    (6) statement -> . expression
+    (7) statement -> . print_statement
+    (8) statement -> . empty
+    (34) empty -> .
+    (9) conditional -> . inline_if_statement
+    (10) conditional -> . for_statement
+    (11) conditional -> . while_statement
+    (21) expression -> . expression PLUS expression
+    (22) expression -> . expression MINUS expression
+    (23) expression -> . expression TIMES expression
+    (24) expression -> . expression DIVIDE expression
+    (25) expression -> . expression EQUALTO expression
+    (26) expression -> . expression GREATERTHAN expression
+    (27) expression -> . expression LESSTHAN expression
+    (28) expression -> . LPAREN expression RPAREN
+    (29) expression -> . DOUBLEQUOTES expression DOUBLEQUOTES
+    (30) expression -> . IDENTIFIER expression
+    (31) expression -> . bool
+    (32) expression -> . digit
+    (33) expression -> . empty
+    (19) print_statement -> . PRINT LPAREN expression RPAREN
+    (12) inline_if_statement -> . IF LPAREN expression RPAREN COLON statements
+    (13) inline_if_statement -> . IF expression COLON statements ELSE statements
+    (14) for_statement -> . FOR expression IN range_expression
+    (16) while_statement -> . WHILE expression COLON statements
+    (17) bool -> . TRUE
+    (18) bool -> . FALSE
+    (20) digit -> . NUMBER
+
+  ! shift/reduce conflict for LPAREN resolved as shift
+  ! shift/reduce conflict for DOUBLEQUOTES resolved as shift
+  ! shift/reduce conflict for IDENTIFIER resolved as shift
+  ! shift/reduce conflict for PRINT resolved as shift
+  ! shift/reduce conflict for IF resolved as shift
+  ! shift/reduce conflict for FOR resolved as shift
+  ! shift/reduce conflict for WHILE resolved as shift
+  ! shift/reduce conflict for TRUE resolved as shift
+  ! shift/reduce conflict for FALSE resolved as shift
+  ! shift/reduce conflict for NUMBER resolved as shift
+    $end            reduce using rule 34 (empty -> .)
+    ELSE            reduce using rule 34 (empty -> .)
+    PLUS            reduce using rule 34 (empty -> .)
+    MINUS           reduce using rule 34 (empty -> .)
+    TIMES           reduce using rule 34 (empty -> .)
+    DIVIDE          reduce using rule 34 (empty -> .)
+    EQUALTO         reduce using rule 34 (empty -> .)
+    GREATERTHAN     reduce using rule 34 (empty -> .)
+    LESSTHAN        reduce using rule 34 (empty -> .)
+    LPAREN          shift and go to state 11
+    DOUBLEQUOTES    shift and go to state 12
+    IDENTIFIER      shift and go to state 13
+    PRINT           shift and go to state 16
+    IF              shift and go to state 17
+    FOR             shift and go to state 18
+    WHILE           shift and go to state 19
+    TRUE            shift and go to state 20
+    FALSE           shift and go to state 21
+    NUMBER          shift and go to state 22
+
+  ! LPAREN          [ reduce using rule 34 (empty -> .) ]
+  ! DOUBLEQUOTES    [ reduce using rule 34 (empty -> .) ]
+  ! IDENTIFIER      [ reduce using rule 34 (empty -> .) ]
+  ! PRINT           [ reduce using rule 34 (empty -> .) ]
+  ! IF              [ reduce using rule 34 (empty -> .) ]
+  ! FOR             [ reduce using rule 34 (empty -> .) ]
+  ! WHILE           [ reduce using rule 34 (empty -> .) ]
+  ! TRUE            [ reduce using rule 34 (empty -> .) ]
+  ! FALSE           [ reduce using rule 34 (empty -> .) ]
+  ! NUMBER          [ reduce using rule 34 (empty -> .) ]
+
+    expression                     shift and go to state 6
+    statements                     shift and go to state 59
+    statement                      shift and go to state 3
+    empty                          shift and go to state 4
+    conditional                    shift and go to state 5
+    print_statement                shift and go to state 7
+    inline_if_statement            shift and go to state 8
+    for_statement                  shift and go to state 9
+    while_statement                shift and go to state 10
+    bool                           shift and go to state 14
+    digit                          shift and go to state 15
+
+state 54
+
+    (19) print_statement -> PRINT LPAREN expression RPAREN .
+
+    LPAREN          reduce using rule 19 (print_statement -> PRINT LPAREN expression RPAREN .)
+    DOUBLEQUOTES    reduce using rule 19 (print_statement -> PRINT LPAREN expression RPAREN .)
+    IDENTIFIER      reduce using rule 19 (print_statement -> PRINT LPAREN expression RPAREN .)
+    PRINT           reduce using rule 19 (print_statement -> PRINT LPAREN expression RPAREN .)
+    IF              reduce using rule 19 (print_statement -> PRINT LPAREN expression RPAREN .)
+    FOR             reduce using rule 19 (print_statement -> PRINT LPAREN expression RPAREN .)
+    WHILE           reduce using rule 19 (print_statement -> PRINT LPAREN expression RPAREN .)
+    TRUE            reduce using rule 19 (print_statement -> PRINT LPAREN expression RPAREN .)
+    FALSE           reduce using rule 19 (print_statement -> PRINT LPAREN expression RPAREN .)
+    NUMBER          reduce using rule 19 (print_statement -> PRINT LPAREN expression RPAREN .)
+    PLUS            reduce using rule 19 (print_statement -> PRINT LPAREN expression RPAREN .)
+    MINUS           reduce using rule 19 (print_statement -> PRINT LPAREN expression RPAREN .)
+    TIMES           reduce using rule 19 (print_statement -> PRINT LPAREN expression RPAREN .)
+    DIVIDE          reduce using rule 19 (print_statement -> PRINT LPAREN expression RPAREN .)
+    EQUALTO         reduce using rule 19 (print_statement -> PRINT LPAREN expression RPAREN .)
+    GREATERTHAN     reduce using rule 19 (print_statement -> PRINT LPAREN expression RPAREN .)
+    LESSTHAN        reduce using rule 19 (print_statement -> PRINT LPAREN expression RPAREN .)
+    $end            reduce using rule 19 (print_statement -> PRINT LPAREN expression RPAREN .)
+    ELSE            reduce using rule 19 (print_statement -> PRINT LPAREN expression RPAREN .)
+
+
+state 55
+
+    (12) inline_if_statement -> IF LPAREN expression RPAREN . COLON statements
+    (28) expression -> LPAREN expression RPAREN .
+
+  ! shift/reduce conflict for COLON resolved as shift
+    COLON           shift and go to state 60
+    PLUS            reduce using rule 28 (expression -> LPAREN expression RPAREN .)
+    MINUS           reduce using rule 28 (expression -> LPAREN expression RPAREN .)
+    TIMES           reduce using rule 28 (expression -> LPAREN expression RPAREN .)
+    DIVIDE          reduce using rule 28 (expression -> LPAREN expression RPAREN .)
+    EQUALTO         reduce using rule 28 (expression -> LPAREN expression RPAREN .)
+    GREATERTHAN     reduce using rule 28 (expression -> LPAREN expression RPAREN .)
+    LESSTHAN        reduce using rule 28 (expression -> LPAREN expression RPAREN .)
+
+  ! COLON           [ reduce using rule 28 (expression -> LPAREN expression RPAREN .) ]
+
+
+state 56
+
+    (13) inline_if_statement -> IF expression COLON statements . ELSE statements
+
+    ELSE            shift and go to state 61
+
+
+state 57
+
+    (14) for_statement -> FOR expression IN range_expression .
+
+    LPAREN          reduce using rule 14 (for_statement -> FOR expression IN range_expression .)
+    DOUBLEQUOTES    reduce using rule 14 (for_statement -> FOR expression IN range_expression .)
+    IDENTIFIER      reduce using rule 14 (for_statement -> FOR expression IN range_expression .)
+    PRINT           reduce using rule 14 (for_statement -> FOR expression IN range_expression .)
+    IF              reduce using rule 14 (for_statement -> FOR expression IN range_expression .)
+    FOR             reduce using rule 14 (for_statement -> FOR expression IN range_expression .)
+    WHILE           reduce using rule 14 (for_statement -> FOR expression IN range_expression .)
+    TRUE            reduce using rule 14 (for_statement -> FOR expression IN range_expression .)
+    FALSE           reduce using rule 14 (for_statement -> FOR expression IN range_expression .)
+    NUMBER          reduce using rule 14 (for_statement -> FOR expression IN range_expression .)
+    PLUS            reduce using rule 14 (for_statement -> FOR expression IN range_expression .)
+    MINUS           reduce using rule 14 (for_statement -> FOR expression IN range_expression .)
+    TIMES           reduce using rule 14 (for_statement -> FOR expression IN range_expression .)
+    DIVIDE          reduce using rule 14 (for_statement -> FOR expression IN range_expression .)
+    EQUALTO         reduce using rule 14 (for_statement -> FOR expression IN range_expression .)
+    GREATERTHAN     reduce using rule 14 (for_statement -> FOR expression IN range_expression .)
+    LESSTHAN        reduce using rule 14 (for_statement -> FOR expression IN range_expression .)
+    $end            reduce using rule 14 (for_statement -> FOR expression IN range_expression .)
+    ELSE            reduce using rule 14 (for_statement -> FOR expression IN range_expression .)
+
+
+state 58
+
+    (15) range_expression -> RULE_OPEN . RANGE NUMBER COMMA NUMBER RULE_CLOSE
+
+    RANGE           shift and go to state 62
+
+
+state 59
+
+    (16) while_statement -> WHILE expression COLON statements .
+
+    LPAREN          reduce using rule 16 (while_statement -> WHILE expression COLON statements .)
+    DOUBLEQUOTES    reduce using rule 16 (while_statement -> WHILE expression COLON statements .)
+    IDENTIFIER      reduce using rule 16 (while_statement -> WHILE expression COLON statements .)
+    PRINT           reduce using rule 16 (while_statement -> WHILE expression COLON statements .)
+    IF              reduce using rule 16 (while_statement -> WHILE expression COLON statements .)
+    FOR             reduce using rule 16 (while_statement -> WHILE expression COLON statements .)
+    WHILE           reduce using rule 16 (while_statement -> WHILE expression COLON statements .)
+    TRUE            reduce using rule 16 (while_statement -> WHILE expression COLON statements .)
+    FALSE           reduce using rule 16 (while_statement -> WHILE expression COLON statements .)
+    NUMBER          reduce using rule 16 (while_statement -> WHILE expression COLON statements .)
+    PLUS            reduce using rule 16 (while_statement -> WHILE expression COLON statements .)
+    MINUS           reduce using rule 16 (while_statement -> WHILE expression COLON statements .)
+    TIMES           reduce using rule 16 (while_statement -> WHILE expression COLON statements .)
+    DIVIDE          reduce using rule 16 (while_statement -> WHILE expression COLON statements .)
+    EQUALTO         reduce using rule 16 (while_statement -> WHILE expression COLON statements .)
+    GREATERTHAN     reduce using rule 16 (while_statement -> WHILE expression COLON statements .)
+    LESSTHAN        reduce using rule 16 (while_statement -> WHILE expression COLON statements .)
+    $end            reduce using rule 16 (while_statement -> WHILE expression COLON statements .)
+    ELSE            reduce using rule 16 (while_statement -> WHILE expression COLON statements .)
+
+
+state 60
+
+    (12) inline_if_statement -> IF LPAREN expression RPAREN COLON . statements
+    (2) statements -> . statement statements
+    (3) statements -> . statement
+    (4) statements -> . empty
+    (5) statement -> . conditional
+    (6) statement -> . expression
+    (7) statement -> . print_statement
+    (8) statement -> . empty
+    (34) empty -> .
+    (9) conditional -> . inline_if_statement
+    (10) conditional -> . for_statement
+    (11) conditional -> . while_statement
+    (21) expression -> . expression PLUS expression
+    (22) expression -> . expression MINUS expression
+    (23) expression -> . expression TIMES expression
+    (24) expression -> . expression DIVIDE expression
+    (25) expression -> . expression EQUALTO expression
+    (26) expression -> . expression GREATERTHAN expression
+    (27) expression -> . expression LESSTHAN expression
+    (28) expression -> . LPAREN expression RPAREN
+    (29) expression -> . DOUBLEQUOTES expression DOUBLEQUOTES
+    (30) expression -> . IDENTIFIER expression
+    (31) expression -> . bool
+    (32) expression -> . digit
+    (33) expression -> . empty
+    (19) print_statement -> . PRINT LPAREN expression RPAREN
+    (12) inline_if_statement -> . IF LPAREN expression RPAREN COLON statements
+    (13) inline_if_statement -> . IF expression COLON statements ELSE statements
+    (14) for_statement -> . FOR expression IN range_expression
+    (16) while_statement -> . WHILE expression COLON statements
+    (17) bool -> . TRUE
+    (18) bool -> . FALSE
+    (20) digit -> . NUMBER
+
+  ! shift/reduce conflict for LPAREN resolved as shift
+  ! shift/reduce conflict for DOUBLEQUOTES resolved as shift
+  ! shift/reduce conflict for IDENTIFIER resolved as shift
+  ! shift/reduce conflict for PRINT resolved as shift
+  ! shift/reduce conflict for IF resolved as shift
+  ! shift/reduce conflict for FOR resolved as shift
+  ! shift/reduce conflict for WHILE resolved as shift
+  ! shift/reduce conflict for TRUE resolved as shift
+  ! shift/reduce conflict for FALSE resolved as shift
+  ! shift/reduce conflict for NUMBER resolved as shift
+    $end            reduce using rule 34 (empty -> .)
+    ELSE            reduce using rule 34 (empty -> .)
+    PLUS            reduce using rule 34 (empty -> .)
+    MINUS           reduce using rule 34 (empty -> .)
+    TIMES           reduce using rule 34 (empty -> .)
+    DIVIDE          reduce using rule 34 (empty -> .)
+    EQUALTO         reduce using rule 34 (empty -> .)
+    GREATERTHAN     reduce using rule 34 (empty -> .)
+    LESSTHAN        reduce using rule 34 (empty -> .)
+    LPAREN          shift and go to state 11
+    DOUBLEQUOTES    shift and go to state 12
+    IDENTIFIER      shift and go to state 13
+    PRINT           shift and go to state 16
+    IF              shift and go to state 17
+    FOR             shift and go to state 18
+    WHILE           shift and go to state 19
+    TRUE            shift and go to state 20
+    FALSE           shift and go to state 21
+    NUMBER          shift and go to state 22
+
+  ! LPAREN          [ reduce using rule 34 (empty -> .) ]
+  ! DOUBLEQUOTES    [ reduce using rule 34 (empty -> .) ]
+  ! IDENTIFIER      [ reduce using rule 34 (empty -> .) ]
+  ! PRINT           [ reduce using rule 34 (empty -> .) ]
+  ! IF              [ reduce using rule 34 (empty -> .) ]
+  ! FOR             [ reduce using rule 34 (empty -> .) ]
+  ! WHILE           [ reduce using rule 34 (empty -> .) ]
+  ! TRUE            [ reduce using rule 34 (empty -> .) ]
+  ! FALSE           [ reduce using rule 34 (empty -> .) ]
+  ! NUMBER          [ reduce using rule 34 (empty -> .) ]
+
+    expression                     shift and go to state 6
+    statements                     shift and go to state 63
+    statement                      shift and go to state 3
+    empty                          shift and go to state 4
+    conditional                    shift and go to state 5
+    print_statement                shift and go to state 7
+    inline_if_statement            shift and go to state 8
+    for_statement                  shift and go to state 9
+    while_statement                shift and go to state 10
+    bool                           shift and go to state 14
+    digit                          shift and go to state 15
+
+state 61
+
+    (13) inline_if_statement -> IF expression COLON statements ELSE . statements
+    (2) statements -> . statement statements
+    (3) statements -> . statement
+    (4) statements -> . empty
+    (5) statement -> . conditional
+    (6) statement -> . expression
+    (7) statement -> . print_statement
+    (8) statement -> . empty
+    (34) empty -> .
+    (9) conditional -> . inline_if_statement
+    (10) conditional -> . for_statement
+    (11) conditional -> . while_statement
+    (21) expression -> . expression PLUS expression
+    (22) expression -> . expression MINUS expression
+    (23) expression -> . expression TIMES expression
+    (24) expression -> . expression DIVIDE expression
+    (25) expression -> . expression EQUALTO expression
+    (26) expression -> . expression GREATERTHAN expression
+    (27) expression -> . expression LESSTHAN expression
+    (28) expression -> . LPAREN expression RPAREN
+    (29) expression -> . DOUBLEQUOTES expression DOUBLEQUOTES
+    (30) expression -> . IDENTIFIER expression
+    (31) expression -> . bool
+    (32) expression -> . digit
+    (33) expression -> . empty
+    (19) print_statement -> . PRINT LPAREN expression RPAREN
+    (12) inline_if_statement -> . IF LPAREN expression RPAREN COLON statements
+    (13) inline_if_statement -> . IF expression COLON statements ELSE statements
+    (14) for_statement -> . FOR expression IN range_expression
+    (16) while_statement -> . WHILE expression COLON statements
+    (17) bool -> . TRUE
+    (18) bool -> . FALSE
+    (20) digit -> . NUMBER
+
+  ! shift/reduce conflict for LPAREN resolved as shift
+  ! shift/reduce conflict for DOUBLEQUOTES resolved as shift
+  ! shift/reduce conflict for IDENTIFIER resolved as shift
+  ! shift/reduce conflict for PRINT resolved as shift
+  ! shift/reduce conflict for IF resolved as shift
+  ! shift/reduce conflict for FOR resolved as shift
+  ! shift/reduce conflict for WHILE resolved as shift
+  ! shift/reduce conflict for TRUE resolved as shift
+  ! shift/reduce conflict for FALSE resolved as shift
+  ! shift/reduce conflict for NUMBER resolved as shift
+    $end            reduce using rule 34 (empty -> .)
+    ELSE            reduce using rule 34 (empty -> .)
+    PLUS            reduce using rule 34 (empty -> .)
+    MINUS           reduce using rule 34 (empty -> .)
+    TIMES           reduce using rule 34 (empty -> .)
+    DIVIDE          reduce using rule 34 (empty -> .)
+    EQUALTO         reduce using rule 34 (empty -> .)
+    GREATERTHAN     reduce using rule 34 (empty -> .)
+    LESSTHAN        reduce using rule 34 (empty -> .)
+    LPAREN          shift and go to state 11
+    DOUBLEQUOTES    shift and go to state 12
+    IDENTIFIER      shift and go to state 13
+    PRINT           shift and go to state 16
+    IF              shift and go to state 17
+    FOR             shift and go to state 18
+    WHILE           shift and go to state 19
+    TRUE            shift and go to state 20
+    FALSE           shift and go to state 21
+    NUMBER          shift and go to state 22
+
+  ! LPAREN          [ reduce using rule 34 (empty -> .) ]
+  ! DOUBLEQUOTES    [ reduce using rule 34 (empty -> .) ]
+  ! IDENTIFIER      [ reduce using rule 34 (empty -> .) ]
+  ! PRINT           [ reduce using rule 34 (empty -> .) ]
+  ! IF              [ reduce using rule 34 (empty -> .) ]
+  ! FOR             [ reduce using rule 34 (empty -> .) ]
+  ! WHILE           [ reduce using rule 34 (empty -> .) ]
+  ! TRUE            [ reduce using rule 34 (empty -> .) ]
+  ! FALSE           [ reduce using rule 34 (empty -> .) ]
+  ! NUMBER          [ reduce using rule 34 (empty -> .) ]
+
+    expression                     shift and go to state 6
+    statements                     shift and go to state 64
+    statement                      shift and go to state 3
+    empty                          shift and go to state 4
+    conditional                    shift and go to state 5
+    print_statement                shift and go to state 7
+    inline_if_statement            shift and go to state 8
+    for_statement                  shift and go to state 9
+    while_statement                shift and go to state 10
+    bool                           shift and go to state 14
+    digit                          shift and go to state 15
+
+state 62
+
+    (15) range_expression -> RULE_OPEN RANGE . NUMBER COMMA NUMBER RULE_CLOSE
+
+    NUMBER          shift and go to state 65
+
+
+state 63
+
+    (12) inline_if_statement -> IF LPAREN expression RPAREN COLON statements .
+
+    LPAREN          reduce using rule 12 (inline_if_statement -> IF LPAREN expression RPAREN COLON statements .)
+    DOUBLEQUOTES    reduce using rule 12 (inline_if_statement -> IF LPAREN expression RPAREN COLON statements .)
+    IDENTIFIER      reduce using rule 12 (inline_if_statement -> IF LPAREN expression RPAREN COLON statements .)
+    PRINT           reduce using rule 12 (inline_if_statement -> IF LPAREN expression RPAREN COLON statements .)
+    IF              reduce using rule 12 (inline_if_statement -> IF LPAREN expression RPAREN COLON statements .)
+    FOR             reduce using rule 12 (inline_if_statement -> IF LPAREN expression RPAREN COLON statements .)
+    WHILE           reduce using rule 12 (inline_if_statement -> IF LPAREN expression RPAREN COLON statements .)
+    TRUE            reduce using rule 12 (inline_if_statement -> IF LPAREN expression RPAREN COLON statements .)
+    FALSE           reduce using rule 12 (inline_if_statement -> IF LPAREN expression RPAREN COLON statements .)
+    NUMBER          reduce using rule 12 (inline_if_statement -> IF LPAREN expression RPAREN COLON statements .)
+    PLUS            reduce using rule 12 (inline_if_statement -> IF LPAREN expression RPAREN COLON statements .)
+    MINUS           reduce using rule 12 (inline_if_statement -> IF LPAREN expression RPAREN COLON statements .)
+    TIMES           reduce using rule 12 (inline_if_statement -> IF LPAREN expression RPAREN COLON statements .)
+    DIVIDE          reduce using rule 12 (inline_if_statement -> IF LPAREN expression RPAREN COLON statements .)
+    EQUALTO         reduce using rule 12 (inline_if_statement -> IF LPAREN expression RPAREN COLON statements .)
+    GREATERTHAN     reduce using rule 12 (inline_if_statement -> IF LPAREN expression RPAREN COLON statements .)
+    LESSTHAN        reduce using rule 12 (inline_if_statement -> IF LPAREN expression RPAREN COLON statements .)
+    $end            reduce using rule 12 (inline_if_statement -> IF LPAREN expression RPAREN COLON statements .)
+    ELSE            reduce using rule 12 (inline_if_statement -> IF LPAREN expression RPAREN COLON statements .)
+
+
+state 64
+
+    (13) inline_if_statement -> IF expression COLON statements ELSE statements .
+
+    LPAREN          reduce using rule 13 (inline_if_statement -> IF expression COLON statements ELSE statements .)
+    DOUBLEQUOTES    reduce using rule 13 (inline_if_statement -> IF expression COLON statements ELSE statements .)
+    IDENTIFIER      reduce using rule 13 (inline_if_statement -> IF expression COLON statements ELSE statements .)
+    PRINT           reduce using rule 13 (inline_if_statement -> IF expression COLON statements ELSE statements .)
+    IF              reduce using rule 13 (inline_if_statement -> IF expression COLON statements ELSE statements .)
+    FOR             reduce using rule 13 (inline_if_statement -> IF expression COLON statements ELSE statements .)
+    WHILE           reduce using rule 13 (inline_if_statement -> IF expression COLON statements ELSE statements .)
+    TRUE            reduce using rule 13 (inline_if_statement -> IF expression COLON statements ELSE statements .)
+    FALSE           reduce using rule 13 (inline_if_statement -> IF expression COLON statements ELSE statements .)
+    NUMBER          reduce using rule 13 (inline_if_statement -> IF expression COLON statements ELSE statements .)
+    PLUS            reduce using rule 13 (inline_if_statement -> IF expression COLON statements ELSE statements .)
+    MINUS           reduce using rule 13 (inline_if_statement -> IF expression COLON statements ELSE statements .)
+    TIMES           reduce using rule 13 (inline_if_statement -> IF expression COLON statements ELSE statements .)
+    DIVIDE          reduce using rule 13 (inline_if_statement -> IF expression COLON statements ELSE statements .)
+    EQUALTO         reduce using rule 13 (inline_if_statement -> IF expression COLON statements ELSE statements .)
+    GREATERTHAN     reduce using rule 13 (inline_if_statement -> IF expression COLON statements ELSE statements .)
+    LESSTHAN        reduce using rule 13 (inline_if_statement -> IF expression COLON statements ELSE statements .)
+    $end            reduce using rule 13 (inline_if_statement -> IF expression COLON statements ELSE statements .)
+    ELSE            reduce using rule 13 (inline_if_statement -> IF expression COLON statements ELSE statements .)
+
+
+state 65
+
+    (15) range_expression -> RULE_OPEN RANGE NUMBER . COMMA NUMBER RULE_CLOSE
+
+    COMMA           shift and go to state 66
+
+
+state 66
+
+    (15) range_expression -> RULE_OPEN RANGE NUMBER COMMA . NUMBER RULE_CLOSE
+
+    NUMBER          shift and go to state 67
+
+
+state 67
+
+    (15) range_expression -> RULE_OPEN RANGE NUMBER COMMA NUMBER . RULE_CLOSE
+
+    RULE_CLOSE      shift and go to state 68
+
+
+state 68
+
+    (15) range_expression -> RULE_OPEN RANGE NUMBER COMMA NUMBER RULE_CLOSE .
+
+    LPAREN          reduce using rule 15 (range_expression -> RULE_OPEN RANGE NUMBER COMMA NUMBER RULE_CLOSE .)
+    DOUBLEQUOTES    reduce using rule 15 (range_expression -> RULE_OPEN RANGE NUMBER COMMA NUMBER RULE_CLOSE .)
+    IDENTIFIER      reduce using rule 15 (range_expression -> RULE_OPEN RANGE NUMBER COMMA NUMBER RULE_CLOSE .)
+    PRINT           reduce using rule 15 (range_expression -> RULE_OPEN RANGE NUMBER COMMA NUMBER RULE_CLOSE .)
+    IF              reduce using rule 15 (range_expression -> RULE_OPEN RANGE NUMBER COMMA NUMBER RULE_CLOSE .)
+    FOR             reduce using rule 15 (range_expression -> RULE_OPEN RANGE NUMBER COMMA NUMBER RULE_CLOSE .)
+    WHILE           reduce using rule 15 (range_expression -> RULE_OPEN RANGE NUMBER COMMA NUMBER RULE_CLOSE .)
+    TRUE            reduce using rule 15 (range_expression -> RULE_OPEN RANGE NUMBER COMMA NUMBER RULE_CLOSE .)
+    FALSE           reduce using rule 15 (range_expression -> RULE_OPEN RANGE NUMBER COMMA NUMBER RULE_CLOSE .)
+    NUMBER          reduce using rule 15 (range_expression -> RULE_OPEN RANGE NUMBER COMMA NUMBER RULE_CLOSE .)
+    PLUS            reduce using rule 15 (range_expression -> RULE_OPEN RANGE NUMBER COMMA NUMBER RULE_CLOSE .)
+    MINUS           reduce using rule 15 (range_expression -> RULE_OPEN RANGE NUMBER COMMA NUMBER RULE_CLOSE .)
+    TIMES           reduce using rule 15 (range_expression -> RULE_OPEN RANGE NUMBER COMMA NUMBER RULE_CLOSE .)
+    DIVIDE          reduce using rule 15 (range_expression -> RULE_OPEN RANGE NUMBER COMMA NUMBER RULE_CLOSE .)
+    EQUALTO         reduce using rule 15 (range_expression -> RULE_OPEN RANGE NUMBER COMMA NUMBER RULE_CLOSE .)
+    GREATERTHAN     reduce using rule 15 (range_expression -> RULE_OPEN RANGE NUMBER COMMA NUMBER RULE_CLOSE .)
+    LESSTHAN        reduce using rule 15 (range_expression -> RULE_OPEN RANGE NUMBER COMMA NUMBER RULE_CLOSE .)
+    $end            reduce using rule 15 (range_expression -> RULE_OPEN RANGE NUMBER COMMA NUMBER RULE_CLOSE .)
+    ELSE            reduce using rule 15 (range_expression -> RULE_OPEN RANGE NUMBER COMMA NUMBER RULE_CLOSE .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for LPAREN in state 0 resolved as shift
+WARNING: shift/reduce conflict for DOUBLEQUOTES in state 0 resolved as shift
+WARNING: shift/reduce conflict for IDENTIFIER in state 0 resolved as shift
+WARNING: shift/reduce conflict for PRINT in state 0 resolved as shift
+WARNING: shift/reduce conflict for IF in state 0 resolved as shift
+WARNING: shift/reduce conflict for FOR in state 0 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 0 resolved as shift
+WARNING: shift/reduce conflict for TRUE in state 0 resolved as shift
+WARNING: shift/reduce conflict for FALSE in state 0 resolved as shift
+WARNING: shift/reduce conflict for NUMBER in state 0 resolved as shift
+WARNING: shift/reduce conflict for LPAREN in state 3 resolved as shift
+WARNING: shift/reduce conflict for DOUBLEQUOTES in state 3 resolved as shift
+WARNING: shift/reduce conflict for IDENTIFIER in state 3 resolved as shift
+WARNING: shift/reduce conflict for PRINT in state 3 resolved as shift
+WARNING: shift/reduce conflict for IF in state 3 resolved as shift
+WARNING: shift/reduce conflict for FOR in state 3 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 3 resolved as shift
+WARNING: shift/reduce conflict for TRUE in state 3 resolved as shift
+WARNING: shift/reduce conflict for FALSE in state 3 resolved as shift
+WARNING: shift/reduce conflict for NUMBER in state 3 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 6 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 6 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 6 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 6 resolved as shift
+WARNING: shift/reduce conflict for EQUALTO in state 6 resolved as shift
+WARNING: shift/reduce conflict for GREATERTHAN in state 6 resolved as shift
+WARNING: shift/reduce conflict for LESSTHAN in state 6 resolved as shift
+WARNING: shift/reduce conflict for DOUBLEQUOTES in state 12 resolved as shift
+WARNING: shift/reduce conflict for LPAREN in state 13 resolved as shift
+WARNING: shift/reduce conflict for DOUBLEQUOTES in state 13 resolved as shift
+WARNING: shift/reduce conflict for IDENTIFIER in state 13 resolved as shift
+WARNING: shift/reduce conflict for TRUE in state 13 resolved as shift
+WARNING: shift/reduce conflict for FALSE in state 13 resolved as shift
+WARNING: shift/reduce conflict for NUMBER in state 13 resolved as shift
+WARNING: shift/reduce conflict for LPAREN in state 24 resolved as shift
+WARNING: shift/reduce conflict for DOUBLEQUOTES in state 24 resolved as shift
+WARNING: shift/reduce conflict for IDENTIFIER in state 24 resolved as shift
+WARNING: shift/reduce conflict for TRUE in state 24 resolved as shift
+WARNING: shift/reduce conflict for FALSE in state 24 resolved as shift
+WARNING: shift/reduce conflict for NUMBER in state 24 resolved as shift
+WARNING: shift/reduce conflict for LPAREN in state 25 resolved as shift
+WARNING: shift/reduce conflict for DOUBLEQUOTES in state 25 resolved as shift
+WARNING: shift/reduce conflict for IDENTIFIER in state 25 resolved as shift
+WARNING: shift/reduce conflict for TRUE in state 25 resolved as shift
+WARNING: shift/reduce conflict for FALSE in state 25 resolved as shift
+WARNING: shift/reduce conflict for NUMBER in state 25 resolved as shift
+WARNING: shift/reduce conflict for LPAREN in state 26 resolved as shift
+WARNING: shift/reduce conflict for DOUBLEQUOTES in state 26 resolved as shift
+WARNING: shift/reduce conflict for IDENTIFIER in state 26 resolved as shift
+WARNING: shift/reduce conflict for TRUE in state 26 resolved as shift
+WARNING: shift/reduce conflict for FALSE in state 26 resolved as shift
+WARNING: shift/reduce conflict for NUMBER in state 26 resolved as shift
+WARNING: shift/reduce conflict for LPAREN in state 27 resolved as shift
+WARNING: shift/reduce conflict for DOUBLEQUOTES in state 27 resolved as shift
+WARNING: shift/reduce conflict for IDENTIFIER in state 27 resolved as shift
+WARNING: shift/reduce conflict for TRUE in state 27 resolved as shift
+WARNING: shift/reduce conflict for FALSE in state 27 resolved as shift
+WARNING: shift/reduce conflict for NUMBER in state 27 resolved as shift
+WARNING: shift/reduce conflict for LPAREN in state 28 resolved as shift
+WARNING: shift/reduce conflict for DOUBLEQUOTES in state 28 resolved as shift
+WARNING: shift/reduce conflict for IDENTIFIER in state 28 resolved as shift
+WARNING: shift/reduce conflict for TRUE in state 28 resolved as shift
+WARNING: shift/reduce conflict for FALSE in state 28 resolved as shift
+WARNING: shift/reduce conflict for NUMBER in state 28 resolved as shift
+WARNING: shift/reduce conflict for LPAREN in state 29 resolved as shift
+WARNING: shift/reduce conflict for DOUBLEQUOTES in state 29 resolved as shift
+WARNING: shift/reduce conflict for IDENTIFIER in state 29 resolved as shift
+WARNING: shift/reduce conflict for TRUE in state 29 resolved as shift
+WARNING: shift/reduce conflict for FALSE in state 29 resolved as shift
+WARNING: shift/reduce conflict for NUMBER in state 29 resolved as shift
+WARNING: shift/reduce conflict for LPAREN in state 30 resolved as shift
+WARNING: shift/reduce conflict for DOUBLEQUOTES in state 30 resolved as shift
+WARNING: shift/reduce conflict for IDENTIFIER in state 30 resolved as shift
+WARNING: shift/reduce conflict for TRUE in state 30 resolved as shift
+WARNING: shift/reduce conflict for FALSE in state 30 resolved as shift
+WARNING: shift/reduce conflict for NUMBER in state 30 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 34 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 34 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 34 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 34 resolved as shift
+WARNING: shift/reduce conflict for EQUALTO in state 34 resolved as shift
+WARNING: shift/reduce conflict for GREATERTHAN in state 34 resolved as shift
+WARNING: shift/reduce conflict for LESSTHAN in state 34 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 40 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 40 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 40 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 40 resolved as shift
+WARNING: shift/reduce conflict for EQUALTO in state 40 resolved as shift
+WARNING: shift/reduce conflict for GREATERTHAN in state 40 resolved as shift
+WARNING: shift/reduce conflict for LESSTHAN in state 40 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 41 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 41 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 41 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 41 resolved as shift
+WARNING: shift/reduce conflict for EQUALTO in state 41 resolved as shift
+WARNING: shift/reduce conflict for GREATERTHAN in state 41 resolved as shift
+WARNING: shift/reduce conflict for LESSTHAN in state 41 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 42 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 42 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 42 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 42 resolved as shift
+WARNING: shift/reduce conflict for EQUALTO in state 42 resolved as shift
+WARNING: shift/reduce conflict for GREATERTHAN in state 42 resolved as shift
+WARNING: shift/reduce conflict for LESSTHAN in state 42 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 43 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 43 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 43 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 43 resolved as shift
+WARNING: shift/reduce conflict for EQUALTO in state 43 resolved as shift
+WARNING: shift/reduce conflict for GREATERTHAN in state 43 resolved as shift
+WARNING: shift/reduce conflict for LESSTHAN in state 43 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 44 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 44 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 44 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 44 resolved as shift
+WARNING: shift/reduce conflict for EQUALTO in state 44 resolved as shift
+WARNING: shift/reduce conflict for GREATERTHAN in state 44 resolved as shift
+WARNING: shift/reduce conflict for LESSTHAN in state 44 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 45 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 45 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 45 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 45 resolved as shift
+WARNING: shift/reduce conflict for EQUALTO in state 45 resolved as shift
+WARNING: shift/reduce conflict for GREATERTHAN in state 45 resolved as shift
+WARNING: shift/reduce conflict for LESSTHAN in state 45 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 46 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 46 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 46 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 46 resolved as shift
+WARNING: shift/reduce conflict for EQUALTO in state 46 resolved as shift
+WARNING: shift/reduce conflict for GREATERTHAN in state 46 resolved as shift
+WARNING: shift/reduce conflict for LESSTHAN in state 46 resolved as shift
+WARNING: shift/reduce conflict for LPAREN in state 51 resolved as shift
+WARNING: shift/reduce conflict for DOUBLEQUOTES in state 51 resolved as shift
+WARNING: shift/reduce conflict for IDENTIFIER in state 51 resolved as shift
+WARNING: shift/reduce conflict for PRINT in state 51 resolved as shift
+WARNING: shift/reduce conflict for IF in state 51 resolved as shift
+WARNING: shift/reduce conflict for FOR in state 51 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 51 resolved as shift
+WARNING: shift/reduce conflict for TRUE in state 51 resolved as shift
+WARNING: shift/reduce conflict for FALSE in state 51 resolved as shift
+WARNING: shift/reduce conflict for NUMBER in state 51 resolved as shift
+WARNING: shift/reduce conflict for LPAREN in state 53 resolved as shift
+WARNING: shift/reduce conflict for DOUBLEQUOTES in state 53 resolved as shift
+WARNING: shift/reduce conflict for IDENTIFIER in state 53 resolved as shift
+WARNING: shift/reduce conflict for PRINT in state 53 resolved as shift
+WARNING: shift/reduce conflict for IF in state 53 resolved as shift
+WARNING: shift/reduce conflict for FOR in state 53 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 53 resolved as shift
+WARNING: shift/reduce conflict for TRUE in state 53 resolved as shift
+WARNING: shift/reduce conflict for FALSE in state 53 resolved as shift
+WARNING: shift/reduce conflict for NUMBER in state 53 resolved as shift
+WARNING: shift/reduce conflict for COLON in state 55 resolved as shift
+WARNING: shift/reduce conflict for LPAREN in state 60 resolved as shift
+WARNING: shift/reduce conflict for DOUBLEQUOTES in state 60 resolved as shift
+WARNING: shift/reduce conflict for IDENTIFIER in state 60 resolved as shift
+WARNING: shift/reduce conflict for PRINT in state 60 resolved as shift
+WARNING: shift/reduce conflict for IF in state 60 resolved as shift
+WARNING: shift/reduce conflict for FOR in state 60 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 60 resolved as shift
+WARNING: shift/reduce conflict for TRUE in state 60 resolved as shift
+WARNING: shift/reduce conflict for FALSE in state 60 resolved as shift
+WARNING: shift/reduce conflict for NUMBER in state 60 resolved as shift
+WARNING: shift/reduce conflict for LPAREN in state 61 resolved as shift
+WARNING: shift/reduce conflict for DOUBLEQUOTES in state 61 resolved as shift
+WARNING: shift/reduce conflict for IDENTIFIER in state 61 resolved as shift
+WARNING: shift/reduce conflict for PRINT in state 61 resolved as shift
+WARNING: shift/reduce conflict for IF in state 61 resolved as shift
+WARNING: shift/reduce conflict for FOR in state 61 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 61 resolved as shift
+WARNING: shift/reduce conflict for TRUE in state 61 resolved as shift
+WARNING: shift/reduce conflict for FALSE in state 61 resolved as shift
+WARNING: shift/reduce conflict for NUMBER in state 61 resolved as shift
+WARNING: reduce/reduce conflict in state 3 resolved using rule (statements -> statement)
+WARNING: rejected rule (empty -> <empty>) in state 3
+WARNING: reduce/reduce conflict in state 4 resolved using rule (statements -> empty)
+WARNING: rejected rule (statement -> empty) in state 4
+WARNING: reduce/reduce conflict in state 4 resolved using rule (statements -> empty)
+WARNING: rejected rule (expression -> empty) in state 4
+WARNING: Rule (statement -> empty) is never reduced
