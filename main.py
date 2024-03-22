@@ -1,5 +1,6 @@
 import ply.lex as lex
 from newParser import parser
+import semantics
 import tokens
 import sys
 
@@ -24,3 +25,5 @@ lexer.input(file_contents)
 result = parser.parse(lexer=lexer)
 
 print(result)
+
+#semantics.analyze(result)
