@@ -1,5 +1,7 @@
 A = (3 * 4)
-#Hello World
+print(A)
+
+
 
 #B = 4.5
 

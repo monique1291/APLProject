@@ -27,7 +27,6 @@ def p_statement(p):
               | expression
               | assignment_statement
               | function_call
-              | print_statement
               | empty
     """
     p[0] = p[1]
@@ -95,7 +94,7 @@ def p_expression(p):
                | expression TIMES term
                | expression DIVIDE term
                | expression EQUAL term
-               | LPAREN expression RPAREN
+               | STRING
     """
     if len(p) == 4:
         if p[1] == '(':
@@ -115,8 +114,8 @@ def p_term(p):
     term : INTEGER
          | FLOAT
          | STRING
-         | IDENTIFIER
          | bool
+         | IDENTIFIER
          | LPAREN expression RPAREN
     """
     p[0] = p[1]
@@ -128,8 +127,11 @@ def p_assignment_statement(p):
 
 
 def p_function_call(p):
-    """function_call : IDENTIFIER LPAREN argument_list RPAREN"""
-    p[0] = ('function_call', p[1], p[3])
+    """function_call : IDENTIFIER LPAREN argument_list RPAREN
+                     | print_statement"""
+    if len(p) == 5:
+        p[0] = ('function_call', p[1], p[3])
+    p[0] = p[1]
 
 
 def p_argument_list(p):
@@ -156,4 +158,3 @@ def p_error(p):
 
 
 parser = yacc.yacc()
-

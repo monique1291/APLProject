@@ -134,7 +134,7 @@ def t_newline(t):
 
 
 def t_STRING(t):
-    r'\"[a-zA-Z_][a-zA-Z_0-9]*\"'  # should i let all strings have same rules as identifiers?
+    r"""\"[a-zA-Z_][a-zA-Z_0-9]*\""""  # should i let all strings have same rules as identifiers?
     t.value = t.value
     return t
 
