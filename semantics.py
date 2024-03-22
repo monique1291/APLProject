@@ -1,8 +1,10 @@
 def __init__(self):
     self.variables = {}  # Dictionary to store variables and their types
 
+
 def analyze(self, parse_tree):
     self.traverse(parse_tree)
+
 
 def traverse(self, node):
     if isinstance(node, tuple):
@@ -26,6 +28,7 @@ def traverse(self, node):
             for child in node[1:]:
                 self.traverse(child)
 
+
 def analyze_assignment(self, node):
     identifier = node[1]
     expression = node[2]
@@ -34,7 +37,8 @@ def analyze_assignment(self, node):
     # Example checks: variable existence, type compatibility, etc.
     # Update self.variables dictionary if needed
 
-def analyze_function_call(self, node):
+
+"""def analyze_function_call(self, node):
     # Perform semantic checks for function calls
     # Example checks: function existence, argument types, etc.
 
@@ -56,4 +60,4 @@ def analyze_while_loop(self, node):
 
 def analyze_print_statement(self, node):
     # Perform semantic checks for print statements
-    # Example checks: argument types, etc.
+    # Example checks: argument types, etc."""
