@@ -3,10 +3,17 @@ from ply.lex import lex
 from tokens import *
 
 # Define the start symbol of your grammar
-start = 'statements'
+start = 'newCode'
 
 
 # Define the grammar rules
+def p_newCode(p):
+    """
+    newCode : statements
+    """
+    p[0] = p[1]
+
+
 def p_statements(p):
     """
     statements : statement statements
@@ -27,6 +34,7 @@ def p_statement(p):
               | expression
               | assignment_statement
               | function_call
+              | print_statement
               | empty
     """
     p[0] = p[1]
@@ -35,6 +43,7 @@ def p_statement(p):
 def p_conditional(p):
     """
     conditional : inline_if_statement
+                | block_if_else_statement
                 | for_statement
                 | while_statement
     """
@@ -43,11 +52,23 @@ def p_conditional(p):
 
 def p_inline_if_statement(p):
     """inline_if_statement : IF expression COLON statements
-                           | IF expression COLON statements ELSE statements"""
+                           """
     if len(p) == 5:
         p[0] = ('inline_if_statement', p[2], p[4])
-    elif len(p) == 7:
-        p[0] = ('inline_if_statement', p[2], p[4], p[6])
+
+
+def p_block_if_else_statement(p):
+    """
+     block_if_else_statement : IF expression COLON statements block_else_statement
+    """
+    p[0] = ('block_if_else_statement', p[2], p[4], p[5])
+
+
+def p_block_else_statement(p):
+    """
+     block_else_statement : ELSE statements
+    """
+    p[0] = ('block_else_statement', p[2])
 
 
 def p_for_statement(p):
@@ -93,8 +114,18 @@ def p_expression(p):
                | expression MINUS term
                | expression TIMES term
                | expression DIVIDE term
+               | expression EQUALEQUAL term
                | expression EQUAL term
-               | STRING
+               | expression NOTEQUAL term
+               | expression LESSEQUAL term
+               | expression GREATEREQUAL term
+               | expression PLUSEQUAL term
+               | expression MINUSEQUAL term
+               | expression TIMESEQUAL term
+               | expression DIVIDEEQUAL term
+               | expression GREATERTHAN term
+               | expression LESSTHAN term
+               | LPAREN expression RPAREN
     """
     if len(p) == 4:
         if p[1] == '(':
@@ -114,8 +145,8 @@ def p_term(p):
     term : INTEGER
          | FLOAT
          | STRING
-         | bool
          | IDENTIFIER
+         | bool
          | LPAREN expression RPAREN
     """
     p[0] = p[1]
@@ -127,11 +158,8 @@ def p_assignment_statement(p):
 
 
 def p_function_call(p):
-    """function_call : IDENTIFIER LPAREN argument_list RPAREN
-                     | print_statement"""
-    if len(p) == 5:
-        p[0] = ('function_call', p[1], p[3])
-    p[0] = p[1]
+    """function_call : IDENTIFIER LPAREN argument_list RPAREN"""
+    p[0] = ('function_call', p[1], p[3])
 
 
 def p_argument_list(p):

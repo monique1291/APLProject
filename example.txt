@@ -1,9 +1,12 @@
-A = (3 * 4)
-print(A)
-
-
-
+#A = (3 * 4)
+#print(A*4)
 #B = 4.5
+
+if A > B : print("True")
+else if B > A : print("False")
+
+
+
 
 #- is for comments
 

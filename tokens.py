@@ -75,10 +75,16 @@ tokens = [
              'RULE_CLOSE',  # Add RULE_CLOSE token
              'RANGE',  # Add RANGE token
              'PRINT',  # Add PRINT token
-             'EQUALTO',  # Add EQUALTO token
          ] + list(reserved.values())  # + literals #may be able to remove literals
 
 # Regular expression rules for simple tokens
+# Regular expression rule for comparison operators
+t_EQUALEQUAL = r'\=='
+t_NOTEQUAL = r'!='
+t_LESSTHAN = r'<'
+t_GREATERTHAN = r'>'
+t_LESSEQUAL = r'<='
+t_GREATEREQUAL = r'>='
 t_PLUS = r'\+'
 t_MINUS = r'-'
 t_TIMES = r'\*'
@@ -99,13 +105,7 @@ t_DOUBLEQUOTES = r'\"'
 t_SINGLEQUOTES = r'\''
 t_COLON = r'\:'  # Regular expression rule for COLON token
 
-# Regular expression rule for comparison operators
-t_EQUALEQUAL = r'=='
-t_NOTEQUAL = r'!='
-t_LESSTHAN = r'<'
-t_GREATERTHAN = r'>'
-t_LESSEQUAL = r'<='
-t_GREATEREQUAL = r'>='
+
 
 
 # Regular expression rule for comments
