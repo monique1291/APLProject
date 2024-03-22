@@ -89,28 +89,37 @@ def p_print_statement(p):
 
 def p_expression(p):
     """
-    expression : expression PLUS expression
-               | expression MINUS expression
-               | expression TIMES expression
-               | expression DIVIDE expression
-               | expression EQUALTO expression
+    expression : term
+               | expression PLUS term
+               | expression MINUS term
+               | expression TIMES term
+               | expression DIVIDE term
+               | expression EQUAL term
                | LPAREN expression RPAREN
-               | INTEGER
-               | FLOAT
-               | STRING
-               | IDENTIFIER
-               | bool
     """
-
-
-
-
     if len(p) == 4:
-        p[0] = ('expression', p[2], p[1], p[3])
+        if p[1] == '(':
+            p[0] = p[2]  # If the expression is wrapped in parentheses, return the expression without parentheses
+        elif p[2] == '=':
+            p[0] = ('assignment', p[1], p[3])
+        else:
+            p[0] = ('binary_operation', p[2], p[1], p[3])
     elif len(p) == 2:
-        p[0] = ('expression', p[1])
+        p[0] = p[1]
     else:
-        p[0] = ('expression', p[1], p[2], p[3])
+        p[0] = p[2]  # For parentheses case
+
+
+def p_term(p):
+    """
+    term : INTEGER
+         | FLOAT
+         | STRING
+         | IDENTIFIER
+         | bool
+         | LPAREN expression RPAREN
+    """
+    p[0] = p[1]
 
 
 def p_assignment_statement(p):
@@ -140,7 +149,11 @@ def p_empty(p):
 
 
 def p_error(p):
-    raise SyntaxError(f"Syntax Error: Unexpected token '{p.value}'")
+    if p:
+        raise SyntaxError(f"Syntax Error: Unexpected token '{p.value}' at line {p.lineno}")
+    else:
+        raise SyntaxError("Syntax Error: Unexpected end of input")
 
 
 parser = yacc.yacc()
+
