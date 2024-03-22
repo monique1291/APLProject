@@ -41,7 +41,6 @@ Unused terminals:
     RULE_CLOSE
     RULE_OPEN
     SINGLEQUOTES
-    STRING
     SWITCH
     Str
     THEN
@@ -79,13 +78,14 @@ Rule 25    expression -> expression EQUALTO expression
 Rule 26    expression -> LPAREN expression RPAREN
 Rule 27    expression -> INTEGER
 Rule 28    expression -> FLOAT
-Rule 29    expression -> IDENTIFIER
-Rule 30    expression -> bool
-Rule 31    assignment_statement -> IDENTIFIER EQUAL expression
-Rule 32    function_call -> IDENTIFIER LPAREN argument_list RPAREN
-Rule 33    argument_list -> expression
-Rule 34    argument_list -> argument_list COMMA expression
-Rule 35    empty -> <empty>
+Rule 29    expression -> STRING
+Rule 30    expression -> IDENTIFIER
+Rule 31    expression -> bool
+Rule 32    assignment_statement -> IDENTIFIER EQUAL expression
+Rule 33    function_call -> IDENTIFIER LPAREN argument_list RPAREN
+Rule 34    argument_list -> expression
+Rule 35    argument_list -> argument_list COMMA expression
+Rule 36    empty -> <empty>
 
 Terminals, with rules where they appear
 
@@ -95,7 +95,7 @@ Bool                 :
 CASE                 : 
 CLASS                : 
 COLON                : 13 14 17
-COMMA                : 16 34
+COMMA                : 16 35
 COMMENTS             : 
 DEF                  : 
 DIVIDE               : 24
@@ -105,7 +105,7 @@ DOUBLEQUOTES         :
 Double               : 
 ELIF                 : 
 ELSE                 : 14
-EQUAL                : 31
+EQUAL                : 32
 EQUALEQUAL           : 
 EQUALTO              : 25
 FALSE                : 19
@@ -117,7 +117,7 @@ Float                :
 GLOBAL               : 
 GREATEREQUAL         : 
 GREATERTHAN          : 
-IDENTIFIER           : 29 31 32
+IDENTIFIER           : 30 32 33
 IF                   : 13 14
 IMPORT               : 
 IN                   : 15
@@ -127,7 +127,7 @@ IS                   :
 LCURVEDBRACE         : 
 LESSEQUAL            : 
 LESSTHAN             : 
-LPAREN               : 20 26 32
+LPAREN               : 20 26 33
 LSQUAREDBRACKET      : 
 MAIN                 : 
 MINUS                : 22
@@ -142,12 +142,12 @@ RANGE                : 16
 RCURVEDBRACE         : 
 RESERVEDWORD         : 
 RETURN               : 
-RPAREN               : 20 26 32
+RPAREN               : 20 26 33
 RSQUAREDBRACKET      : 
 RULE_CLOSE           : 
 RULE_OPEN            : 
 SINGLEQUOTES         : 
-STRING               : 
+STRING               : 29
 SWITCH               : 
 Str                  : 
 THEN                 : 
@@ -160,12 +160,12 @@ error                :
 
 Nonterminals, with rules where they appear
 
-argument_list        : 32 34
+argument_list        : 33 35
 assignment_statement : 6
-bool                 : 30
+bool                 : 31
 conditional          : 4
 empty                : 3 9
-expression           : 5 13 14 15 16 16 17 20 21 21 22 22 23 23 24 24 25 25 26 31 33 34
+expression           : 5 13 14 15 16 16 17 20 21 21 22 22 23 23 24 24 25 25 26 32 34 35
 for_statement        : 11
 function_call        : 7
 inline_if_statement  : 10
@@ -189,7 +189,7 @@ state 0
     (7) statement -> . function_call
     (8) statement -> . print_statement
     (9) statement -> . empty
-    (35) empty -> .
+    (36) empty -> .
     (10) conditional -> . inline_if_statement
     (11) conditional -> . for_statement
     (12) conditional -> . while_statement
@@ -201,10 +201,11 @@ state 0
     (26) expression -> . LPAREN expression RPAREN
     (27) expression -> . INTEGER
     (28) expression -> . FLOAT
-    (29) expression -> . IDENTIFIER
-    (30) expression -> . bool
-    (31) assignment_statement -> . IDENTIFIER EQUAL expression
-    (32) function_call -> . IDENTIFIER LPAREN argument_list RPAREN
+    (29) expression -> . STRING
+    (30) expression -> . IDENTIFIER
+    (31) expression -> . bool
+    (32) assignment_statement -> . IDENTIFIER EQUAL expression
+    (33) function_call -> . IDENTIFIER LPAREN argument_list RPAREN
     (20) print_statement -> . PRINT LPAREN expression RPAREN
     (13) inline_if_statement -> . IF expression COLON statements
     (14) inline_if_statement -> . IF expression COLON statements ELSE statements
@@ -216,6 +217,7 @@ state 0
   ! shift/reduce conflict for LPAREN resolved as shift
   ! shift/reduce conflict for INTEGER resolved as shift
   ! shift/reduce conflict for FLOAT resolved as shift
+  ! shift/reduce conflict for STRING resolved as shift
   ! shift/reduce conflict for IDENTIFIER resolved as shift
   ! shift/reduce conflict for PRINT resolved as shift
   ! shift/reduce conflict for IF resolved as shift
@@ -223,28 +225,30 @@ state 0
   ! shift/reduce conflict for WHILE resolved as shift
   ! shift/reduce conflict for TRUE resolved as shift
   ! shift/reduce conflict for FALSE resolved as shift
-    $end            reduce using rule 35 (empty -> .)
+    $end            reduce using rule 36 (empty -> .)
     LPAREN          shift and go to state 12
     INTEGER         shift and go to state 13
     FLOAT           shift and go to state 14
-    IDENTIFIER      shift and go to state 15
-    PRINT           shift and go to state 17
-    IF              shift and go to state 18
-    FOR             shift and go to state 19
-    WHILE           shift and go to state 20
-    TRUE            shift and go to state 21
-    FALSE           shift and go to state 22
+    STRING          shift and go to state 15
+    IDENTIFIER      shift and go to state 16
+    PRINT           shift and go to state 18
+    IF              shift and go to state 19
+    FOR             shift and go to state 20
+    WHILE           shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
 
-  ! LPAREN          [ reduce using rule 35 (empty -> .) ]
-  ! INTEGER         [ reduce using rule 35 (empty -> .) ]
-  ! FLOAT           [ reduce using rule 35 (empty -> .) ]
-  ! IDENTIFIER      [ reduce using rule 35 (empty -> .) ]
-  ! PRINT           [ reduce using rule 35 (empty -> .) ]
-  ! IF              [ reduce using rule 35 (empty -> .) ]
-  ! FOR             [ reduce using rule 35 (empty -> .) ]
-  ! WHILE           [ reduce using rule 35 (empty -> .) ]
-  ! TRUE            [ reduce using rule 35 (empty -> .) ]
-  ! FALSE           [ reduce using rule 35 (empty -> .) ]
+  ! LPAREN          [ reduce using rule 36 (empty -> .) ]
+  ! INTEGER         [ reduce using rule 36 (empty -> .) ]
+  ! FLOAT           [ reduce using rule 36 (empty -> .) ]
+  ! STRING          [ reduce using rule 36 (empty -> .) ]
+  ! IDENTIFIER      [ reduce using rule 36 (empty -> .) ]
+  ! PRINT           [ reduce using rule 36 (empty -> .) ]
+  ! IF              [ reduce using rule 36 (empty -> .) ]
+  ! FOR             [ reduce using rule 36 (empty -> .) ]
+  ! WHILE           [ reduce using rule 36 (empty -> .) ]
+  ! TRUE            [ reduce using rule 36 (empty -> .) ]
+  ! FALSE           [ reduce using rule 36 (empty -> .) ]
 
     statements                     shift and go to state 1
     statement                      shift and go to state 2
@@ -257,7 +261,7 @@ state 0
     inline_if_statement            shift and go to state 9
     for_statement                  shift and go to state 10
     while_statement                shift and go to state 11
-    bool                           shift and go to state 16
+    bool                           shift and go to state 17
 
 state 1
 
@@ -278,7 +282,7 @@ state 2
     (7) statement -> . function_call
     (8) statement -> . print_statement
     (9) statement -> . empty
-    (35) empty -> .
+    (36) empty -> .
     (10) conditional -> . inline_if_statement
     (11) conditional -> . for_statement
     (12) conditional -> . while_statement
@@ -290,10 +294,11 @@ state 2
     (26) expression -> . LPAREN expression RPAREN
     (27) expression -> . INTEGER
     (28) expression -> . FLOAT
-    (29) expression -> . IDENTIFIER
-    (30) expression -> . bool
-    (31) assignment_statement -> . IDENTIFIER EQUAL expression
-    (32) function_call -> . IDENTIFIER LPAREN argument_list RPAREN
+    (29) expression -> . STRING
+    (30) expression -> . IDENTIFIER
+    (31) expression -> . bool
+    (32) assignment_statement -> . IDENTIFIER EQUAL expression
+    (33) function_call -> . IDENTIFIER LPAREN argument_list RPAREN
     (20) print_statement -> . PRINT LPAREN expression RPAREN
     (13) inline_if_statement -> . IF expression COLON statements
     (14) inline_if_statement -> . IF expression COLON statements ELSE statements
@@ -307,6 +312,7 @@ state 2
   ! reduce/reduce conflict for LPAREN resolved using rule 2 (statements -> statement .)
   ! reduce/reduce conflict for INTEGER resolved using rule 2 (statements -> statement .)
   ! reduce/reduce conflict for FLOAT resolved using rule 2 (statements -> statement .)
+  ! reduce/reduce conflict for STRING resolved using rule 2 (statements -> statement .)
   ! reduce/reduce conflict for IDENTIFIER resolved using rule 2 (statements -> statement .)
   ! reduce/reduce conflict for PRINT resolved using rule 2 (statements -> statement .)
   ! reduce/reduce conflict for IF resolved using rule 2 (statements -> statement .)
@@ -317,6 +323,7 @@ state 2
   ! shift/reduce conflict for LPAREN resolved as shift
   ! shift/reduce conflict for INTEGER resolved as shift
   ! shift/reduce conflict for FLOAT resolved as shift
+  ! shift/reduce conflict for STRING resolved as shift
   ! shift/reduce conflict for IDENTIFIER resolved as shift
   ! shift/reduce conflict for PRINT resolved as shift
   ! shift/reduce conflict for IF resolved as shift
@@ -329,17 +336,19 @@ state 2
     LPAREN          shift and go to state 12
     INTEGER         shift and go to state 13
     FLOAT           shift and go to state 14
-    IDENTIFIER      shift and go to state 15
-    PRINT           shift and go to state 17
-    IF              shift and go to state 18
-    FOR             shift and go to state 19
-    WHILE           shift and go to state 20
-    TRUE            shift and go to state 21
-    FALSE           shift and go to state 22
+    STRING          shift and go to state 15
+    IDENTIFIER      shift and go to state 16
+    PRINT           shift and go to state 18
+    IF              shift and go to state 19
+    FOR             shift and go to state 20
+    WHILE           shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
 
   ! LPAREN          [ reduce using rule 2 (statements -> statement .) ]
   ! INTEGER         [ reduce using rule 2 (statements -> statement .) ]
   ! FLOAT           [ reduce using rule 2 (statements -> statement .) ]
+  ! STRING          [ reduce using rule 2 (statements -> statement .) ]
   ! IDENTIFIER      [ reduce using rule 2 (statements -> statement .) ]
   ! PRINT           [ reduce using rule 2 (statements -> statement .) ]
   ! IF              [ reduce using rule 2 (statements -> statement .) ]
@@ -347,21 +356,22 @@ state 2
   ! WHILE           [ reduce using rule 2 (statements -> statement .) ]
   ! TRUE            [ reduce using rule 2 (statements -> statement .) ]
   ! FALSE           [ reduce using rule 2 (statements -> statement .) ]
-  ! $end            [ reduce using rule 35 (empty -> .) ]
-  ! ELSE            [ reduce using rule 35 (empty -> .) ]
-  ! LPAREN          [ reduce using rule 35 (empty -> .) ]
-  ! INTEGER         [ reduce using rule 35 (empty -> .) ]
-  ! FLOAT           [ reduce using rule 35 (empty -> .) ]
-  ! IDENTIFIER      [ reduce using rule 35 (empty -> .) ]
-  ! PRINT           [ reduce using rule 35 (empty -> .) ]
-  ! IF              [ reduce using rule 35 (empty -> .) ]
-  ! FOR             [ reduce using rule 35 (empty -> .) ]
-  ! WHILE           [ reduce using rule 35 (empty -> .) ]
-  ! TRUE            [ reduce using rule 35 (empty -> .) ]
-  ! FALSE           [ reduce using rule 35 (empty -> .) ]
+  ! $end            [ reduce using rule 36 (empty -> .) ]
+  ! ELSE            [ reduce using rule 36 (empty -> .) ]
+  ! LPAREN          [ reduce using rule 36 (empty -> .) ]
+  ! INTEGER         [ reduce using rule 36 (empty -> .) ]
+  ! FLOAT           [ reduce using rule 36 (empty -> .) ]
+  ! STRING          [ reduce using rule 36 (empty -> .) ]
+  ! IDENTIFIER      [ reduce using rule 36 (empty -> .) ]
+  ! PRINT           [ reduce using rule 36 (empty -> .) ]
+  ! IF              [ reduce using rule 36 (empty -> .) ]
+  ! FOR             [ reduce using rule 36 (empty -> .) ]
+  ! WHILE           [ reduce using rule 36 (empty -> .) ]
+  ! TRUE            [ reduce using rule 36 (empty -> .) ]
+  ! FALSE           [ reduce using rule 36 (empty -> .) ]
 
     statement                      shift and go to state 2
-    statements                     shift and go to state 23
+    statements                     shift and go to state 24
     empty                          shift and go to state 3
     conditional                    shift and go to state 4
     expression                     shift and go to state 5
@@ -371,7 +381,7 @@ state 2
     inline_if_statement            shift and go to state 9
     for_statement                  shift and go to state 10
     while_statement                shift and go to state 11
-    bool                           shift and go to state 16
+    bool                           shift and go to state 17
 
 state 3
 
@@ -381,6 +391,7 @@ state 3
   ! reduce/reduce conflict for LPAREN resolved using rule 3 (statements -> empty .)
   ! reduce/reduce conflict for INTEGER resolved using rule 3 (statements -> empty .)
   ! reduce/reduce conflict for FLOAT resolved using rule 3 (statements -> empty .)
+  ! reduce/reduce conflict for STRING resolved using rule 3 (statements -> empty .)
   ! reduce/reduce conflict for IDENTIFIER resolved using rule 3 (statements -> empty .)
   ! reduce/reduce conflict for PRINT resolved using rule 3 (statements -> empty .)
   ! reduce/reduce conflict for IF resolved using rule 3 (statements -> empty .)
@@ -395,6 +406,7 @@ state 3
     LPAREN          reduce using rule 3 (statements -> empty .)
     INTEGER         reduce using rule 3 (statements -> empty .)
     FLOAT           reduce using rule 3 (statements -> empty .)
+    STRING          reduce using rule 3 (statements -> empty .)
     IDENTIFIER      reduce using rule 3 (statements -> empty .)
     PRINT           reduce using rule 3 (statements -> empty .)
     IF              reduce using rule 3 (statements -> empty .)
@@ -406,6 +418,7 @@ state 3
   ! LPAREN          [ reduce using rule 9 (statement -> empty .) ]
   ! INTEGER         [ reduce using rule 9 (statement -> empty .) ]
   ! FLOAT           [ reduce using rule 9 (statement -> empty .) ]
+  ! STRING          [ reduce using rule 9 (statement -> empty .) ]
   ! IDENTIFIER      [ reduce using rule 9 (statement -> empty .) ]
   ! PRINT           [ reduce using rule 9 (statement -> empty .) ]
   ! IF              [ reduce using rule 9 (statement -> empty .) ]
@@ -424,6 +437,7 @@ state 4
     LPAREN          reduce using rule 4 (statement -> conditional .)
     INTEGER         reduce using rule 4 (statement -> conditional .)
     FLOAT           reduce using rule 4 (statement -> conditional .)
+    STRING          reduce using rule 4 (statement -> conditional .)
     IDENTIFIER      reduce using rule 4 (statement -> conditional .)
     PRINT           reduce using rule 4 (statement -> conditional .)
     IF              reduce using rule 4 (statement -> conditional .)
@@ -447,6 +461,7 @@ state 5
     LPAREN          reduce using rule 5 (statement -> expression .)
     INTEGER         reduce using rule 5 (statement -> expression .)
     FLOAT           reduce using rule 5 (statement -> expression .)
+    STRING          reduce using rule 5 (statement -> expression .)
     IDENTIFIER      reduce using rule 5 (statement -> expression .)
     PRINT           reduce using rule 5 (statement -> expression .)
     IF              reduce using rule 5 (statement -> expression .)
@@ -456,11 +471,11 @@ state 5
     FALSE           reduce using rule 5 (statement -> expression .)
     $end            reduce using rule 5 (statement -> expression .)
     ELSE            reduce using rule 5 (statement -> expression .)
-    PLUS            shift and go to state 24
-    MINUS           shift and go to state 25
-    TIMES           shift and go to state 26
-    DIVIDE          shift and go to state 27
-    EQUALTO         shift and go to state 28
+    PLUS            shift and go to state 25
+    MINUS           shift and go to state 26
+    TIMES           shift and go to state 27
+    DIVIDE          shift and go to state 28
+    EQUALTO         shift and go to state 29
 
 
 state 6
@@ -470,6 +485,7 @@ state 6
     LPAREN          reduce using rule 6 (statement -> assignment_statement .)
     INTEGER         reduce using rule 6 (statement -> assignment_statement .)
     FLOAT           reduce using rule 6 (statement -> assignment_statement .)
+    STRING          reduce using rule 6 (statement -> assignment_statement .)
     IDENTIFIER      reduce using rule 6 (statement -> assignment_statement .)
     PRINT           reduce using rule 6 (statement -> assignment_statement .)
     IF              reduce using rule 6 (statement -> assignment_statement .)
@@ -488,6 +504,7 @@ state 7
     LPAREN          reduce using rule 7 (statement -> function_call .)
     INTEGER         reduce using rule 7 (statement -> function_call .)
     FLOAT           reduce using rule 7 (statement -> function_call .)
+    STRING          reduce using rule 7 (statement -> function_call .)
     IDENTIFIER      reduce using rule 7 (statement -> function_call .)
     PRINT           reduce using rule 7 (statement -> function_call .)
     IF              reduce using rule 7 (statement -> function_call .)
@@ -506,6 +523,7 @@ state 8
     LPAREN          reduce using rule 8 (statement -> print_statement .)
     INTEGER         reduce using rule 8 (statement -> print_statement .)
     FLOAT           reduce using rule 8 (statement -> print_statement .)
+    STRING          reduce using rule 8 (statement -> print_statement .)
     IDENTIFIER      reduce using rule 8 (statement -> print_statement .)
     PRINT           reduce using rule 8 (statement -> print_statement .)
     IF              reduce using rule 8 (statement -> print_statement .)
@@ -524,6 +542,7 @@ state 9
     LPAREN          reduce using rule 10 (conditional -> inline_if_statement .)
     INTEGER         reduce using rule 10 (conditional -> inline_if_statement .)
     FLOAT           reduce using rule 10 (conditional -> inline_if_statement .)
+    STRING          reduce using rule 10 (conditional -> inline_if_statement .)
     IDENTIFIER      reduce using rule 10 (conditional -> inline_if_statement .)
     PRINT           reduce using rule 10 (conditional -> inline_if_statement .)
     IF              reduce using rule 10 (conditional -> inline_if_statement .)
@@ -542,6 +561,7 @@ state 10
     LPAREN          reduce using rule 11 (conditional -> for_statement .)
     INTEGER         reduce using rule 11 (conditional -> for_statement .)
     FLOAT           reduce using rule 11 (conditional -> for_statement .)
+    STRING          reduce using rule 11 (conditional -> for_statement .)
     IDENTIFIER      reduce using rule 11 (conditional -> for_statement .)
     PRINT           reduce using rule 11 (conditional -> for_statement .)
     IF              reduce using rule 11 (conditional -> for_statement .)
@@ -560,6 +580,7 @@ state 11
     LPAREN          reduce using rule 12 (conditional -> while_statement .)
     INTEGER         reduce using rule 12 (conditional -> while_statement .)
     FLOAT           reduce using rule 12 (conditional -> while_statement .)
+    STRING          reduce using rule 12 (conditional -> while_statement .)
     IDENTIFIER      reduce using rule 12 (conditional -> while_statement .)
     PRINT           reduce using rule 12 (conditional -> while_statement .)
     IF              reduce using rule 12 (conditional -> while_statement .)
@@ -582,20 +603,22 @@ state 12
     (26) expression -> . LPAREN expression RPAREN
     (27) expression -> . INTEGER
     (28) expression -> . FLOAT
-    (29) expression -> . IDENTIFIER
-    (30) expression -> . bool
+    (29) expression -> . STRING
+    (30) expression -> . IDENTIFIER
+    (31) expression -> . bool
     (18) bool -> . TRUE
     (19) bool -> . FALSE
 
     LPAREN          shift and go to state 12
     INTEGER         shift and go to state 13
     FLOAT           shift and go to state 14
-    IDENTIFIER      shift and go to state 30
-    TRUE            shift and go to state 21
-    FALSE           shift and go to state 22
+    STRING          shift and go to state 15
+    IDENTIFIER      shift and go to state 31
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
 
-    expression                     shift and go to state 29
-    bool                           shift and go to state 16
+    expression                     shift and go to state 30
+    bool                           shift and go to state 17
 
 state 13
 
@@ -609,6 +632,7 @@ state 13
     LPAREN          reduce using rule 27 (expression -> INTEGER .)
     INTEGER         reduce using rule 27 (expression -> INTEGER .)
     FLOAT           reduce using rule 27 (expression -> INTEGER .)
+    STRING          reduce using rule 27 (expression -> INTEGER .)
     IDENTIFIER      reduce using rule 27 (expression -> INTEGER .)
     PRINT           reduce using rule 27 (expression -> INTEGER .)
     IF              reduce using rule 27 (expression -> INTEGER .)
@@ -636,6 +660,7 @@ state 14
     LPAREN          reduce using rule 28 (expression -> FLOAT .)
     INTEGER         reduce using rule 28 (expression -> FLOAT .)
     FLOAT           reduce using rule 28 (expression -> FLOAT .)
+    STRING          reduce using rule 28 (expression -> FLOAT .)
     IDENTIFIER      reduce using rule 28 (expression -> FLOAT .)
     PRINT           reduce using rule 28 (expression -> FLOAT .)
     IF              reduce using rule 28 (expression -> FLOAT .)
@@ -653,68 +678,98 @@ state 14
 
 state 15
 
-    (29) expression -> IDENTIFIER .
-    (31) assignment_statement -> IDENTIFIER . EQUAL expression
-    (32) function_call -> IDENTIFIER . LPAREN argument_list RPAREN
+    (29) expression -> STRING .
 
-  ! shift/reduce conflict for LPAREN resolved as shift
-    PLUS            reduce using rule 29 (expression -> IDENTIFIER .)
-    MINUS           reduce using rule 29 (expression -> IDENTIFIER .)
-    TIMES           reduce using rule 29 (expression -> IDENTIFIER .)
-    DIVIDE          reduce using rule 29 (expression -> IDENTIFIER .)
-    EQUALTO         reduce using rule 29 (expression -> IDENTIFIER .)
-    INTEGER         reduce using rule 29 (expression -> IDENTIFIER .)
-    FLOAT           reduce using rule 29 (expression -> IDENTIFIER .)
-    IDENTIFIER      reduce using rule 29 (expression -> IDENTIFIER .)
-    PRINT           reduce using rule 29 (expression -> IDENTIFIER .)
-    IF              reduce using rule 29 (expression -> IDENTIFIER .)
-    FOR             reduce using rule 29 (expression -> IDENTIFIER .)
-    WHILE           reduce using rule 29 (expression -> IDENTIFIER .)
-    TRUE            reduce using rule 29 (expression -> IDENTIFIER .)
-    FALSE           reduce using rule 29 (expression -> IDENTIFIER .)
-    $end            reduce using rule 29 (expression -> IDENTIFIER .)
-    ELSE            reduce using rule 29 (expression -> IDENTIFIER .)
-    EQUAL           shift and go to state 31
-    LPAREN          shift and go to state 32
-
-  ! LPAREN          [ reduce using rule 29 (expression -> IDENTIFIER .) ]
+    PLUS            reduce using rule 29 (expression -> STRING .)
+    MINUS           reduce using rule 29 (expression -> STRING .)
+    TIMES           reduce using rule 29 (expression -> STRING .)
+    DIVIDE          reduce using rule 29 (expression -> STRING .)
+    EQUALTO         reduce using rule 29 (expression -> STRING .)
+    LPAREN          reduce using rule 29 (expression -> STRING .)
+    INTEGER         reduce using rule 29 (expression -> STRING .)
+    FLOAT           reduce using rule 29 (expression -> STRING .)
+    STRING          reduce using rule 29 (expression -> STRING .)
+    IDENTIFIER      reduce using rule 29 (expression -> STRING .)
+    PRINT           reduce using rule 29 (expression -> STRING .)
+    IF              reduce using rule 29 (expression -> STRING .)
+    FOR             reduce using rule 29 (expression -> STRING .)
+    WHILE           reduce using rule 29 (expression -> STRING .)
+    TRUE            reduce using rule 29 (expression -> STRING .)
+    FALSE           reduce using rule 29 (expression -> STRING .)
+    $end            reduce using rule 29 (expression -> STRING .)
+    ELSE            reduce using rule 29 (expression -> STRING .)
+    RPAREN          reduce using rule 29 (expression -> STRING .)
+    COLON           reduce using rule 29 (expression -> STRING .)
+    IN              reduce using rule 29 (expression -> STRING .)
+    COMMA           reduce using rule 29 (expression -> STRING .)
 
 
 state 16
 
-    (30) expression -> bool .
+    (30) expression -> IDENTIFIER .
+    (32) assignment_statement -> IDENTIFIER . EQUAL expression
+    (33) function_call -> IDENTIFIER . LPAREN argument_list RPAREN
 
-    PLUS            reduce using rule 30 (expression -> bool .)
-    MINUS           reduce using rule 30 (expression -> bool .)
-    TIMES           reduce using rule 30 (expression -> bool .)
-    DIVIDE          reduce using rule 30 (expression -> bool .)
-    EQUALTO         reduce using rule 30 (expression -> bool .)
-    LPAREN          reduce using rule 30 (expression -> bool .)
-    INTEGER         reduce using rule 30 (expression -> bool .)
-    FLOAT           reduce using rule 30 (expression -> bool .)
-    IDENTIFIER      reduce using rule 30 (expression -> bool .)
-    PRINT           reduce using rule 30 (expression -> bool .)
-    IF              reduce using rule 30 (expression -> bool .)
-    FOR             reduce using rule 30 (expression -> bool .)
-    WHILE           reduce using rule 30 (expression -> bool .)
-    TRUE            reduce using rule 30 (expression -> bool .)
-    FALSE           reduce using rule 30 (expression -> bool .)
-    $end            reduce using rule 30 (expression -> bool .)
-    ELSE            reduce using rule 30 (expression -> bool .)
-    RPAREN          reduce using rule 30 (expression -> bool .)
-    COLON           reduce using rule 30 (expression -> bool .)
-    IN              reduce using rule 30 (expression -> bool .)
-    COMMA           reduce using rule 30 (expression -> bool .)
+  ! shift/reduce conflict for LPAREN resolved as shift
+    PLUS            reduce using rule 30 (expression -> IDENTIFIER .)
+    MINUS           reduce using rule 30 (expression -> IDENTIFIER .)
+    TIMES           reduce using rule 30 (expression -> IDENTIFIER .)
+    DIVIDE          reduce using rule 30 (expression -> IDENTIFIER .)
+    EQUALTO         reduce using rule 30 (expression -> IDENTIFIER .)
+    INTEGER         reduce using rule 30 (expression -> IDENTIFIER .)
+    FLOAT           reduce using rule 30 (expression -> IDENTIFIER .)
+    STRING          reduce using rule 30 (expression -> IDENTIFIER .)
+    IDENTIFIER      reduce using rule 30 (expression -> IDENTIFIER .)
+    PRINT           reduce using rule 30 (expression -> IDENTIFIER .)
+    IF              reduce using rule 30 (expression -> IDENTIFIER .)
+    FOR             reduce using rule 30 (expression -> IDENTIFIER .)
+    WHILE           reduce using rule 30 (expression -> IDENTIFIER .)
+    TRUE            reduce using rule 30 (expression -> IDENTIFIER .)
+    FALSE           reduce using rule 30 (expression -> IDENTIFIER .)
+    $end            reduce using rule 30 (expression -> IDENTIFIER .)
+    ELSE            reduce using rule 30 (expression -> IDENTIFIER .)
+    EQUAL           shift and go to state 32
+    LPAREN          shift and go to state 33
+
+  ! LPAREN          [ reduce using rule 30 (expression -> IDENTIFIER .) ]
 
 
 state 17
 
-    (20) print_statement -> PRINT . LPAREN expression RPAREN
+    (31) expression -> bool .
 
-    LPAREN          shift and go to state 33
+    PLUS            reduce using rule 31 (expression -> bool .)
+    MINUS           reduce using rule 31 (expression -> bool .)
+    TIMES           reduce using rule 31 (expression -> bool .)
+    DIVIDE          reduce using rule 31 (expression -> bool .)
+    EQUALTO         reduce using rule 31 (expression -> bool .)
+    LPAREN          reduce using rule 31 (expression -> bool .)
+    INTEGER         reduce using rule 31 (expression -> bool .)
+    FLOAT           reduce using rule 31 (expression -> bool .)
+    STRING          reduce using rule 31 (expression -> bool .)
+    IDENTIFIER      reduce using rule 31 (expression -> bool .)
+    PRINT           reduce using rule 31 (expression -> bool .)
+    IF              reduce using rule 31 (expression -> bool .)
+    FOR             reduce using rule 31 (expression -> bool .)
+    WHILE           reduce using rule 31 (expression -> bool .)
+    TRUE            reduce using rule 31 (expression -> bool .)
+    FALSE           reduce using rule 31 (expression -> bool .)
+    $end            reduce using rule 31 (expression -> bool .)
+    ELSE            reduce using rule 31 (expression -> bool .)
+    RPAREN          reduce using rule 31 (expression -> bool .)
+    COLON           reduce using rule 31 (expression -> bool .)
+    IN              reduce using rule 31 (expression -> bool .)
+    COMMA           reduce using rule 31 (expression -> bool .)
 
 
 state 18
+
+    (20) print_statement -> PRINT . LPAREN expression RPAREN
+
+    LPAREN          shift and go to state 34
+
+
+state 19
 
     (13) inline_if_statement -> IF . expression COLON statements
     (14) inline_if_statement -> IF . expression COLON statements ELSE statements
@@ -726,22 +781,24 @@ state 18
     (26) expression -> . LPAREN expression RPAREN
     (27) expression -> . INTEGER
     (28) expression -> . FLOAT
-    (29) expression -> . IDENTIFIER
-    (30) expression -> . bool
+    (29) expression -> . STRING
+    (30) expression -> . IDENTIFIER
+    (31) expression -> . bool
     (18) bool -> . TRUE
     (19) bool -> . FALSE
 
     LPAREN          shift and go to state 12
     INTEGER         shift and go to state 13
     FLOAT           shift and go to state 14
-    IDENTIFIER      shift and go to state 30
-    TRUE            shift and go to state 21
-    FALSE           shift and go to state 22
+    STRING          shift and go to state 15
+    IDENTIFIER      shift and go to state 31
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
 
-    expression                     shift and go to state 34
-    bool                           shift and go to state 16
+    expression                     shift and go to state 35
+    bool                           shift and go to state 17
 
-state 19
+state 20
 
     (15) for_statement -> FOR . expression IN range_expression
     (21) expression -> . expression PLUS expression
@@ -752,22 +809,24 @@ state 19
     (26) expression -> . LPAREN expression RPAREN
     (27) expression -> . INTEGER
     (28) expression -> . FLOAT
-    (29) expression -> . IDENTIFIER
-    (30) expression -> . bool
+    (29) expression -> . STRING
+    (30) expression -> . IDENTIFIER
+    (31) expression -> . bool
     (18) bool -> . TRUE
     (19) bool -> . FALSE
 
     LPAREN          shift and go to state 12
     INTEGER         shift and go to state 13
     FLOAT           shift and go to state 14
-    IDENTIFIER      shift and go to state 30
-    TRUE            shift and go to state 21
-    FALSE           shift and go to state 22
+    STRING          shift and go to state 15
+    IDENTIFIER      shift and go to state 31
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
 
-    expression                     shift and go to state 35
-    bool                           shift and go to state 16
+    expression                     shift and go to state 36
+    bool                           shift and go to state 17
 
-state 20
+state 21
 
     (17) while_statement -> WHILE . expression COLON statements
     (21) expression -> . expression PLUS expression
@@ -778,22 +837,24 @@ state 20
     (26) expression -> . LPAREN expression RPAREN
     (27) expression -> . INTEGER
     (28) expression -> . FLOAT
-    (29) expression -> . IDENTIFIER
-    (30) expression -> . bool
+    (29) expression -> . STRING
+    (30) expression -> . IDENTIFIER
+    (31) expression -> . bool
     (18) bool -> . TRUE
     (19) bool -> . FALSE
 
     LPAREN          shift and go to state 12
     INTEGER         shift and go to state 13
     FLOAT           shift and go to state 14
-    IDENTIFIER      shift and go to state 30
-    TRUE            shift and go to state 21
-    FALSE           shift and go to state 22
+    STRING          shift and go to state 15
+    IDENTIFIER      shift and go to state 31
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
 
-    expression                     shift and go to state 36
-    bool                           shift and go to state 16
+    expression                     shift and go to state 37
+    bool                           shift and go to state 17
 
-state 21
+state 22
 
     (18) bool -> TRUE .
 
@@ -805,6 +866,7 @@ state 21
     LPAREN          reduce using rule 18 (bool -> TRUE .)
     INTEGER         reduce using rule 18 (bool -> TRUE .)
     FLOAT           reduce using rule 18 (bool -> TRUE .)
+    STRING          reduce using rule 18 (bool -> TRUE .)
     IDENTIFIER      reduce using rule 18 (bool -> TRUE .)
     PRINT           reduce using rule 18 (bool -> TRUE .)
     IF              reduce using rule 18 (bool -> TRUE .)
@@ -820,7 +882,7 @@ state 21
     COMMA           reduce using rule 18 (bool -> TRUE .)
 
 
-state 22
+state 23
 
     (19) bool -> FALSE .
 
@@ -832,6 +894,7 @@ state 22
     LPAREN          reduce using rule 19 (bool -> FALSE .)
     INTEGER         reduce using rule 19 (bool -> FALSE .)
     FLOAT           reduce using rule 19 (bool -> FALSE .)
+    STRING          reduce using rule 19 (bool -> FALSE .)
     IDENTIFIER      reduce using rule 19 (bool -> FALSE .)
     PRINT           reduce using rule 19 (bool -> FALSE .)
     IF              reduce using rule 19 (bool -> FALSE .)
@@ -847,7 +910,7 @@ state 22
     COMMA           reduce using rule 19 (bool -> FALSE .)
 
 
-state 23
+state 24
 
     (1) statements -> statement statements .
 
@@ -856,6 +919,7 @@ state 23
     LPAREN          reduce using rule 1 (statements -> statement statements .)
     INTEGER         reduce using rule 1 (statements -> statement statements .)
     FLOAT           reduce using rule 1 (statements -> statement statements .)
+    STRING          reduce using rule 1 (statements -> statement statements .)
     IDENTIFIER      reduce using rule 1 (statements -> statement statements .)
     PRINT           reduce using rule 1 (statements -> statement statements .)
     IF              reduce using rule 1 (statements -> statement statements .)
@@ -865,7 +929,7 @@ state 23
     FALSE           reduce using rule 1 (statements -> statement statements .)
 
 
-state 24
+state 25
 
     (21) expression -> expression PLUS . expression
     (21) expression -> . expression PLUS expression
@@ -876,22 +940,24 @@ state 24
     (26) expression -> . LPAREN expression RPAREN
     (27) expression -> . INTEGER
     (28) expression -> . FLOAT
-    (29) expression -> . IDENTIFIER
-    (30) expression -> . bool
+    (29) expression -> . STRING
+    (30) expression -> . IDENTIFIER
+    (31) expression -> . bool
     (18) bool -> . TRUE
     (19) bool -> . FALSE
 
     LPAREN          shift and go to state 12
     INTEGER         shift and go to state 13
     FLOAT           shift and go to state 14
-    IDENTIFIER      shift and go to state 30
-    TRUE            shift and go to state 21
-    FALSE           shift and go to state 22
+    STRING          shift and go to state 15
+    IDENTIFIER      shift and go to state 31
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
 
-    expression                     shift and go to state 37
-    bool                           shift and go to state 16
+    expression                     shift and go to state 38
+    bool                           shift and go to state 17
 
-state 25
+state 26
 
     (22) expression -> expression MINUS . expression
     (21) expression -> . expression PLUS expression
@@ -902,22 +968,24 @@ state 25
     (26) expression -> . LPAREN expression RPAREN
     (27) expression -> . INTEGER
     (28) expression -> . FLOAT
-    (29) expression -> . IDENTIFIER
-    (30) expression -> . bool
+    (29) expression -> . STRING
+    (30) expression -> . IDENTIFIER
+    (31) expression -> . bool
     (18) bool -> . TRUE
     (19) bool -> . FALSE
 
     LPAREN          shift and go to state 12
     INTEGER         shift and go to state 13
     FLOAT           shift and go to state 14
-    IDENTIFIER      shift and go to state 30
-    TRUE            shift and go to state 21
-    FALSE           shift and go to state 22
+    STRING          shift and go to state 15
+    IDENTIFIER      shift and go to state 31
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
 
-    expression                     shift and go to state 38
-    bool                           shift and go to state 16
+    expression                     shift and go to state 39
+    bool                           shift and go to state 17
 
-state 26
+state 27
 
     (23) expression -> expression TIMES . expression
     (21) expression -> . expression PLUS expression
@@ -928,22 +996,24 @@ state 26
     (26) expression -> . LPAREN expression RPAREN
     (27) expression -> . INTEGER
     (28) expression -> . FLOAT
-    (29) expression -> . IDENTIFIER
-    (30) expression -> . bool
+    (29) expression -> . STRING
+    (30) expression -> . IDENTIFIER
+    (31) expression -> . bool
     (18) bool -> . TRUE
     (19) bool -> . FALSE
 
     LPAREN          shift and go to state 12
     INTEGER         shift and go to state 13
     FLOAT           shift and go to state 14
-    IDENTIFIER      shift and go to state 30
-    TRUE            shift and go to state 21
-    FALSE           shift and go to state 22
+    STRING          shift and go to state 15
+    IDENTIFIER      shift and go to state 31
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
 
-    expression                     shift and go to state 39
-    bool                           shift and go to state 16
+    expression                     shift and go to state 40
+    bool                           shift and go to state 17
 
-state 27
+state 28
 
     (24) expression -> expression DIVIDE . expression
     (21) expression -> . expression PLUS expression
@@ -954,22 +1024,24 @@ state 27
     (26) expression -> . LPAREN expression RPAREN
     (27) expression -> . INTEGER
     (28) expression -> . FLOAT
-    (29) expression -> . IDENTIFIER
-    (30) expression -> . bool
+    (29) expression -> . STRING
+    (30) expression -> . IDENTIFIER
+    (31) expression -> . bool
     (18) bool -> . TRUE
     (19) bool -> . FALSE
 
     LPAREN          shift and go to state 12
     INTEGER         shift and go to state 13
     FLOAT           shift and go to state 14
-    IDENTIFIER      shift and go to state 30
-    TRUE            shift and go to state 21
-    FALSE           shift and go to state 22
+    STRING          shift and go to state 15
+    IDENTIFIER      shift and go to state 31
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
 
-    expression                     shift and go to state 40
-    bool                           shift and go to state 16
+    expression                     shift and go to state 41
+    bool                           shift and go to state 17
 
-state 28
+state 29
 
     (25) expression -> expression EQUALTO . expression
     (21) expression -> . expression PLUS expression
@@ -980,22 +1052,24 @@ state 28
     (26) expression -> . LPAREN expression RPAREN
     (27) expression -> . INTEGER
     (28) expression -> . FLOAT
-    (29) expression -> . IDENTIFIER
-    (30) expression -> . bool
+    (29) expression -> . STRING
+    (30) expression -> . IDENTIFIER
+    (31) expression -> . bool
     (18) bool -> . TRUE
     (19) bool -> . FALSE
 
     LPAREN          shift and go to state 12
     INTEGER         shift and go to state 13
     FLOAT           shift and go to state 14
-    IDENTIFIER      shift and go to state 30
-    TRUE            shift and go to state 21
-    FALSE           shift and go to state 22
+    STRING          shift and go to state 15
+    IDENTIFIER      shift and go to state 31
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
 
-    expression                     shift and go to state 41
-    bool                           shift and go to state 16
+    expression                     shift and go to state 42
+    bool                           shift and go to state 17
 
-state 29
+state 30
 
     (26) expression -> LPAREN expression . RPAREN
     (21) expression -> expression . PLUS expression
@@ -1004,72 +1078,45 @@ state 29
     (24) expression -> expression . DIVIDE expression
     (25) expression -> expression . EQUALTO expression
 
-    RPAREN          shift and go to state 42
-    PLUS            shift and go to state 24
-    MINUS           shift and go to state 25
-    TIMES           shift and go to state 26
-    DIVIDE          shift and go to state 27
-    EQUALTO         shift and go to state 28
-
-
-state 30
-
-    (29) expression -> IDENTIFIER .
-
-    RPAREN          reduce using rule 29 (expression -> IDENTIFIER .)
-    PLUS            reduce using rule 29 (expression -> IDENTIFIER .)
-    MINUS           reduce using rule 29 (expression -> IDENTIFIER .)
-    TIMES           reduce using rule 29 (expression -> IDENTIFIER .)
-    DIVIDE          reduce using rule 29 (expression -> IDENTIFIER .)
-    EQUALTO         reduce using rule 29 (expression -> IDENTIFIER .)
-    COLON           reduce using rule 29 (expression -> IDENTIFIER .)
-    IN              reduce using rule 29 (expression -> IDENTIFIER .)
-    LPAREN          reduce using rule 29 (expression -> IDENTIFIER .)
-    INTEGER         reduce using rule 29 (expression -> IDENTIFIER .)
-    FLOAT           reduce using rule 29 (expression -> IDENTIFIER .)
-    IDENTIFIER      reduce using rule 29 (expression -> IDENTIFIER .)
-    PRINT           reduce using rule 29 (expression -> IDENTIFIER .)
-    IF              reduce using rule 29 (expression -> IDENTIFIER .)
-    FOR             reduce using rule 29 (expression -> IDENTIFIER .)
-    WHILE           reduce using rule 29 (expression -> IDENTIFIER .)
-    TRUE            reduce using rule 29 (expression -> IDENTIFIER .)
-    FALSE           reduce using rule 29 (expression -> IDENTIFIER .)
-    $end            reduce using rule 29 (expression -> IDENTIFIER .)
-    ELSE            reduce using rule 29 (expression -> IDENTIFIER .)
-    COMMA           reduce using rule 29 (expression -> IDENTIFIER .)
+    RPAREN          shift and go to state 43
+    PLUS            shift and go to state 25
+    MINUS           shift and go to state 26
+    TIMES           shift and go to state 27
+    DIVIDE          shift and go to state 28
+    EQUALTO         shift and go to state 29
 
 
 state 31
 
-    (31) assignment_statement -> IDENTIFIER EQUAL . expression
-    (21) expression -> . expression PLUS expression
-    (22) expression -> . expression MINUS expression
-    (23) expression -> . expression TIMES expression
-    (24) expression -> . expression DIVIDE expression
-    (25) expression -> . expression EQUALTO expression
-    (26) expression -> . LPAREN expression RPAREN
-    (27) expression -> . INTEGER
-    (28) expression -> . FLOAT
-    (29) expression -> . IDENTIFIER
-    (30) expression -> . bool
-    (18) bool -> . TRUE
-    (19) bool -> . FALSE
+    (30) expression -> IDENTIFIER .
 
-    LPAREN          shift and go to state 12
-    INTEGER         shift and go to state 13
-    FLOAT           shift and go to state 14
-    IDENTIFIER      shift and go to state 30
-    TRUE            shift and go to state 21
-    FALSE           shift and go to state 22
+    RPAREN          reduce using rule 30 (expression -> IDENTIFIER .)
+    PLUS            reduce using rule 30 (expression -> IDENTIFIER .)
+    MINUS           reduce using rule 30 (expression -> IDENTIFIER .)
+    TIMES           reduce using rule 30 (expression -> IDENTIFIER .)
+    DIVIDE          reduce using rule 30 (expression -> IDENTIFIER .)
+    EQUALTO         reduce using rule 30 (expression -> IDENTIFIER .)
+    COLON           reduce using rule 30 (expression -> IDENTIFIER .)
+    IN              reduce using rule 30 (expression -> IDENTIFIER .)
+    LPAREN          reduce using rule 30 (expression -> IDENTIFIER .)
+    INTEGER         reduce using rule 30 (expression -> IDENTIFIER .)
+    FLOAT           reduce using rule 30 (expression -> IDENTIFIER .)
+    STRING          reduce using rule 30 (expression -> IDENTIFIER .)
+    IDENTIFIER      reduce using rule 30 (expression -> IDENTIFIER .)
+    PRINT           reduce using rule 30 (expression -> IDENTIFIER .)
+    IF              reduce using rule 30 (expression -> IDENTIFIER .)
+    FOR             reduce using rule 30 (expression -> IDENTIFIER .)
+    WHILE           reduce using rule 30 (expression -> IDENTIFIER .)
+    TRUE            reduce using rule 30 (expression -> IDENTIFIER .)
+    FALSE           reduce using rule 30 (expression -> IDENTIFIER .)
+    $end            reduce using rule 30 (expression -> IDENTIFIER .)
+    ELSE            reduce using rule 30 (expression -> IDENTIFIER .)
+    COMMA           reduce using rule 30 (expression -> IDENTIFIER .)
 
-    expression                     shift and go to state 43
-    bool                           shift and go to state 16
 
 state 32
 
-    (32) function_call -> IDENTIFIER LPAREN . argument_list RPAREN
-    (33) argument_list -> . expression
-    (34) argument_list -> . argument_list COMMA expression
+    (32) assignment_statement -> IDENTIFIER EQUAL . expression
     (21) expression -> . expression PLUS expression
     (22) expression -> . expression MINUS expression
     (23) expression -> . expression TIMES expression
@@ -1078,23 +1125,55 @@ state 32
     (26) expression -> . LPAREN expression RPAREN
     (27) expression -> . INTEGER
     (28) expression -> . FLOAT
-    (29) expression -> . IDENTIFIER
-    (30) expression -> . bool
+    (29) expression -> . STRING
+    (30) expression -> . IDENTIFIER
+    (31) expression -> . bool
     (18) bool -> . TRUE
     (19) bool -> . FALSE
 
     LPAREN          shift and go to state 12
     INTEGER         shift and go to state 13
     FLOAT           shift and go to state 14
-    IDENTIFIER      shift and go to state 30
-    TRUE            shift and go to state 21
-    FALSE           shift and go to state 22
+    STRING          shift and go to state 15
+    IDENTIFIER      shift and go to state 31
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
 
-    argument_list                  shift and go to state 44
-    expression                     shift and go to state 45
-    bool                           shift and go to state 16
+    expression                     shift and go to state 44
+    bool                           shift and go to state 17
 
 state 33
+
+    (33) function_call -> IDENTIFIER LPAREN . argument_list RPAREN
+    (34) argument_list -> . expression
+    (35) argument_list -> . argument_list COMMA expression
+    (21) expression -> . expression PLUS expression
+    (22) expression -> . expression MINUS expression
+    (23) expression -> . expression TIMES expression
+    (24) expression -> . expression DIVIDE expression
+    (25) expression -> . expression EQUALTO expression
+    (26) expression -> . LPAREN expression RPAREN
+    (27) expression -> . INTEGER
+    (28) expression -> . FLOAT
+    (29) expression -> . STRING
+    (30) expression -> . IDENTIFIER
+    (31) expression -> . bool
+    (18) bool -> . TRUE
+    (19) bool -> . FALSE
+
+    LPAREN          shift and go to state 12
+    INTEGER         shift and go to state 13
+    FLOAT           shift and go to state 14
+    STRING          shift and go to state 15
+    IDENTIFIER      shift and go to state 31
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
+
+    argument_list                  shift and go to state 45
+    expression                     shift and go to state 46
+    bool                           shift and go to state 17
+
+state 34
 
     (20) print_statement -> PRINT LPAREN . expression RPAREN
     (21) expression -> . expression PLUS expression
@@ -1105,22 +1184,24 @@ state 33
     (26) expression -> . LPAREN expression RPAREN
     (27) expression -> . INTEGER
     (28) expression -> . FLOAT
-    (29) expression -> . IDENTIFIER
-    (30) expression -> . bool
+    (29) expression -> . STRING
+    (30) expression -> . IDENTIFIER
+    (31) expression -> . bool
     (18) bool -> . TRUE
     (19) bool -> . FALSE
 
     LPAREN          shift and go to state 12
     INTEGER         shift and go to state 13
     FLOAT           shift and go to state 14
-    IDENTIFIER      shift and go to state 30
-    TRUE            shift and go to state 21
-    FALSE           shift and go to state 22
+    STRING          shift and go to state 15
+    IDENTIFIER      shift and go to state 31
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
 
-    expression                     shift and go to state 46
-    bool                           shift and go to state 16
+    expression                     shift and go to state 47
+    bool                           shift and go to state 17
 
-state 34
+state 35
 
     (13) inline_if_statement -> IF expression . COLON statements
     (14) inline_if_statement -> IF expression . COLON statements ELSE statements
@@ -1130,15 +1211,15 @@ state 34
     (24) expression -> expression . DIVIDE expression
     (25) expression -> expression . EQUALTO expression
 
-    COLON           shift and go to state 47
-    PLUS            shift and go to state 24
-    MINUS           shift and go to state 25
-    TIMES           shift and go to state 26
-    DIVIDE          shift and go to state 27
-    EQUALTO         shift and go to state 28
+    COLON           shift and go to state 48
+    PLUS            shift and go to state 25
+    MINUS           shift and go to state 26
+    TIMES           shift and go to state 27
+    DIVIDE          shift and go to state 28
+    EQUALTO         shift and go to state 29
 
 
-state 35
+state 36
 
     (15) for_statement -> FOR expression . IN range_expression
     (21) expression -> expression . PLUS expression
@@ -1147,15 +1228,15 @@ state 35
     (24) expression -> expression . DIVIDE expression
     (25) expression -> expression . EQUALTO expression
 
-    IN              shift and go to state 48
-    PLUS            shift and go to state 24
-    MINUS           shift and go to state 25
-    TIMES           shift and go to state 26
-    DIVIDE          shift and go to state 27
-    EQUALTO         shift and go to state 28
+    IN              shift and go to state 49
+    PLUS            shift and go to state 25
+    MINUS           shift and go to state 26
+    TIMES           shift and go to state 27
+    DIVIDE          shift and go to state 28
+    EQUALTO         shift and go to state 29
 
 
-state 36
+state 37
 
     (17) while_statement -> WHILE expression . COLON statements
     (21) expression -> expression . PLUS expression
@@ -1164,15 +1245,15 @@ state 36
     (24) expression -> expression . DIVIDE expression
     (25) expression -> expression . EQUALTO expression
 
-    COLON           shift and go to state 49
-    PLUS            shift and go to state 24
-    MINUS           shift and go to state 25
-    TIMES           shift and go to state 26
-    DIVIDE          shift and go to state 27
-    EQUALTO         shift and go to state 28
+    COLON           shift and go to state 50
+    PLUS            shift and go to state 25
+    MINUS           shift and go to state 26
+    TIMES           shift and go to state 27
+    DIVIDE          shift and go to state 28
+    EQUALTO         shift and go to state 29
 
 
-state 37
+state 38
 
     (21) expression -> expression PLUS expression .
     (21) expression -> expression . PLUS expression
@@ -1189,6 +1270,7 @@ state 37
     LPAREN          reduce using rule 21 (expression -> expression PLUS expression .)
     INTEGER         reduce using rule 21 (expression -> expression PLUS expression .)
     FLOAT           reduce using rule 21 (expression -> expression PLUS expression .)
+    STRING          reduce using rule 21 (expression -> expression PLUS expression .)
     IDENTIFIER      reduce using rule 21 (expression -> expression PLUS expression .)
     PRINT           reduce using rule 21 (expression -> expression PLUS expression .)
     IF              reduce using rule 21 (expression -> expression PLUS expression .)
@@ -1202,11 +1284,11 @@ state 37
     COLON           reduce using rule 21 (expression -> expression PLUS expression .)
     IN              reduce using rule 21 (expression -> expression PLUS expression .)
     COMMA           reduce using rule 21 (expression -> expression PLUS expression .)
-    PLUS            shift and go to state 24
-    MINUS           shift and go to state 25
-    TIMES           shift and go to state 26
-    DIVIDE          shift and go to state 27
-    EQUALTO         shift and go to state 28
+    PLUS            shift and go to state 25
+    MINUS           shift and go to state 26
+    TIMES           shift and go to state 27
+    DIVIDE          shift and go to state 28
+    EQUALTO         shift and go to state 29
 
   ! PLUS            [ reduce using rule 21 (expression -> expression PLUS expression .) ]
   ! MINUS           [ reduce using rule 21 (expression -> expression PLUS expression .) ]
@@ -1215,7 +1297,7 @@ state 37
   ! EQUALTO         [ reduce using rule 21 (expression -> expression PLUS expression .) ]
 
 
-state 38
+state 39
 
     (22) expression -> expression MINUS expression .
     (21) expression -> expression . PLUS expression
@@ -1232,6 +1314,7 @@ state 38
     LPAREN          reduce using rule 22 (expression -> expression MINUS expression .)
     INTEGER         reduce using rule 22 (expression -> expression MINUS expression .)
     FLOAT           reduce using rule 22 (expression -> expression MINUS expression .)
+    STRING          reduce using rule 22 (expression -> expression MINUS expression .)
     IDENTIFIER      reduce using rule 22 (expression -> expression MINUS expression .)
     PRINT           reduce using rule 22 (expression -> expression MINUS expression .)
     IF              reduce using rule 22 (expression -> expression MINUS expression .)
@@ -1245,11 +1328,11 @@ state 38
     COLON           reduce using rule 22 (expression -> expression MINUS expression .)
     IN              reduce using rule 22 (expression -> expression MINUS expression .)
     COMMA           reduce using rule 22 (expression -> expression MINUS expression .)
-    PLUS            shift and go to state 24
-    MINUS           shift and go to state 25
-    TIMES           shift and go to state 26
-    DIVIDE          shift and go to state 27
-    EQUALTO         shift and go to state 28
+    PLUS            shift and go to state 25
+    MINUS           shift and go to state 26
+    TIMES           shift and go to state 27
+    DIVIDE          shift and go to state 28
+    EQUALTO         shift and go to state 29
 
   ! PLUS            [ reduce using rule 22 (expression -> expression MINUS expression .) ]
   ! MINUS           [ reduce using rule 22 (expression -> expression MINUS expression .) ]
@@ -1258,7 +1341,7 @@ state 38
   ! EQUALTO         [ reduce using rule 22 (expression -> expression MINUS expression .) ]
 
 
-state 39
+state 40
 
     (23) expression -> expression TIMES expression .
     (21) expression -> expression . PLUS expression
@@ -1275,6 +1358,7 @@ state 39
     LPAREN          reduce using rule 23 (expression -> expression TIMES expression .)
     INTEGER         reduce using rule 23 (expression -> expression TIMES expression .)
     FLOAT           reduce using rule 23 (expression -> expression TIMES expression .)
+    STRING          reduce using rule 23 (expression -> expression TIMES expression .)
     IDENTIFIER      reduce using rule 23 (expression -> expression TIMES expression .)
     PRINT           reduce using rule 23 (expression -> expression TIMES expression .)
     IF              reduce using rule 23 (expression -> expression TIMES expression .)
@@ -1288,11 +1372,11 @@ state 39
     COLON           reduce using rule 23 (expression -> expression TIMES expression .)
     IN              reduce using rule 23 (expression -> expression TIMES expression .)
     COMMA           reduce using rule 23 (expression -> expression TIMES expression .)
-    PLUS            shift and go to state 24
-    MINUS           shift and go to state 25
-    TIMES           shift and go to state 26
-    DIVIDE          shift and go to state 27
-    EQUALTO         shift and go to state 28
+    PLUS            shift and go to state 25
+    MINUS           shift and go to state 26
+    TIMES           shift and go to state 27
+    DIVIDE          shift and go to state 28
+    EQUALTO         shift and go to state 29
 
   ! PLUS            [ reduce using rule 23 (expression -> expression TIMES expression .) ]
   ! MINUS           [ reduce using rule 23 (expression -> expression TIMES expression .) ]
@@ -1301,7 +1385,7 @@ state 39
   ! EQUALTO         [ reduce using rule 23 (expression -> expression TIMES expression .) ]
 
 
-state 40
+state 41
 
     (24) expression -> expression DIVIDE expression .
     (21) expression -> expression . PLUS expression
@@ -1318,6 +1402,7 @@ state 40
     LPAREN          reduce using rule 24 (expression -> expression DIVIDE expression .)
     INTEGER         reduce using rule 24 (expression -> expression DIVIDE expression .)
     FLOAT           reduce using rule 24 (expression -> expression DIVIDE expression .)
+    STRING          reduce using rule 24 (expression -> expression DIVIDE expression .)
     IDENTIFIER      reduce using rule 24 (expression -> expression DIVIDE expression .)
     PRINT           reduce using rule 24 (expression -> expression DIVIDE expression .)
     IF              reduce using rule 24 (expression -> expression DIVIDE expression .)
@@ -1331,11 +1416,11 @@ state 40
     COLON           reduce using rule 24 (expression -> expression DIVIDE expression .)
     IN              reduce using rule 24 (expression -> expression DIVIDE expression .)
     COMMA           reduce using rule 24 (expression -> expression DIVIDE expression .)
-    PLUS            shift and go to state 24
-    MINUS           shift and go to state 25
-    TIMES           shift and go to state 26
-    DIVIDE          shift and go to state 27
-    EQUALTO         shift and go to state 28
+    PLUS            shift and go to state 25
+    MINUS           shift and go to state 26
+    TIMES           shift and go to state 27
+    DIVIDE          shift and go to state 28
+    EQUALTO         shift and go to state 29
 
   ! PLUS            [ reduce using rule 24 (expression -> expression DIVIDE expression .) ]
   ! MINUS           [ reduce using rule 24 (expression -> expression DIVIDE expression .) ]
@@ -1344,7 +1429,7 @@ state 40
   ! EQUALTO         [ reduce using rule 24 (expression -> expression DIVIDE expression .) ]
 
 
-state 41
+state 42
 
     (25) expression -> expression EQUALTO expression .
     (21) expression -> expression . PLUS expression
@@ -1361,6 +1446,7 @@ state 41
     LPAREN          reduce using rule 25 (expression -> expression EQUALTO expression .)
     INTEGER         reduce using rule 25 (expression -> expression EQUALTO expression .)
     FLOAT           reduce using rule 25 (expression -> expression EQUALTO expression .)
+    STRING          reduce using rule 25 (expression -> expression EQUALTO expression .)
     IDENTIFIER      reduce using rule 25 (expression -> expression EQUALTO expression .)
     PRINT           reduce using rule 25 (expression -> expression EQUALTO expression .)
     IF              reduce using rule 25 (expression -> expression EQUALTO expression .)
@@ -1374,11 +1460,11 @@ state 41
     COLON           reduce using rule 25 (expression -> expression EQUALTO expression .)
     IN              reduce using rule 25 (expression -> expression EQUALTO expression .)
     COMMA           reduce using rule 25 (expression -> expression EQUALTO expression .)
-    PLUS            shift and go to state 24
-    MINUS           shift and go to state 25
-    TIMES           shift and go to state 26
-    DIVIDE          shift and go to state 27
-    EQUALTO         shift and go to state 28
+    PLUS            shift and go to state 25
+    MINUS           shift and go to state 26
+    TIMES           shift and go to state 27
+    DIVIDE          shift and go to state 28
+    EQUALTO         shift and go to state 29
 
   ! PLUS            [ reduce using rule 25 (expression -> expression EQUALTO expression .) ]
   ! MINUS           [ reduce using rule 25 (expression -> expression EQUALTO expression .) ]
@@ -1387,7 +1473,7 @@ state 41
   ! EQUALTO         [ reduce using rule 25 (expression -> expression EQUALTO expression .) ]
 
 
-state 42
+state 43
 
     (26) expression -> LPAREN expression RPAREN .
 
@@ -1399,6 +1485,7 @@ state 42
     LPAREN          reduce using rule 26 (expression -> LPAREN expression RPAREN .)
     INTEGER         reduce using rule 26 (expression -> LPAREN expression RPAREN .)
     FLOAT           reduce using rule 26 (expression -> LPAREN expression RPAREN .)
+    STRING          reduce using rule 26 (expression -> LPAREN expression RPAREN .)
     IDENTIFIER      reduce using rule 26 (expression -> LPAREN expression RPAREN .)
     PRINT           reduce using rule 26 (expression -> LPAREN expression RPAREN .)
     IF              reduce using rule 26 (expression -> LPAREN expression RPAREN .)
@@ -1414,62 +1501,63 @@ state 42
     COMMA           reduce using rule 26 (expression -> LPAREN expression RPAREN .)
 
 
-state 43
+state 44
 
-    (31) assignment_statement -> IDENTIFIER EQUAL expression .
+    (32) assignment_statement -> IDENTIFIER EQUAL expression .
     (21) expression -> expression . PLUS expression
     (22) expression -> expression . MINUS expression
     (23) expression -> expression . TIMES expression
     (24) expression -> expression . DIVIDE expression
     (25) expression -> expression . EQUALTO expression
 
-    LPAREN          reduce using rule 31 (assignment_statement -> IDENTIFIER EQUAL expression .)
-    INTEGER         reduce using rule 31 (assignment_statement -> IDENTIFIER EQUAL expression .)
-    FLOAT           reduce using rule 31 (assignment_statement -> IDENTIFIER EQUAL expression .)
-    IDENTIFIER      reduce using rule 31 (assignment_statement -> IDENTIFIER EQUAL expression .)
-    PRINT           reduce using rule 31 (assignment_statement -> IDENTIFIER EQUAL expression .)
-    IF              reduce using rule 31 (assignment_statement -> IDENTIFIER EQUAL expression .)
-    FOR             reduce using rule 31 (assignment_statement -> IDENTIFIER EQUAL expression .)
-    WHILE           reduce using rule 31 (assignment_statement -> IDENTIFIER EQUAL expression .)
-    TRUE            reduce using rule 31 (assignment_statement -> IDENTIFIER EQUAL expression .)
-    FALSE           reduce using rule 31 (assignment_statement -> IDENTIFIER EQUAL expression .)
-    $end            reduce using rule 31 (assignment_statement -> IDENTIFIER EQUAL expression .)
-    ELSE            reduce using rule 31 (assignment_statement -> IDENTIFIER EQUAL expression .)
-    PLUS            shift and go to state 24
-    MINUS           shift and go to state 25
-    TIMES           shift and go to state 26
-    DIVIDE          shift and go to state 27
-    EQUALTO         shift and go to state 28
-
-
-state 44
-
-    (32) function_call -> IDENTIFIER LPAREN argument_list . RPAREN
-    (34) argument_list -> argument_list . COMMA expression
-
-    RPAREN          shift and go to state 50
-    COMMA           shift and go to state 51
+    LPAREN          reduce using rule 32 (assignment_statement -> IDENTIFIER EQUAL expression .)
+    INTEGER         reduce using rule 32 (assignment_statement -> IDENTIFIER EQUAL expression .)
+    FLOAT           reduce using rule 32 (assignment_statement -> IDENTIFIER EQUAL expression .)
+    STRING          reduce using rule 32 (assignment_statement -> IDENTIFIER EQUAL expression .)
+    IDENTIFIER      reduce using rule 32 (assignment_statement -> IDENTIFIER EQUAL expression .)
+    PRINT           reduce using rule 32 (assignment_statement -> IDENTIFIER EQUAL expression .)
+    IF              reduce using rule 32 (assignment_statement -> IDENTIFIER EQUAL expression .)
+    FOR             reduce using rule 32 (assignment_statement -> IDENTIFIER EQUAL expression .)
+    WHILE           reduce using rule 32 (assignment_statement -> IDENTIFIER EQUAL expression .)
+    TRUE            reduce using rule 32 (assignment_statement -> IDENTIFIER EQUAL expression .)
+    FALSE           reduce using rule 32 (assignment_statement -> IDENTIFIER EQUAL expression .)
+    $end            reduce using rule 32 (assignment_statement -> IDENTIFIER EQUAL expression .)
+    ELSE            reduce using rule 32 (assignment_statement -> IDENTIFIER EQUAL expression .)
+    PLUS            shift and go to state 25
+    MINUS           shift and go to state 26
+    TIMES           shift and go to state 27
+    DIVIDE          shift and go to state 28
+    EQUALTO         shift and go to state 29
 
 
 state 45
 
-    (33) argument_list -> expression .
+    (33) function_call -> IDENTIFIER LPAREN argument_list . RPAREN
+    (35) argument_list -> argument_list . COMMA expression
+
+    RPAREN          shift and go to state 51
+    COMMA           shift and go to state 52
+
+
+state 46
+
+    (34) argument_list -> expression .
     (21) expression -> expression . PLUS expression
     (22) expression -> expression . MINUS expression
     (23) expression -> expression . TIMES expression
     (24) expression -> expression . DIVIDE expression
     (25) expression -> expression . EQUALTO expression
 
-    RPAREN          reduce using rule 33 (argument_list -> expression .)
-    COMMA           reduce using rule 33 (argument_list -> expression .)
-    PLUS            shift and go to state 24
-    MINUS           shift and go to state 25
-    TIMES           shift and go to state 26
-    DIVIDE          shift and go to state 27
-    EQUALTO         shift and go to state 28
+    RPAREN          reduce using rule 34 (argument_list -> expression .)
+    COMMA           reduce using rule 34 (argument_list -> expression .)
+    PLUS            shift and go to state 25
+    MINUS           shift and go to state 26
+    TIMES           shift and go to state 27
+    DIVIDE          shift and go to state 28
+    EQUALTO         shift and go to state 29
 
 
-state 46
+state 47
 
     (20) print_statement -> PRINT LPAREN expression . RPAREN
     (21) expression -> expression . PLUS expression
@@ -1478,15 +1566,15 @@ state 46
     (24) expression -> expression . DIVIDE expression
     (25) expression -> expression . EQUALTO expression
 
-    RPAREN          shift and go to state 52
-    PLUS            shift and go to state 24
-    MINUS           shift and go to state 25
-    TIMES           shift and go to state 26
-    DIVIDE          shift and go to state 27
-    EQUALTO         shift and go to state 28
+    RPAREN          shift and go to state 53
+    PLUS            shift and go to state 25
+    MINUS           shift and go to state 26
+    TIMES           shift and go to state 27
+    DIVIDE          shift and go to state 28
+    EQUALTO         shift and go to state 29
 
 
-state 47
+state 48
 
     (13) inline_if_statement -> IF expression COLON . statements
     (14) inline_if_statement -> IF expression COLON . statements ELSE statements
@@ -1499,7 +1587,7 @@ state 47
     (7) statement -> . function_call
     (8) statement -> . print_statement
     (9) statement -> . empty
-    (35) empty -> .
+    (36) empty -> .
     (10) conditional -> . inline_if_statement
     (11) conditional -> . for_statement
     (12) conditional -> . while_statement
@@ -1511,10 +1599,11 @@ state 47
     (26) expression -> . LPAREN expression RPAREN
     (27) expression -> . INTEGER
     (28) expression -> . FLOAT
-    (29) expression -> . IDENTIFIER
-    (30) expression -> . bool
-    (31) assignment_statement -> . IDENTIFIER EQUAL expression
-    (32) function_call -> . IDENTIFIER LPAREN argument_list RPAREN
+    (29) expression -> . STRING
+    (30) expression -> . IDENTIFIER
+    (31) expression -> . bool
+    (32) assignment_statement -> . IDENTIFIER EQUAL expression
+    (33) function_call -> . IDENTIFIER LPAREN argument_list RPAREN
     (20) print_statement -> . PRINT LPAREN expression RPAREN
     (13) inline_if_statement -> . IF expression COLON statements
     (14) inline_if_statement -> . IF expression COLON statements ELSE statements
@@ -1526,6 +1615,7 @@ state 47
   ! shift/reduce conflict for LPAREN resolved as shift
   ! shift/reduce conflict for INTEGER resolved as shift
   ! shift/reduce conflict for FLOAT resolved as shift
+  ! shift/reduce conflict for STRING resolved as shift
   ! shift/reduce conflict for IDENTIFIER resolved as shift
   ! shift/reduce conflict for PRINT resolved as shift
   ! shift/reduce conflict for IF resolved as shift
@@ -1533,32 +1623,34 @@ state 47
   ! shift/reduce conflict for WHILE resolved as shift
   ! shift/reduce conflict for TRUE resolved as shift
   ! shift/reduce conflict for FALSE resolved as shift
-    $end            reduce using rule 35 (empty -> .)
-    ELSE            reduce using rule 35 (empty -> .)
+    $end            reduce using rule 36 (empty -> .)
+    ELSE            reduce using rule 36 (empty -> .)
     LPAREN          shift and go to state 12
     INTEGER         shift and go to state 13
     FLOAT           shift and go to state 14
-    IDENTIFIER      shift and go to state 15
-    PRINT           shift and go to state 17
-    IF              shift and go to state 18
-    FOR             shift and go to state 19
-    WHILE           shift and go to state 20
-    TRUE            shift and go to state 21
-    FALSE           shift and go to state 22
+    STRING          shift and go to state 15
+    IDENTIFIER      shift and go to state 16
+    PRINT           shift and go to state 18
+    IF              shift and go to state 19
+    FOR             shift and go to state 20
+    WHILE           shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
 
-  ! LPAREN          [ reduce using rule 35 (empty -> .) ]
-  ! INTEGER         [ reduce using rule 35 (empty -> .) ]
-  ! FLOAT           [ reduce using rule 35 (empty -> .) ]
-  ! IDENTIFIER      [ reduce using rule 35 (empty -> .) ]
-  ! PRINT           [ reduce using rule 35 (empty -> .) ]
-  ! IF              [ reduce using rule 35 (empty -> .) ]
-  ! FOR             [ reduce using rule 35 (empty -> .) ]
-  ! WHILE           [ reduce using rule 35 (empty -> .) ]
-  ! TRUE            [ reduce using rule 35 (empty -> .) ]
-  ! FALSE           [ reduce using rule 35 (empty -> .) ]
+  ! LPAREN          [ reduce using rule 36 (empty -> .) ]
+  ! INTEGER         [ reduce using rule 36 (empty -> .) ]
+  ! FLOAT           [ reduce using rule 36 (empty -> .) ]
+  ! STRING          [ reduce using rule 36 (empty -> .) ]
+  ! IDENTIFIER      [ reduce using rule 36 (empty -> .) ]
+  ! PRINT           [ reduce using rule 36 (empty -> .) ]
+  ! IF              [ reduce using rule 36 (empty -> .) ]
+  ! FOR             [ reduce using rule 36 (empty -> .) ]
+  ! WHILE           [ reduce using rule 36 (empty -> .) ]
+  ! TRUE            [ reduce using rule 36 (empty -> .) ]
+  ! FALSE           [ reduce using rule 36 (empty -> .) ]
 
     expression                     shift and go to state 5
-    statements                     shift and go to state 53
+    statements                     shift and go to state 54
     statement                      shift and go to state 2
     empty                          shift and go to state 3
     conditional                    shift and go to state 4
@@ -1568,18 +1660,18 @@ state 47
     inline_if_statement            shift and go to state 9
     for_statement                  shift and go to state 10
     while_statement                shift and go to state 11
-    bool                           shift and go to state 16
+    bool                           shift and go to state 17
 
-state 48
+state 49
 
     (15) for_statement -> FOR expression IN . range_expression
     (16) range_expression -> . RANGE expression COMMA expression
 
-    RANGE           shift and go to state 55
+    RANGE           shift and go to state 56
 
-    range_expression               shift and go to state 54
+    range_expression               shift and go to state 55
 
-state 49
+state 50
 
     (17) while_statement -> WHILE expression COLON . statements
     (1) statements -> . statement statements
@@ -1591,7 +1683,7 @@ state 49
     (7) statement -> . function_call
     (8) statement -> . print_statement
     (9) statement -> . empty
-    (35) empty -> .
+    (36) empty -> .
     (10) conditional -> . inline_if_statement
     (11) conditional -> . for_statement
     (12) conditional -> . while_statement
@@ -1603,10 +1695,11 @@ state 49
     (26) expression -> . LPAREN expression RPAREN
     (27) expression -> . INTEGER
     (28) expression -> . FLOAT
-    (29) expression -> . IDENTIFIER
-    (30) expression -> . bool
-    (31) assignment_statement -> . IDENTIFIER EQUAL expression
-    (32) function_call -> . IDENTIFIER LPAREN argument_list RPAREN
+    (29) expression -> . STRING
+    (30) expression -> . IDENTIFIER
+    (31) expression -> . bool
+    (32) assignment_statement -> . IDENTIFIER EQUAL expression
+    (33) function_call -> . IDENTIFIER LPAREN argument_list RPAREN
     (20) print_statement -> . PRINT LPAREN expression RPAREN
     (13) inline_if_statement -> . IF expression COLON statements
     (14) inline_if_statement -> . IF expression COLON statements ELSE statements
@@ -1618,6 +1711,7 @@ state 49
   ! shift/reduce conflict for LPAREN resolved as shift
   ! shift/reduce conflict for INTEGER resolved as shift
   ! shift/reduce conflict for FLOAT resolved as shift
+  ! shift/reduce conflict for STRING resolved as shift
   ! shift/reduce conflict for IDENTIFIER resolved as shift
   ! shift/reduce conflict for PRINT resolved as shift
   ! shift/reduce conflict for IF resolved as shift
@@ -1625,32 +1719,34 @@ state 49
   ! shift/reduce conflict for WHILE resolved as shift
   ! shift/reduce conflict for TRUE resolved as shift
   ! shift/reduce conflict for FALSE resolved as shift
-    $end            reduce using rule 35 (empty -> .)
-    ELSE            reduce using rule 35 (empty -> .)
+    $end            reduce using rule 36 (empty -> .)
+    ELSE            reduce using rule 36 (empty -> .)
     LPAREN          shift and go to state 12
     INTEGER         shift and go to state 13
     FLOAT           shift and go to state 14
-    IDENTIFIER      shift and go to state 15
-    PRINT           shift and go to state 17
-    IF              shift and go to state 18
-    FOR             shift and go to state 19
-    WHILE           shift and go to state 20
-    TRUE            shift and go to state 21
-    FALSE           shift and go to state 22
+    STRING          shift and go to state 15
+    IDENTIFIER      shift and go to state 16
+    PRINT           shift and go to state 18
+    IF              shift and go to state 19
+    FOR             shift and go to state 20
+    WHILE           shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
 
-  ! LPAREN          [ reduce using rule 35 (empty -> .) ]
-  ! INTEGER         [ reduce using rule 35 (empty -> .) ]
-  ! FLOAT           [ reduce using rule 35 (empty -> .) ]
-  ! IDENTIFIER      [ reduce using rule 35 (empty -> .) ]
-  ! PRINT           [ reduce using rule 35 (empty -> .) ]
-  ! IF              [ reduce using rule 35 (empty -> .) ]
-  ! FOR             [ reduce using rule 35 (empty -> .) ]
-  ! WHILE           [ reduce using rule 35 (empty -> .) ]
-  ! TRUE            [ reduce using rule 35 (empty -> .) ]
-  ! FALSE           [ reduce using rule 35 (empty -> .) ]
+  ! LPAREN          [ reduce using rule 36 (empty -> .) ]
+  ! INTEGER         [ reduce using rule 36 (empty -> .) ]
+  ! FLOAT           [ reduce using rule 36 (empty -> .) ]
+  ! STRING          [ reduce using rule 36 (empty -> .) ]
+  ! IDENTIFIER      [ reduce using rule 36 (empty -> .) ]
+  ! PRINT           [ reduce using rule 36 (empty -> .) ]
+  ! IF              [ reduce using rule 36 (empty -> .) ]
+  ! FOR             [ reduce using rule 36 (empty -> .) ]
+  ! WHILE           [ reduce using rule 36 (empty -> .) ]
+  ! TRUE            [ reduce using rule 36 (empty -> .) ]
+  ! FALSE           [ reduce using rule 36 (empty -> .) ]
 
     expression                     shift and go to state 5
-    statements                     shift and go to state 56
+    statements                     shift and go to state 57
     statement                      shift and go to state 2
     empty                          shift and go to state 3
     conditional                    shift and go to state 4
@@ -1660,29 +1756,30 @@ state 49
     inline_if_statement            shift and go to state 9
     for_statement                  shift and go to state 10
     while_statement                shift and go to state 11
-    bool                           shift and go to state 16
-
-state 50
-
-    (32) function_call -> IDENTIFIER LPAREN argument_list RPAREN .
-
-    LPAREN          reduce using rule 32 (function_call -> IDENTIFIER LPAREN argument_list RPAREN .)
-    INTEGER         reduce using rule 32 (function_call -> IDENTIFIER LPAREN argument_list RPAREN .)
-    FLOAT           reduce using rule 32 (function_call -> IDENTIFIER LPAREN argument_list RPAREN .)
-    IDENTIFIER      reduce using rule 32 (function_call -> IDENTIFIER LPAREN argument_list RPAREN .)
-    PRINT           reduce using rule 32 (function_call -> IDENTIFIER LPAREN argument_list RPAREN .)
-    IF              reduce using rule 32 (function_call -> IDENTIFIER LPAREN argument_list RPAREN .)
-    FOR             reduce using rule 32 (function_call -> IDENTIFIER LPAREN argument_list RPAREN .)
-    WHILE           reduce using rule 32 (function_call -> IDENTIFIER LPAREN argument_list RPAREN .)
-    TRUE            reduce using rule 32 (function_call -> IDENTIFIER LPAREN argument_list RPAREN .)
-    FALSE           reduce using rule 32 (function_call -> IDENTIFIER LPAREN argument_list RPAREN .)
-    $end            reduce using rule 32 (function_call -> IDENTIFIER LPAREN argument_list RPAREN .)
-    ELSE            reduce using rule 32 (function_call -> IDENTIFIER LPAREN argument_list RPAREN .)
-
+    bool                           shift and go to state 17
 
 state 51
 
-    (34) argument_list -> argument_list COMMA . expression
+    (33) function_call -> IDENTIFIER LPAREN argument_list RPAREN .
+
+    LPAREN          reduce using rule 33 (function_call -> IDENTIFIER LPAREN argument_list RPAREN .)
+    INTEGER         reduce using rule 33 (function_call -> IDENTIFIER LPAREN argument_list RPAREN .)
+    FLOAT           reduce using rule 33 (function_call -> IDENTIFIER LPAREN argument_list RPAREN .)
+    STRING          reduce using rule 33 (function_call -> IDENTIFIER LPAREN argument_list RPAREN .)
+    IDENTIFIER      reduce using rule 33 (function_call -> IDENTIFIER LPAREN argument_list RPAREN .)
+    PRINT           reduce using rule 33 (function_call -> IDENTIFIER LPAREN argument_list RPAREN .)
+    IF              reduce using rule 33 (function_call -> IDENTIFIER LPAREN argument_list RPAREN .)
+    FOR             reduce using rule 33 (function_call -> IDENTIFIER LPAREN argument_list RPAREN .)
+    WHILE           reduce using rule 33 (function_call -> IDENTIFIER LPAREN argument_list RPAREN .)
+    TRUE            reduce using rule 33 (function_call -> IDENTIFIER LPAREN argument_list RPAREN .)
+    FALSE           reduce using rule 33 (function_call -> IDENTIFIER LPAREN argument_list RPAREN .)
+    $end            reduce using rule 33 (function_call -> IDENTIFIER LPAREN argument_list RPAREN .)
+    ELSE            reduce using rule 33 (function_call -> IDENTIFIER LPAREN argument_list RPAREN .)
+
+
+state 52
+
+    (35) argument_list -> argument_list COMMA . expression
     (21) expression -> . expression PLUS expression
     (22) expression -> . expression MINUS expression
     (23) expression -> . expression TIMES expression
@@ -1691,28 +1788,31 @@ state 51
     (26) expression -> . LPAREN expression RPAREN
     (27) expression -> . INTEGER
     (28) expression -> . FLOAT
-    (29) expression -> . IDENTIFIER
-    (30) expression -> . bool
+    (29) expression -> . STRING
+    (30) expression -> . IDENTIFIER
+    (31) expression -> . bool
     (18) bool -> . TRUE
     (19) bool -> . FALSE
 
     LPAREN          shift and go to state 12
     INTEGER         shift and go to state 13
     FLOAT           shift and go to state 14
-    IDENTIFIER      shift and go to state 30
-    TRUE            shift and go to state 21
-    FALSE           shift and go to state 22
+    STRING          shift and go to state 15
+    IDENTIFIER      shift and go to state 31
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
 
-    expression                     shift and go to state 57
-    bool                           shift and go to state 16
+    expression                     shift and go to state 58
+    bool                           shift and go to state 17
 
-state 52
+state 53
 
     (20) print_statement -> PRINT LPAREN expression RPAREN .
 
     LPAREN          reduce using rule 20 (print_statement -> PRINT LPAREN expression RPAREN .)
     INTEGER         reduce using rule 20 (print_statement -> PRINT LPAREN expression RPAREN .)
     FLOAT           reduce using rule 20 (print_statement -> PRINT LPAREN expression RPAREN .)
+    STRING          reduce using rule 20 (print_statement -> PRINT LPAREN expression RPAREN .)
     IDENTIFIER      reduce using rule 20 (print_statement -> PRINT LPAREN expression RPAREN .)
     PRINT           reduce using rule 20 (print_statement -> PRINT LPAREN expression RPAREN .)
     IF              reduce using rule 20 (print_statement -> PRINT LPAREN expression RPAREN .)
@@ -1724,7 +1824,7 @@ state 52
     ELSE            reduce using rule 20 (print_statement -> PRINT LPAREN expression RPAREN .)
 
 
-state 53
+state 54
 
     (13) inline_if_statement -> IF expression COLON statements .
     (14) inline_if_statement -> IF expression COLON statements . ELSE statements
@@ -1733,6 +1833,7 @@ state 53
     LPAREN          reduce using rule 13 (inline_if_statement -> IF expression COLON statements .)
     INTEGER         reduce using rule 13 (inline_if_statement -> IF expression COLON statements .)
     FLOAT           reduce using rule 13 (inline_if_statement -> IF expression COLON statements .)
+    STRING          reduce using rule 13 (inline_if_statement -> IF expression COLON statements .)
     IDENTIFIER      reduce using rule 13 (inline_if_statement -> IF expression COLON statements .)
     PRINT           reduce using rule 13 (inline_if_statement -> IF expression COLON statements .)
     IF              reduce using rule 13 (inline_if_statement -> IF expression COLON statements .)
@@ -1741,18 +1842,19 @@ state 53
     TRUE            reduce using rule 13 (inline_if_statement -> IF expression COLON statements .)
     FALSE           reduce using rule 13 (inline_if_statement -> IF expression COLON statements .)
     $end            reduce using rule 13 (inline_if_statement -> IF expression COLON statements .)
-    ELSE            shift and go to state 58
+    ELSE            shift and go to state 59
 
   ! ELSE            [ reduce using rule 13 (inline_if_statement -> IF expression COLON statements .) ]
 
 
-state 54
+state 55
 
     (15) for_statement -> FOR expression IN range_expression .
 
     LPAREN          reduce using rule 15 (for_statement -> FOR expression IN range_expression .)
     INTEGER         reduce using rule 15 (for_statement -> FOR expression IN range_expression .)
     FLOAT           reduce using rule 15 (for_statement -> FOR expression IN range_expression .)
+    STRING          reduce using rule 15 (for_statement -> FOR expression IN range_expression .)
     IDENTIFIER      reduce using rule 15 (for_statement -> FOR expression IN range_expression .)
     PRINT           reduce using rule 15 (for_statement -> FOR expression IN range_expression .)
     IF              reduce using rule 15 (for_statement -> FOR expression IN range_expression .)
@@ -1764,7 +1866,7 @@ state 54
     ELSE            reduce using rule 15 (for_statement -> FOR expression IN range_expression .)
 
 
-state 55
+state 56
 
     (16) range_expression -> RANGE . expression COMMA expression
     (21) expression -> . expression PLUS expression
@@ -1775,28 +1877,31 @@ state 55
     (26) expression -> . LPAREN expression RPAREN
     (27) expression -> . INTEGER
     (28) expression -> . FLOAT
-    (29) expression -> . IDENTIFIER
-    (30) expression -> . bool
+    (29) expression -> . STRING
+    (30) expression -> . IDENTIFIER
+    (31) expression -> . bool
     (18) bool -> . TRUE
     (19) bool -> . FALSE
 
     LPAREN          shift and go to state 12
     INTEGER         shift and go to state 13
     FLOAT           shift and go to state 14
-    IDENTIFIER      shift and go to state 30
-    TRUE            shift and go to state 21
-    FALSE           shift and go to state 22
+    STRING          shift and go to state 15
+    IDENTIFIER      shift and go to state 31
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
 
-    expression                     shift and go to state 59
-    bool                           shift and go to state 16
+    expression                     shift and go to state 60
+    bool                           shift and go to state 17
 
-state 56
+state 57
 
     (17) while_statement -> WHILE expression COLON statements .
 
     LPAREN          reduce using rule 17 (while_statement -> WHILE expression COLON statements .)
     INTEGER         reduce using rule 17 (while_statement -> WHILE expression COLON statements .)
     FLOAT           reduce using rule 17 (while_statement -> WHILE expression COLON statements .)
+    STRING          reduce using rule 17 (while_statement -> WHILE expression COLON statements .)
     IDENTIFIER      reduce using rule 17 (while_statement -> WHILE expression COLON statements .)
     PRINT           reduce using rule 17 (while_statement -> WHILE expression COLON statements .)
     IF              reduce using rule 17 (while_statement -> WHILE expression COLON statements .)
@@ -1808,25 +1913,25 @@ state 56
     ELSE            reduce using rule 17 (while_statement -> WHILE expression COLON statements .)
 
 
-state 57
+state 58
 
-    (34) argument_list -> argument_list COMMA expression .
+    (35) argument_list -> argument_list COMMA expression .
     (21) expression -> expression . PLUS expression
     (22) expression -> expression . MINUS expression
     (23) expression -> expression . TIMES expression
     (24) expression -> expression . DIVIDE expression
     (25) expression -> expression . EQUALTO expression
 
-    RPAREN          reduce using rule 34 (argument_list -> argument_list COMMA expression .)
-    COMMA           reduce using rule 34 (argument_list -> argument_list COMMA expression .)
-    PLUS            shift and go to state 24
-    MINUS           shift and go to state 25
-    TIMES           shift and go to state 26
-    DIVIDE          shift and go to state 27
-    EQUALTO         shift and go to state 28
+    RPAREN          reduce using rule 35 (argument_list -> argument_list COMMA expression .)
+    COMMA           reduce using rule 35 (argument_list -> argument_list COMMA expression .)
+    PLUS            shift and go to state 25
+    MINUS           shift and go to state 26
+    TIMES           shift and go to state 27
+    DIVIDE          shift and go to state 28
+    EQUALTO         shift and go to state 29
 
 
-state 58
+state 59
 
     (14) inline_if_statement -> IF expression COLON statements ELSE . statements
     (1) statements -> . statement statements
@@ -1838,7 +1943,7 @@ state 58
     (7) statement -> . function_call
     (8) statement -> . print_statement
     (9) statement -> . empty
-    (35) empty -> .
+    (36) empty -> .
     (10) conditional -> . inline_if_statement
     (11) conditional -> . for_statement
     (12) conditional -> . while_statement
@@ -1850,10 +1955,11 @@ state 58
     (26) expression -> . LPAREN expression RPAREN
     (27) expression -> . INTEGER
     (28) expression -> . FLOAT
-    (29) expression -> . IDENTIFIER
-    (30) expression -> . bool
-    (31) assignment_statement -> . IDENTIFIER EQUAL expression
-    (32) function_call -> . IDENTIFIER LPAREN argument_list RPAREN
+    (29) expression -> . STRING
+    (30) expression -> . IDENTIFIER
+    (31) expression -> . bool
+    (32) assignment_statement -> . IDENTIFIER EQUAL expression
+    (33) function_call -> . IDENTIFIER LPAREN argument_list RPAREN
     (20) print_statement -> . PRINT LPAREN expression RPAREN
     (13) inline_if_statement -> . IF expression COLON statements
     (14) inline_if_statement -> . IF expression COLON statements ELSE statements
@@ -1865,6 +1971,7 @@ state 58
   ! shift/reduce conflict for LPAREN resolved as shift
   ! shift/reduce conflict for INTEGER resolved as shift
   ! shift/reduce conflict for FLOAT resolved as shift
+  ! shift/reduce conflict for STRING resolved as shift
   ! shift/reduce conflict for IDENTIFIER resolved as shift
   ! shift/reduce conflict for PRINT resolved as shift
   ! shift/reduce conflict for IF resolved as shift
@@ -1872,32 +1979,34 @@ state 58
   ! shift/reduce conflict for WHILE resolved as shift
   ! shift/reduce conflict for TRUE resolved as shift
   ! shift/reduce conflict for FALSE resolved as shift
-    $end            reduce using rule 35 (empty -> .)
-    ELSE            reduce using rule 35 (empty -> .)
+    $end            reduce using rule 36 (empty -> .)
+    ELSE            reduce using rule 36 (empty -> .)
     LPAREN          shift and go to state 12
     INTEGER         shift and go to state 13
     FLOAT           shift and go to state 14
-    IDENTIFIER      shift and go to state 15
-    PRINT           shift and go to state 17
-    IF              shift and go to state 18
-    FOR             shift and go to state 19
-    WHILE           shift and go to state 20
-    TRUE            shift and go to state 21
-    FALSE           shift and go to state 22
+    STRING          shift and go to state 15
+    IDENTIFIER      shift and go to state 16
+    PRINT           shift and go to state 18
+    IF              shift and go to state 19
+    FOR             shift and go to state 20
+    WHILE           shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
 
-  ! LPAREN          [ reduce using rule 35 (empty -> .) ]
-  ! INTEGER         [ reduce using rule 35 (empty -> .) ]
-  ! FLOAT           [ reduce using rule 35 (empty -> .) ]
-  ! IDENTIFIER      [ reduce using rule 35 (empty -> .) ]
-  ! PRINT           [ reduce using rule 35 (empty -> .) ]
-  ! IF              [ reduce using rule 35 (empty -> .) ]
-  ! FOR             [ reduce using rule 35 (empty -> .) ]
-  ! WHILE           [ reduce using rule 35 (empty -> .) ]
-  ! TRUE            [ reduce using rule 35 (empty -> .) ]
-  ! FALSE           [ reduce using rule 35 (empty -> .) ]
+  ! LPAREN          [ reduce using rule 36 (empty -> .) ]
+  ! INTEGER         [ reduce using rule 36 (empty -> .) ]
+  ! FLOAT           [ reduce using rule 36 (empty -> .) ]
+  ! STRING          [ reduce using rule 36 (empty -> .) ]
+  ! IDENTIFIER      [ reduce using rule 36 (empty -> .) ]
+  ! PRINT           [ reduce using rule 36 (empty -> .) ]
+  ! IF              [ reduce using rule 36 (empty -> .) ]
+  ! FOR             [ reduce using rule 36 (empty -> .) ]
+  ! WHILE           [ reduce using rule 36 (empty -> .) ]
+  ! TRUE            [ reduce using rule 36 (empty -> .) ]
+  ! FALSE           [ reduce using rule 36 (empty -> .) ]
 
     expression                     shift and go to state 5
-    statements                     shift and go to state 60
+    statements                     shift and go to state 61
     statement                      shift and go to state 2
     empty                          shift and go to state 3
     conditional                    shift and go to state 4
@@ -1907,9 +2016,9 @@ state 58
     inline_if_statement            shift and go to state 9
     for_statement                  shift and go to state 10
     while_statement                shift and go to state 11
-    bool                           shift and go to state 16
+    bool                           shift and go to state 17
 
-state 59
+state 60
 
     (16) range_expression -> RANGE expression . COMMA expression
     (21) expression -> expression . PLUS expression
@@ -1918,21 +2027,22 @@ state 59
     (24) expression -> expression . DIVIDE expression
     (25) expression -> expression . EQUALTO expression
 
-    COMMA           shift and go to state 61
-    PLUS            shift and go to state 24
-    MINUS           shift and go to state 25
-    TIMES           shift and go to state 26
-    DIVIDE          shift and go to state 27
-    EQUALTO         shift and go to state 28
+    COMMA           shift and go to state 62
+    PLUS            shift and go to state 25
+    MINUS           shift and go to state 26
+    TIMES           shift and go to state 27
+    DIVIDE          shift and go to state 28
+    EQUALTO         shift and go to state 29
 
 
-state 60
+state 61
 
     (14) inline_if_statement -> IF expression COLON statements ELSE statements .
 
     LPAREN          reduce using rule 14 (inline_if_statement -> IF expression COLON statements ELSE statements .)
     INTEGER         reduce using rule 14 (inline_if_statement -> IF expression COLON statements ELSE statements .)
     FLOAT           reduce using rule 14 (inline_if_statement -> IF expression COLON statements ELSE statements .)
+    STRING          reduce using rule 14 (inline_if_statement -> IF expression COLON statements ELSE statements .)
     IDENTIFIER      reduce using rule 14 (inline_if_statement -> IF expression COLON statements ELSE statements .)
     PRINT           reduce using rule 14 (inline_if_statement -> IF expression COLON statements ELSE statements .)
     IF              reduce using rule 14 (inline_if_statement -> IF expression COLON statements ELSE statements .)
@@ -1944,7 +2054,7 @@ state 60
     ELSE            reduce using rule 14 (inline_if_statement -> IF expression COLON statements ELSE statements .)
 
 
-state 61
+state 62
 
     (16) range_expression -> RANGE expression COMMA . expression
     (21) expression -> . expression PLUS expression
@@ -1955,22 +2065,24 @@ state 61
     (26) expression -> . LPAREN expression RPAREN
     (27) expression -> . INTEGER
     (28) expression -> . FLOAT
-    (29) expression -> . IDENTIFIER
-    (30) expression -> . bool
+    (29) expression -> . STRING
+    (30) expression -> . IDENTIFIER
+    (31) expression -> . bool
     (18) bool -> . TRUE
     (19) bool -> . FALSE
 
     LPAREN          shift and go to state 12
     INTEGER         shift and go to state 13
     FLOAT           shift and go to state 14
-    IDENTIFIER      shift and go to state 30
-    TRUE            shift and go to state 21
-    FALSE           shift and go to state 22
+    STRING          shift and go to state 15
+    IDENTIFIER      shift and go to state 31
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
 
-    expression                     shift and go to state 62
-    bool                           shift and go to state 16
+    expression                     shift and go to state 63
+    bool                           shift and go to state 17
 
-state 62
+state 63
 
     (16) range_expression -> RANGE expression COMMA expression .
     (21) expression -> expression . PLUS expression
@@ -1982,6 +2094,7 @@ state 62
     LPAREN          reduce using rule 16 (range_expression -> RANGE expression COMMA expression .)
     INTEGER         reduce using rule 16 (range_expression -> RANGE expression COMMA expression .)
     FLOAT           reduce using rule 16 (range_expression -> RANGE expression COMMA expression .)
+    STRING          reduce using rule 16 (range_expression -> RANGE expression COMMA expression .)
     IDENTIFIER      reduce using rule 16 (range_expression -> RANGE expression COMMA expression .)
     PRINT           reduce using rule 16 (range_expression -> RANGE expression COMMA expression .)
     IF              reduce using rule 16 (range_expression -> RANGE expression COMMA expression .)
@@ -1991,11 +2104,11 @@ state 62
     FALSE           reduce using rule 16 (range_expression -> RANGE expression COMMA expression .)
     $end            reduce using rule 16 (range_expression -> RANGE expression COMMA expression .)
     ELSE            reduce using rule 16 (range_expression -> RANGE expression COMMA expression .)
-    PLUS            shift and go to state 24
-    MINUS           shift and go to state 25
-    TIMES           shift and go to state 26
-    DIVIDE          shift and go to state 27
-    EQUALTO         shift and go to state 28
+    PLUS            shift and go to state 25
+    MINUS           shift and go to state 26
+    TIMES           shift and go to state 27
+    DIVIDE          shift and go to state 28
+    EQUALTO         shift and go to state 29
 
 WARNING: 
 WARNING: Conflicts:
@@ -2003,6 +2116,7 @@ WARNING:
 WARNING: shift/reduce conflict for LPAREN in state 0 resolved as shift
 WARNING: shift/reduce conflict for INTEGER in state 0 resolved as shift
 WARNING: shift/reduce conflict for FLOAT in state 0 resolved as shift
+WARNING: shift/reduce conflict for STRING in state 0 resolved as shift
 WARNING: shift/reduce conflict for IDENTIFIER in state 0 resolved as shift
 WARNING: shift/reduce conflict for PRINT in state 0 resolved as shift
 WARNING: shift/reduce conflict for IF in state 0 resolved as shift
@@ -2013,6 +2127,7 @@ WARNING: shift/reduce conflict for FALSE in state 0 resolved as shift
 WARNING: shift/reduce conflict for LPAREN in state 2 resolved as shift
 WARNING: shift/reduce conflict for INTEGER in state 2 resolved as shift
 WARNING: shift/reduce conflict for FLOAT in state 2 resolved as shift
+WARNING: shift/reduce conflict for STRING in state 2 resolved as shift
 WARNING: shift/reduce conflict for IDENTIFIER in state 2 resolved as shift
 WARNING: shift/reduce conflict for PRINT in state 2 resolved as shift
 WARNING: shift/reduce conflict for IF in state 2 resolved as shift
@@ -2020,12 +2135,7 @@ WARNING: shift/reduce conflict for FOR in state 2 resolved as shift
 WARNING: shift/reduce conflict for WHILE in state 2 resolved as shift
 WARNING: shift/reduce conflict for TRUE in state 2 resolved as shift
 WARNING: shift/reduce conflict for FALSE in state 2 resolved as shift
-WARNING: shift/reduce conflict for LPAREN in state 15 resolved as shift
-WARNING: shift/reduce conflict for PLUS in state 37 resolved as shift
-WARNING: shift/reduce conflict for MINUS in state 37 resolved as shift
-WARNING: shift/reduce conflict for TIMES in state 37 resolved as shift
-WARNING: shift/reduce conflict for DIVIDE in state 37 resolved as shift
-WARNING: shift/reduce conflict for EQUALTO in state 37 resolved as shift
+WARNING: shift/reduce conflict for LPAREN in state 16 resolved as shift
 WARNING: shift/reduce conflict for PLUS in state 38 resolved as shift
 WARNING: shift/reduce conflict for MINUS in state 38 resolved as shift
 WARNING: shift/reduce conflict for TIMES in state 38 resolved as shift
@@ -2046,37 +2156,45 @@ WARNING: shift/reduce conflict for MINUS in state 41 resolved as shift
 WARNING: shift/reduce conflict for TIMES in state 41 resolved as shift
 WARNING: shift/reduce conflict for DIVIDE in state 41 resolved as shift
 WARNING: shift/reduce conflict for EQUALTO in state 41 resolved as shift
-WARNING: shift/reduce conflict for LPAREN in state 47 resolved as shift
-WARNING: shift/reduce conflict for INTEGER in state 47 resolved as shift
-WARNING: shift/reduce conflict for FLOAT in state 47 resolved as shift
-WARNING: shift/reduce conflict for IDENTIFIER in state 47 resolved as shift
-WARNING: shift/reduce conflict for PRINT in state 47 resolved as shift
-WARNING: shift/reduce conflict for IF in state 47 resolved as shift
-WARNING: shift/reduce conflict for FOR in state 47 resolved as shift
-WARNING: shift/reduce conflict for WHILE in state 47 resolved as shift
-WARNING: shift/reduce conflict for TRUE in state 47 resolved as shift
-WARNING: shift/reduce conflict for FALSE in state 47 resolved as shift
-WARNING: shift/reduce conflict for LPAREN in state 49 resolved as shift
-WARNING: shift/reduce conflict for INTEGER in state 49 resolved as shift
-WARNING: shift/reduce conflict for FLOAT in state 49 resolved as shift
-WARNING: shift/reduce conflict for IDENTIFIER in state 49 resolved as shift
-WARNING: shift/reduce conflict for PRINT in state 49 resolved as shift
-WARNING: shift/reduce conflict for IF in state 49 resolved as shift
-WARNING: shift/reduce conflict for FOR in state 49 resolved as shift
-WARNING: shift/reduce conflict for WHILE in state 49 resolved as shift
-WARNING: shift/reduce conflict for TRUE in state 49 resolved as shift
-WARNING: shift/reduce conflict for FALSE in state 49 resolved as shift
-WARNING: shift/reduce conflict for ELSE in state 53 resolved as shift
-WARNING: shift/reduce conflict for LPAREN in state 58 resolved as shift
-WARNING: shift/reduce conflict for INTEGER in state 58 resolved as shift
-WARNING: shift/reduce conflict for FLOAT in state 58 resolved as shift
-WARNING: shift/reduce conflict for IDENTIFIER in state 58 resolved as shift
-WARNING: shift/reduce conflict for PRINT in state 58 resolved as shift
-WARNING: shift/reduce conflict for IF in state 58 resolved as shift
-WARNING: shift/reduce conflict for FOR in state 58 resolved as shift
-WARNING: shift/reduce conflict for WHILE in state 58 resolved as shift
-WARNING: shift/reduce conflict for TRUE in state 58 resolved as shift
-WARNING: shift/reduce conflict for FALSE in state 58 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 42 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 42 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 42 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 42 resolved as shift
+WARNING: shift/reduce conflict for EQUALTO in state 42 resolved as shift
+WARNING: shift/reduce conflict for LPAREN in state 48 resolved as shift
+WARNING: shift/reduce conflict for INTEGER in state 48 resolved as shift
+WARNING: shift/reduce conflict for FLOAT in state 48 resolved as shift
+WARNING: shift/reduce conflict for STRING in state 48 resolved as shift
+WARNING: shift/reduce conflict for IDENTIFIER in state 48 resolved as shift
+WARNING: shift/reduce conflict for PRINT in state 48 resolved as shift
+WARNING: shift/reduce conflict for IF in state 48 resolved as shift
+WARNING: shift/reduce conflict for FOR in state 48 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 48 resolved as shift
+WARNING: shift/reduce conflict for TRUE in state 48 resolved as shift
+WARNING: shift/reduce conflict for FALSE in state 48 resolved as shift
+WARNING: shift/reduce conflict for LPAREN in state 50 resolved as shift
+WARNING: shift/reduce conflict for INTEGER in state 50 resolved as shift
+WARNING: shift/reduce conflict for FLOAT in state 50 resolved as shift
+WARNING: shift/reduce conflict for STRING in state 50 resolved as shift
+WARNING: shift/reduce conflict for IDENTIFIER in state 50 resolved as shift
+WARNING: shift/reduce conflict for PRINT in state 50 resolved as shift
+WARNING: shift/reduce conflict for IF in state 50 resolved as shift
+WARNING: shift/reduce conflict for FOR in state 50 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 50 resolved as shift
+WARNING: shift/reduce conflict for TRUE in state 50 resolved as shift
+WARNING: shift/reduce conflict for FALSE in state 50 resolved as shift
+WARNING: shift/reduce conflict for ELSE in state 54 resolved as shift
+WARNING: shift/reduce conflict for LPAREN in state 59 resolved as shift
+WARNING: shift/reduce conflict for INTEGER in state 59 resolved as shift
+WARNING: shift/reduce conflict for FLOAT in state 59 resolved as shift
+WARNING: shift/reduce conflict for STRING in state 59 resolved as shift
+WARNING: shift/reduce conflict for IDENTIFIER in state 59 resolved as shift
+WARNING: shift/reduce conflict for PRINT in state 59 resolved as shift
+WARNING: shift/reduce conflict for IF in state 59 resolved as shift
+WARNING: shift/reduce conflict for FOR in state 59 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 59 resolved as shift
+WARNING: shift/reduce conflict for TRUE in state 59 resolved as shift
+WARNING: shift/reduce conflict for FALSE in state 59 resolved as shift
 WARNING: reduce/reduce conflict in state 2 resolved using rule (statements -> statement)
 WARNING: rejected rule (empty -> <empty>) in state 2
 WARNING: reduce/reduce conflict in state 3 resolved using rule (statements -> empty)

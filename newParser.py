@@ -97,6 +97,7 @@ def p_expression(p):
                | LPAREN expression RPAREN
                | INTEGER
                | FLOAT
+               | STRING
                | IDENTIFIER
                | bool
     """
