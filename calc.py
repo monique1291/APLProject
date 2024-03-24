@@ -1,5 +1,5 @@
 import ply.lex as lex
-import ply.yacc as yacc
+from ply import yacc
 
 reserved = {
     'if': 'IF',
@@ -64,7 +64,7 @@ t_GREATERTHAN = r'\>'
 t_LESSTHAN = r'\<'
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
-t_ignore = r' \t'
+t_ignore = r't'
 
 
 def t_FLOAT(t):
@@ -102,15 +102,41 @@ precedence = (
     ('left', 'MULTIPLY', 'DIVIDE')
 )
 
-#In case of an EOF error for whatever reason
+
+def calc(p):
+    """
+    calc: expression
+        | empty
+    """
+    print(run(p[1]))
+
+
+# In case of an EOF error for whatever reason
 while True:
     try:
-        s = input(' ')
+        s = input(1+(4*2))
     except EOFError:
         break
 
+parser = yacc.yacc()
+
+
+# run function
+def run(p):
+    if type(p) == tuple:
+        if p[0] == '+':
+            return run(p[1]) + run(p[2])
+    if type(p) == tuple:
+        if p[0] == '-':
+            return run(p[1]) - run(p[2])
+    if type(p) == tuple:
+        if p[0] == '*':
+            return run(p[1]) * run(p[2])
+    if type(p) == tuple:
+        if p[0] == '/':
+            return run(p[1]) / run(p[2])
+    else:
+        return p
+
+
 # GRAMMAR
-
-
-
-# rule to allow assigning of values to variables
