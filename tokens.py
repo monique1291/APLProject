@@ -141,10 +141,12 @@ def t_IDENTIFIER(t):
 
 
 # noticing an error, if an identifier starts with lower cse it will accept it as a reserved word
+#might be fixed. Needs more testing.
 def t_RESERVEDWORD(t):
-    r'[a-zA-Z_][a-zA-Z_0-9]*'
-    t.type = reserved.get(t.value, 'RESERVEDWORD')  # Check if it's a reserved word
+    r'\b(?:' + '|'.join(reserved.keys()) + r')\b'
+    t.type = reserved.get(t.value, 'RESERVEDWORD')
     return t
+
 
 
 # A string containing ignored characters (spaces and tabs)
