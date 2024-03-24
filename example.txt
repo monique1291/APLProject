@@ -1,6 +1,17 @@
-A = (3 * 4)
-#Hello World
+#CLASS apples:
+#VARIABLE float A
+#ARRAY INTEGER my_array[5]
 
+IF (cap > 6):
+    A = (3 * 4)
+ENDIF
+
+#Hello World
+#FUNC INTEGER number_y (INTEGER num1)
+ #   A = (3 * 4)
+#CLOSEFUNC
+
+#CLOSECLASS
 #B = 4.5
 
 #- is for comments

@@ -31,7 +31,13 @@ reserved = {
     'def': 'DEF',
     'break': 'BREAK',
     'case': 'CASE',
-    'switch': 'SWITCH'
+    'switch': 'SWITCH',
+    'variable': 'VARIABLE',
+    'array': 'ARRAY',
+    'closeclass': 'CLOSECLASS',
+    'endif': 'ENDIF',
+    'closefunc': 'CLOSEFUNC'
+
 }
 literals = ['+', '-', '*', '/', '=', '<', '>', '(', ')', '{', '}', '[', ']', ',', ':']
 tokens = [
@@ -114,6 +120,8 @@ def t_COMMENT(t):
     pass  # Discard comments
 
 
+
+
 # A regular expression rule with some action code
 def t_FLOAT(t):
     r'\d+\.\d+'
@@ -131,6 +139,7 @@ def t_INTEGER(t):
 def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
+
 
 
 def t_STRING(t):
