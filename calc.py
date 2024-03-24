@@ -102,6 +102,12 @@ precedence = (
     ('left', 'MULTIPLY', 'DIVIDE')
 )
 
+#In case of an EOF error for whatever reason
+while True:
+    try:
+        s = input(' ')
+    except EOFError:
+        break
 
 # GRAMMAR
 
