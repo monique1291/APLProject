@@ -73,8 +73,8 @@ class SemanticAnalyzer:
         # Handling function calls
         pass
 
-    def visit_print_statement(self, *args):
-        # Handling print statements
+    def visit_print_statement(self, text):
+        print(text)
         pass
 
     def visit_range_expression(self, *args):

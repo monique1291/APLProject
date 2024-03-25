@@ -1,9 +1,15 @@
+int x
+x = 9
+
 class X:
     print ("X")
 closeclass
 
-if (X<5):
+if (x<5):
     print("waow")
 else:
     print("Yummy")
 endif
+
+main():
+    print("FUCK THIS")
