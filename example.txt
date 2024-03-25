@@ -1,9 +1,9 @@
-int x
-x = 9
+#int x
+#x = 9
 
-func int X (int a)
-    print("Sigh")
-closefunc
+#func int X (int a)
+#    print("Sigh")
+#closefunc
 
 if (x<5):
     print("waow")
@@ -11,5 +11,5 @@ else:
     print("Yummy")
 endif
 
-main():
-    print("FUCK THIS")
+#main():
+#    print("FUCK THIS")
