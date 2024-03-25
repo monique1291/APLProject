@@ -1,5 +1,3 @@
-import ply.lex as lex
-
 reserved = {
     'if': 'IF',
     'then': 'THEN',
@@ -9,11 +7,10 @@ reserved = {
     'for': 'FOR',
     'do': 'DO',
     'until': 'UNTIL',
-    'Int': 'INT',
-    'Str': 'Str',
-    'Double': 'Double',
-    'Float': 'Float',
-    'Bool': 'Bool',
+    'int': 'INT',
+    'str': 'STR',
+    'float': 'FLT',
+    'bool': 'BOOL',
     'func': 'FUNC',
     'return': 'RETURN',
     'main': 'MAIN',
@@ -36,12 +33,11 @@ reserved = {
     'array': 'ARRAY',
     'closeclass': 'CLOSECLASS',
     'endif': 'ENDIF',
-    'closefunc': 'CLOSEFUNC'
-
+    'closefunc': 'CLOSEFUNC',
+    'print': 'PRINT'
 }
-literals = ['+', '-', '*', '/', '=', '<', '>', '(', ')', '{', '}', '[', ']', ',', ':']
+
 tokens = [
-             'RESERVEDWORD',
              'INTEGER',
              'STRING',
              'FLOAT',
@@ -73,20 +69,18 @@ tokens = [
              'COMMA',
              'DOUBLEQUOTES',
              'SINGLEQUOTES',
+             'COLON',
              # Identifier
              'IDENTIFIER',
              'COMMENTS',
-             'COLON',  # Add COLON token
-             'RULE_OPEN',  # Add RULE_OPEN token
-             'RULE_CLOSE',  # Add RULE_CLOSE token
-             'RANGE',  # Add RANGE token
-             'PRINT',  # Add PRINT token
-             'EQUALTO',  # Add EQUALTO token
-         ] + list(reserved.values())  # + literals #may be able to remove literals
+             'RULE_OPEN',
+             'RULE_CLOSE',
+             'RANGE',
+         ] + list(reserved.values())  # + literals
 
 # Regular expression rules for simple tokens
 t_PLUS = r'\+'
-t_MINUS = r'-'
+t_MINUS = r'\-'
 t_TIMES = r'\*'
 t_DIVIDE = r'/'
 t_EQUAL = r'\='
@@ -103,23 +97,21 @@ t_RSQUAREDBRACKET = r'\]'
 t_COMMA = r'\,'
 t_DOUBLEQUOTES = r'\"'
 t_SINGLEQUOTES = r'\''
-t_COLON = r'\:'  # Regular expression rule for COLON token
+t_COLON = r'\:'
 
 # Regular expression rule for comparison operators
-t_EQUALEQUAL = r'=='
-t_NOTEQUAL = r'!='
-t_LESSTHAN = r'<'
-t_GREATERTHAN = r'>'
-t_LESSEQUAL = r'<='
-t_GREATEREQUAL = r'>='
+t_EQUALEQUAL = r'\=='
+t_NOTEQUAL = r'\!='
+t_LESSTHAN = r'\<'
+t_GREATERTHAN = r'\>'
+t_LESSEQUAL = r'\<='
+t_GREATEREQUAL = r'\>='
 
 
 # Regular expression rule for comments
 def t_COMMENT(t):
     r'\#.*'
     pass  # Discard comments
-
-
 
 
 # A regular expression rule with some action code
@@ -141,10 +133,9 @@ def t_newline(t):
     t.lexer.lineno += len(t.value)
 
 
-
 def t_STRING(t):
-    r'\"[a-zA-Z_][a-zA-Z_0-9]*\"'  # should i let all strings have same rules as identifiers?
-    t.value = t.value
+    r'\".*?\"'
+    t.value = t.value[1:-1]
     return t
 
 
@@ -154,18 +145,11 @@ def t_IDENTIFIER(t):
     return t
 
 
-# noticing an error, if an identifier starts with lower cse it will accept it as a reserved word
-def t_RESERVEDWORD(t):
-    r'[a-zA-Z_][a-zA-Z_0-9]*'
-    t.type = reserved.get(t.value, 'RESERVEDWORD')  # Check if it's a reserved word
-    return t
-
-
 # A string containing ignored characters (spaces and tabs)
 t_ignore = ' \t'
 
 
 # Error handling rule
 def t_error(t):
-    print(f"Illegal character '{t.value[0]}' at line {t.lineno}")  # prints illegal char and line num
+    print(f"Illegal character '{t.value[0]}' at line {t.lineno}")
     t.lexer.skip(1)

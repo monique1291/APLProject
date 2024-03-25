@@ -1,29 +1,9 @@
-#CLASS apples:
-#VARIABLE float A
-#ARRAY INTEGER my_array[5]
+class X:
+    print ("X")
+closeclass
 
-IF (cap > 6):
-    A = (3 * 4)
-ENDIF
-
-#Hello World
-#FUNC INTEGER number_y (INTEGER num1)
- #   A = (3 * 4)
-#CLOSEFUNC
-
-#CLOSECLASS
-#B = 4.5
-
-#- is for comments
-
-#Error \ should be an illegal character
-#A+3\3
-
-#Error is a common letter word acccepted?
-#arnold = "a3"
-
-#Test for Signs and symbols and reserved words
-#if (A<B) then
-#    A= 3+1*8
-#elif (A>=B or B==1) then
-#    B/=2 #/= is an assigment operator
+if (X<5):
+    print("waow")
+else:
+    print("Yummy")
+endif

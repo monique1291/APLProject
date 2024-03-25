@@ -1,63 +1,110 @@
-def __init__(self):
-    self.variables = {}  # Dictionary to store variables and their types
+class SemanticAnalyzer:
+    def __init__(self):
+        self.symbol_table = {}
 
+    def analyze(self, ast):
+        self.visit(ast)
 
-def analyze(self, parse_tree):
-    self.traverse(parse_tree)
+    def visit(self, node):
+        method_name = 'visit_' + node[0]
+        if hasattr(self, method_name):
+            method = getattr(self, method_name)
+            return method(*node[1:])
+        else:
+            raise NotImplementedError(f"Method {method_name} not implemented")
 
+    def visit_statements(self, *statements):
+        for statement in statements:
+            self.visit(statement)
 
-def traverse(self, node):
-    if isinstance(node, tuple):
-        node_type = node[0]
+    def visit_assignment_statement(self, identifier, value):
+        var_name = identifier
+        if var_name not in self.symbol_table:
+            raise NameError(f"Variable '{var_name}' is not defined")
+        expected_type = self.symbol_table[var_name]
+        actual_type = self.get_value_type(value)
+        if actual_type != expected_type:
+            raise TypeError(f"Type mismatch: Variable '{var_name}' expected {expected_type}, got {actual_type}")
 
-        if node_type == 'assignment_statement':
-            self.analyze_assignment(node)
-        elif node_type == 'function_call':
-            self.analyze_function_call(node)
-        elif node_type == 'expression':
-            self.analyze_expression(node)
-        elif node_type == 'conditional':
-            self.analyze_conditional(node)
-        elif node_type == 'for_statement':
-            self.analyze_for_loop(node)
-        elif node_type == 'while_statement':
-            self.analyze_while_loop(node)
-        elif node_type == 'print_statement':
-            self.analyze_print_statement(node)
-        elif node_type == 'statements':
-            for child in node[1:]:
-                self.traverse(child)
+    def visit_variable_declaration(self, datatype, identifier):
+        var_name = identifier
+        if var_name in self.symbol_table:
+            raise NameError(f"Variable '{var_name}' is already defined")
+        self.symbol_table[var_name] = datatype
 
+    def get_value_type(self, value):
+        if isinstance(value, int):
+            return 'int'
+        elif isinstance(value, str):
+            return 'str'
+        elif isinstance(value, float):
+            return 'float'
+        #elif isinstance(value, bool): #do we neeed boolean?
+        #    return 'bool'
+        else:
+            return None
 
-def analyze_assignment(self, node):
-    identifier = node[1]
-    expression = node[2]
+    def visit_function_declaration(self, datatype, identifier, argument_list, statements):
+        func_name = identifier
+        if func_name in self.symbol_table:
+            raise NameError(f"Function '{func_name}' is already defined")
+        self.symbol_table[func_name] = datatype
+        self.visit(statements)
 
-    # Perform semantic checks for assignment statement
-    # Example checks: variable existence, type compatibility, etc.
-    # Update self.variables dictionary if needed
+    def visit_class_declaration(self, identifier, statements):
+        class_name = identifier
+        if class_name in self.symbol_table:
+            raise NameError(f"Class '{class_name}' is already defined")
+        self.symbol_table[class_name] = 'CLASS'
 
+    def visit_main_function(self, statements):
+        self.visit(statements)
 
-"""def analyze_function_call(self, node):
-    # Perform semantic checks for function calls
-    # Example checks: function existence, argument types, etc.
+    def visit_conditional(self, *args):
+        # Handling conditionals is not explicitly specified in the example. You can add the logic here if needed.
+        pass
 
-def analyze_expression(self, node):
-    # Perform semantic checks for expressions
-    # Example checks: type compatibility, undefined variables, etc.
+    def visit_expression(self, *args):
+        # Handling expressions
+        pass
 
-def analyze_conditional(self, node):
-    # Perform semantic checks for conditional statements
-    # Example checks: condition type, unreachable code, etc.
+    def visit_function_call(self, *args):
+        # Handling function calls
+        pass
 
-def analyze_for_loop(self, node):
-    # Perform semantic checks for for loops
-    # Example checks: loop variable, range expression, etc.
+    def visit_print_statement(self, *args):
+        # Handling print statements
+        pass
 
-def analyze_while_loop(self, node):
-    # Perform semantic checks for while loops
-    # Example checks: condition type, unreachable code, etc.
+    def visit_range_expression(self, *args):
+        # Handling range expressions
+        pass
 
-def analyze_print_statement(self, node):
-    # Perform semantic checks for print statements
-    # Example checks: argument types, etc."""
+    def visit_while_statement(self, *args):
+        # Handling while statements
+        pass
+
+    def visit_for_statement(self, *args):
+        # Handling for statements
+        pass
+
+    def visit_inline_if_statement(self, *args):
+        # Handling inline if statements
+        pass
+
+    def visit_array_declaration(self, *args):
+        # Handling array declarations
+        pass
+
+    def visit_bool(self, *args):
+        # Handling boolean values
+        pass
+
+    def visit_type(self, *args):
+        # Handling types
+        pass
+
+    # Define visit_empty method
+    def visit_empty(self):
+        # This method does nothing since the empty production doesn't produce any meaningful AST node
+        pass

@@ -28,9 +28,21 @@ def p_statement(p):
               | assignment_statement
               | function_call
               | print_statement
+              | function_declaration
+              | variable_declaration
+              | array_declaration
+              | class_declaration
+              | main_function
               | empty
     """
     p[0] = p[1]
+
+
+def p_main_function(p):
+    """
+    main_function : MAIN LPAREN RPAREN COLON statements
+    """
+    p[0] = ('main_function', p[5])
 
 
 def p_conditional(p):
@@ -45,15 +57,15 @@ def p_conditional(p):
 # declaring a variable
 def p_variable_declaration(p):
     """
-    variable_declaration : VARIABLE datatype IDENTIFIER
+    variable_declaration : type IDENTIFIER
     """
-    if len(p) == 4:
-        p[0] = ('variable_declaration', p[2], p[3])
+    if len(p) == 3:
+        p[0] = ('variable_declaration', p[1], p[2])
 
 
 def p_array_declaration(p):
     """
-    array_declaration : ARRAY datatype IDENTIFIER LSQUAREDBRACKET INTEGER RSQUAREDBRACKET
+    array_declaration : ARRAY type IDENTIFIER LSQUAREDBRACKET INTEGER RSQUAREDBRACKET
     """
     if len(p) == 7:
         p[0] = ('array_declaration', p[2], p[3], p[5])
@@ -61,10 +73,10 @@ def p_array_declaration(p):
 
 def p_function_declaration(p):
     """
-    function_declaration : FUNC datatype IDENTIFIER LPAREN argument_list RPAREN statements CLOSEFUNC
+    function_declaration : FUNC type IDENTIFIER LPAREN argument_list RPAREN statements CLOSEFUNC
     """
     if len(p) == 9:
-        p[0] = ('function_declaration', p[2], p[3], p[5],p[7])
+        p[0] = ('function_declaration', p[2], p[3], p[5], p[7])
 
 
 def p_class_declaration(p):
@@ -77,12 +89,12 @@ def p_class_declaration(p):
 
 def p_inline_if_statement(p):
     """inline_if_statement : IF expression COLON statements ENDIF
-                           | IF expression COLON statements ELSE statements
+                           | IF expression COLON statements ELSE COLON statements ENDIF
                            """
     if len(p) == 6:
         p[0] = ('inline_if_statement', p[2], p[4])
-    elif len(p) == 7:
-        p[0] = ('inline_if_statement', p[2], p[4], p[6])
+    elif len(p) == 9:
+        p[0] = ('inline_if_statement', p[2], p[4], p[7])
 
 
 def p_for_statement(p):
@@ -116,51 +128,57 @@ def p_bool(p):
 
 def p_print_statement(p):
     """
-    print_statement : PRINT LPAREN expression RPAREN
+    print_statement : PRINT LPAREN STRING RPAREN
     """
     p[0] = ('print_statement', p[3])
 
 
 def p_expression(p):
     """
-    expression : expression GREATERTHAN datatype
-               | expression PLUS datatype
-               | expression MINUS datatype
-               | expression TIMES datatype
-               | expression DIVIDE datatype
-               | expression EQUAL datatype
+    expression : expression GREATERTHAN expression
+               | expression LESSTHAN expression
+               | expression GREATEREQUAL expression
+               | expression LESSEQUAL expression
+               | expression EQUALEQUAL expression
+               | expression NOTEQUAL expression
+               | expression PLUS expression
+               | expression MINUS expression
+               | expression TIMES expression
+               | expression DIVIDE expression
+               | expression EQUAL expression
                | LPAREN expression RPAREN
                | LSQUAREDBRACKET expression RSQUAREDBRACKET
                | token
-               | datatype
+               | data
     """
     if len(p) == 4:
-         p[0] = ('expression', p[1], p[2], p[3])
+        p[0] = ('expression', p[1], p[2], p[3])
     else:
-         p[0] = ('expression', p[1])
-
-  #  if len(p) == 4:
-   #     if p[1] == '(':
-    #        p[0] = p[2]  # If the expression is wrapped in parentheses, return the expression without parentheses
-    #    elif p[2] == '=':
-    #        p[0] = ('assignment', p[1], p[3])
-    #    else:
-    #        p[0] = ('binary_operation', p[2], p[1], p[3])
-    #elif len(p) == 2:
-    #    p[0] = p[1]
-    #else:
-    #    p[0] = p[2]  # For parentheses case
+        p[0] = p[1]
 
 
-def p_datatype(p):
+#  if len(p) == 4:
+#     if p[1] == '(':
+#        p[0] = p[2]  # If the expression is wrapped in parentheses, return the expression without parentheses
+#    elif p[2] == '=':
+#        p[0] = ('assignment', p[1], p[3])
+#    else:
+#        p[0] = ('binary_operation', p[2], p[1], p[3])
+# elif len(p) == 2:
+#    p[0] = p[1]
+# else:
+#    p[0] = p[2]  # For parentheses case
+
+
+def p_data(p):
     """
-    datatype : INTEGER
+    data : INTEGER
              | FLOAT
              | STRING
              | IDENTIFIER
              | bool
     """
-    p[0] = ('datatype', p[1])
+    p[0] = p[1]
 
 
 def p_tokens(p):
@@ -182,8 +200,8 @@ def p_function_call(p):
 
 
 def p_argument_list(p):
-    """argument_list : datatype IDENTIFIER COMMA argument_list
-                     | datatype IDENTIFIER
+    """argument_list : type IDENTIFIER COMMA argument_list
+                     | type IDENTIFIER
                      | empty"""
     if len(p) == 5:
         p[0] = ('argument_list', p[1], p[2], p[4])
@@ -191,6 +209,16 @@ def p_argument_list(p):
         p[0] = ('argument_list', p[1], p[2])
     else:
         p[0] = ('argument_list', p[1])
+
+
+def p_type(p):
+    """
+    type : INT
+         | FLT
+         | STR
+    """
+    p[0] = p[1]
+
 
 def p_empty(p):
     """
@@ -203,7 +231,7 @@ def p_error(p):
     if p:
         raise SyntaxError(f"Syntax Error: Unexpected token '{p.value}' at line {p.lineno}")
     else:
-        raise SyntaxError("Syntax Error: Unexpected end of input")
+        raise SyntaxError("Syntax Error: Unexpected end of file")
 
 
 parser = yacc.yacc()
