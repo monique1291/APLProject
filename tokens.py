@@ -31,7 +31,8 @@ reserved = {
     'def': 'DEF',
     'break': 'BREAK',
     'case': 'CASE',
-    'switch': 'SWITCH'
+    'switch': 'SWITCH',
+    'void': 'VOID',
 }
 literals = ['+', '-', '*', '/', '=', '<', '>', '(', ')', '{', '}', '[', ']', ',', ':']
 tokens = [
@@ -39,6 +40,8 @@ tokens = [
              'INTEGER',
              'STRING',
              'FLOAT',
+             'BOOL',
+             'DOUBLE',
              # Comparison Operators
              'EQUALEQUAL',
              'NOTEQUAL',
@@ -68,6 +71,7 @@ tokens = [
              'DOUBLEQUOTES',
              'SINGLEQUOTES',
              # Identifier
+             'STANDARD_DATATYPE',
              'IDENTIFIER',
              'COMMENTS',
              'COLON',  # Add COLON token
@@ -106,8 +110,6 @@ t_SINGLEQUOTES = r'\''
 t_COLON = r'\:'  # Regular expression rule for COLON token
 
 
-
-
 # Regular expression rule for comments
 def t_COMMENT(t):
     r'\#.*'
@@ -136,6 +138,12 @@ def t_newline(t):
 def t_STRING(t):
     r"""\"[a-zA-Z_][a-zA-Z_0-9]*\""""  # should i let all strings have same rules as identifiers?
     t.value = t.value
+    return t
+
+
+def t_STANDARD_DATATYPE(t):
+    r'[i][n][t]'
+    t.type = reserved.get(t.value, 'STANDARD_DATATYPE')
     return t
 
 

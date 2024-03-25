@@ -31,10 +31,10 @@ def p_statements(p):
 def p_statement(p):
     """
     statement : conditional
-              | expression
               | assignment_statement
               | function_call
               | print_statement
+              | declaration
               | empty
     """
     p[0] = p[1]
@@ -107,6 +107,36 @@ def p_print_statement(p):
     p[0] = ('print_statement', p[3])
 
 
+def p_declaration(p):
+    """
+    declaration : var_declaration
+                | function_declaration
+    """
+    p[0] = p[1]
+
+
+def p_var_declaration(p):
+    """
+    var_declaration : STANDARD_DATATYPE IDENTIFIER
+                    | STANDARD_DATATYPE assignment_statement
+    """
+    if len(p) == 3:
+        p[0] = ('var_declaration', p[1], p[2])
+
+
+def p_function_declaration(p):
+    """
+    function_declaration : VOID IDENTIFIER LPAREN argument_list RPAREN COLON
+                         | STANDARD_DATATYPE IDENTIFIER LPAREN argument_list RPAREN COLON
+    """
+    if len(p) == 7:
+        p[0] = ('function_declaration', p[2], p[4])
+        if p[2] == 'data_type':
+            p[0] = ('function_declaration', p[1], p[2], p[4])
+
+
+
+
 def p_expression(p):
     """
     expression : term
@@ -147,7 +177,6 @@ def p_term(p):
          | STRING
          | IDENTIFIER
          | bool
-         | LPAREN expression RPAREN
     """
     p[0] = p[1]
 
@@ -162,7 +191,7 @@ def p_function_call(p):
     p[0] = ('function_call', p[1], p[3])
 
 
-def p_argument_list(p):
+def p_argument_list(p):  # may need to expand this to allow datatypes to be passed when function is being declared
     """argument_list : expression
                      | argument_list COMMA expression"""
     if len(p) == 2:

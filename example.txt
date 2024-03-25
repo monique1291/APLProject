@@ -2,10 +2,14 @@
 #print(A*4)
 #B = 4.5
 
-if A > B : print("True")
-else if B > A : print("False")
+#This tests the block if else statement -> worked last time checked
 
+#if A > B : print("True")
+#else if B > A : print("False")
 
+#This tests the variable declaration
+
+int A = 9
 
 
 #- is for comments
