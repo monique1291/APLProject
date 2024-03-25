@@ -1,3 +1,16 @@
+def get_value_type(value):
+    if isinstance(value, int):
+        return 'int'
+    elif isinstance(value, str):
+        return 'str'
+    elif isinstance(value, float):
+        return 'float'
+    # elif isinstance(value, bool): #do we need boolean?
+    #    return 'bool'
+    else:
+        return None
+
+
 class SemanticAnalyzer:
     def __init__(self):
         self.symbol_table = {}
@@ -22,7 +35,7 @@ class SemanticAnalyzer:
         if var_name not in self.symbol_table:
             raise NameError(f"Variable '{var_name}' is not defined")
         expected_type = self.symbol_table[var_name]
-        actual_type = self.get_value_type(value)
+        actual_type = get_value_type(value)
         if actual_type != expected_type:
             raise TypeError(f"Type mismatch: Variable '{var_name}' expected {expected_type}, got {actual_type}")
 
@@ -31,18 +44,6 @@ class SemanticAnalyzer:
         if var_name in self.symbol_table:
             raise NameError(f"Variable '{var_name}' is already defined")
         self.symbol_table[var_name] = datatype
-
-    def get_value_type(self, value):
-        if isinstance(value, int):
-            return 'int'
-        elif isinstance(value, str):
-            return 'str'
-        elif isinstance(value, float):
-            return 'float'
-        #elif isinstance(value, bool): #do we neeed boolean?
-        #    return 'bool'
-        else:
-            return None
 
     def visit_function_declaration(self, datatype, identifier, argument_list, statements):
         func_name = identifier
