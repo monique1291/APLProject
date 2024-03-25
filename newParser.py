@@ -88,13 +88,13 @@ def p_class_declaration(p):
 
 
 def p_inline_if_statement(p):
-    """inline_if_statement : IF expression COLON statements ENDIF
-                           | IF expression COLON statements ELSE COLON statements ENDIF
+    """inline_if_statement : IF LPAREN expression RPAREN COLON statements ENDIF
+                           | IF LPAREN expression RPAREN COLON statements ELSE COLON statements ENDIF
                            """
-    if len(p) == 6:
-        p[0] = ('inline_if_statement', p[2], p[4])
-    elif len(p) == 9:
-        p[0] = ('inline_if_statement', p[2], p[4], p[7])
+    if len(p) == 8:
+        p[0] = ('inline_if_statement', p[3], p[6])
+    elif len(p) == 11:
+        p[0] = ('inline_if_statement', p[3], p[6], p[9])
 
 
 def p_for_statement(p):
@@ -146,8 +146,6 @@ def p_expression(p):
                | expression TIMES expression
                | expression DIVIDE expression
                | expression EQUAL expression
-               | LPAREN expression RPAREN
-               | LSQUAREDBRACKET expression RSQUAREDBRACKET
                | token
                | data
     """

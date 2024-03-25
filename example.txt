@@ -1,9 +1,9 @@
 int x
 x = 9
 
-class X:
-    print ("X")
-closeclass
+func int X (int a)
+    print("Sigh")
+closefunc
 
 if (x<5):
     print("waow")
