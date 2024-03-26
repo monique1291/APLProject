@@ -11,6 +11,11 @@ def get_value_type(value):
         return None
 
 
+def visit_print_statement(text):
+    print(text)
+    pass
+
+
 class SemanticAnalyzer:
     def __init__(self):
         self.symbol_table = {}
@@ -61,20 +66,39 @@ class SemanticAnalyzer:
     def visit_main_function(self, statements):
         self.visit(statements)
 
-    def visit_conditional(self, *args):
-        # Handling conditionals is not explicitly specified in the example. You can add the logic here if needed.
-        pass
+    # Define visit_conditional method
+        # Define visit_conditional method
+    def visit_conditional(self, if_statement, else_statement=None):
+        # Extract the condition expression and true/false statements from the AST node
+        condition_expr = if_statement[0]
+        true_statements = if_statement[1]
+        false_statements = else_statement[0] if else_statement else None
 
-    def visit_expression(self, *args):
-        # Handling expressions
-        pass
+        # Analyze the condition expression
+        self.visit(condition_expr)
+
+        # Analyze the true statements
+        self.visit(true_statements)
+
+        # Analyze the false statements if present
+        if false_statements:
+            self.visit(false_statements)
+
+    def visit_expression(self, left_operand, operator, right_operand):
+        # Perform semantic analysis on the expression
+        left_type = self.visit(left_operand)
+        right_type = self.visit(right_operand)
+
+        # Add your semantic analysis logic here
+        # For simplicity, let's assume the operands are of the same type
+        if left_type != right_type:
+            raise TypeError("Type mismatch in expression")
+
+        # Return the type of the expression
+        return left_type
 
     def visit_function_call(self, *args):
         # Handling function calls
-        pass
-
-    def visit_print_statement(self, text):
-        print(text)
         pass
 
     def visit_range_expression(self, *args):
@@ -89,9 +113,16 @@ class SemanticAnalyzer:
         # Handling for statements
         pass
 
-    def visit_inline_if_statement(self, *args):
-        # Handling inline if statements
-        pass
+    def visit_inline_if_statement(self, condition_expr, true_statements, false_statements=None):
+        # Analyze the condition expression
+        self.visit(condition_expr)
+
+        # Analyze the true statements
+        self.visit(true_statements)
+
+        # Analyze the false statements if present
+        if false_statements:
+            self.visit(false_statements)
 
     def visit_array_declaration(self, *args):
         # Handling array declarations

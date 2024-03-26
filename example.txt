@@ -1,5 +1,5 @@
-#int x
-#x = 9
+int x
+x = 9
 
 #func int X (int a)
 #    print("Sigh")
