@@ -1,3 +1,6 @@
-func int X():
+int X
+X=9
+
+if (X<9):
     print("Waow")
-closefunc
+endif
