@@ -55,7 +55,7 @@ Rule 17    conditional -> for_statement
 Rule 18    conditional -> while_statement
 Rule 19    variable_declaration -> type IDENTIFIER
 Rule 20    array_declaration -> ARRAY type IDENTIFIER LSQUAREDBRACKET INTEGER RSQUAREDBRACKET
-Rule 21    function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN statements CLOSEFUNC
+Rule 21    function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN COLON statements CLOSEFUNC
 Rule 22    class_declaration -> CLASS IDENTIFIER COLON statements CLOSECLASS
 Rule 23    inline_if_statement -> IF LPAREN expression RPAREN COLON statements ENDIF
 Rule 24    inline_if_statement -> IF LPAREN expression RPAREN COLON statements ELSE COLON statements ENDIF
@@ -105,7 +105,7 @@ CASE                 :
 CLASS                : 22
 CLOSECLASS           : 22
 CLOSEFUNC            : 21
-COLON                : 15 22 23 24 24 27 49
+COLON                : 15 21 22 23 24 24 27 49
 COMMA                : 26 53
 COMMENTS             : 
 DEF                  : 
@@ -232,7 +232,7 @@ state 0
     (51) assignment_statement -> . IDENTIFIER EQUAL expression
     (52) function_call -> . IDENTIFIER LPAREN argument_list RPAREN
     (30) print_statement -> . PRINT LPAREN STRING RPAREN
-    (21) function_declaration -> . FUNC type IDENTIFIER LPAREN argument_list RPAREN statements CLOSEFUNC
+    (21) function_declaration -> . FUNC type IDENTIFIER LPAREN argument_list RPAREN COLON statements CLOSEFUNC
     (19) variable_declaration -> . type IDENTIFIER
     (20) array_declaration -> . ARRAY type IDENTIFIER LSQUAREDBRACKET INTEGER RSQUAREDBRACKET
     (22) class_declaration -> . CLASS IDENTIFIER COLON statements CLOSECLASS
@@ -277,15 +277,15 @@ state 0
     IDENTIFIER      shift and go to state 20
     PRINT           shift and go to state 21
     FUNC            shift and go to state 23
-    ARRAY           shift and go to state 25
-    CLASS           shift and go to state 27
+    ARRAY           shift and go to state 26
+    CLASS           shift and go to state 28
     MAIN            shift and go to state 29
     IF              shift and go to state 30
     FOR             shift and go to state 31
     WHILE           shift and go to state 32
-    COLON           shift and go to state 28
+    COLON           shift and go to state 25
     EQUAL           shift and go to state 17
-    INTEGER         shift and go to state 26
+    INTEGER         shift and go to state 27
     FLOAT           shift and go to state 33
     STRING          shift and go to state 22
     INT             shift and go to state 35
@@ -379,7 +379,7 @@ state 2
     (51) assignment_statement -> . IDENTIFIER EQUAL expression
     (52) function_call -> . IDENTIFIER LPAREN argument_list RPAREN
     (30) print_statement -> . PRINT LPAREN STRING RPAREN
-    (21) function_declaration -> . FUNC type IDENTIFIER LPAREN argument_list RPAREN statements CLOSEFUNC
+    (21) function_declaration -> . FUNC type IDENTIFIER LPAREN argument_list RPAREN COLON statements CLOSEFUNC
     (19) variable_declaration -> . type IDENTIFIER
     (20) array_declaration -> . ARRAY type IDENTIFIER LSQUAREDBRACKET INTEGER RSQUAREDBRACKET
     (22) class_declaration -> . CLASS IDENTIFIER COLON statements CLOSECLASS
@@ -452,15 +452,15 @@ state 2
     IDENTIFIER      shift and go to state 20
     PRINT           shift and go to state 21
     FUNC            shift and go to state 23
-    ARRAY           shift and go to state 25
-    CLASS           shift and go to state 27
+    ARRAY           shift and go to state 26
+    CLASS           shift and go to state 28
     MAIN            shift and go to state 29
     IF              shift and go to state 30
     FOR             shift and go to state 31
     WHILE           shift and go to state 32
-    COLON           shift and go to state 28
+    COLON           shift and go to state 25
     EQUAL           shift and go to state 17
-    INTEGER         shift and go to state 26
+    INTEGER         shift and go to state 27
     FLOAT           shift and go to state 33
     STRING          shift and go to state 22
     INT             shift and go to state 35
@@ -1255,7 +1255,7 @@ state 22
 
 state 23
 
-    (21) function_declaration -> FUNC . type IDENTIFIER LPAREN argument_list RPAREN statements CLOSEFUNC
+    (21) function_declaration -> FUNC . type IDENTIFIER LPAREN argument_list RPAREN COLON statements CLOSEFUNC
     (56) type -> . INT
     (57) type -> . FLT
     (58) type -> . STR
@@ -1275,6 +1275,49 @@ state 24
 
 state 25
 
+    (49) token -> COLON .
+
+    GREATERTHAN     reduce using rule 49 (token -> COLON .)
+    LESSTHAN        reduce using rule 49 (token -> COLON .)
+    GREATEREQUAL    reduce using rule 49 (token -> COLON .)
+    LESSEQUAL       reduce using rule 49 (token -> COLON .)
+    EQUALEQUAL      reduce using rule 49 (token -> COLON .)
+    NOTEQUAL        reduce using rule 49 (token -> COLON .)
+    PLUS            reduce using rule 49 (token -> COLON .)
+    MINUS           reduce using rule 49 (token -> COLON .)
+    TIMES           reduce using rule 49 (token -> COLON .)
+    DIVIDE          reduce using rule 49 (token -> COLON .)
+    EQUAL           reduce using rule 49 (token -> COLON .)
+    IDENTIFIER      reduce using rule 49 (token -> COLON .)
+    PRINT           reduce using rule 49 (token -> COLON .)
+    FUNC            reduce using rule 49 (token -> COLON .)
+    ARRAY           reduce using rule 49 (token -> COLON .)
+    CLASS           reduce using rule 49 (token -> COLON .)
+    MAIN            reduce using rule 49 (token -> COLON .)
+    IF              reduce using rule 49 (token -> COLON .)
+    FOR             reduce using rule 49 (token -> COLON .)
+    WHILE           reduce using rule 49 (token -> COLON .)
+    COLON           reduce using rule 49 (token -> COLON .)
+    INTEGER         reduce using rule 49 (token -> COLON .)
+    FLOAT           reduce using rule 49 (token -> COLON .)
+    STRING          reduce using rule 49 (token -> COLON .)
+    INT             reduce using rule 49 (token -> COLON .)
+    FLT             reduce using rule 49 (token -> COLON .)
+    STR             reduce using rule 49 (token -> COLON .)
+    TRUE            reduce using rule 49 (token -> COLON .)
+    FALSE           reduce using rule 49 (token -> COLON .)
+    $end            reduce using rule 49 (token -> COLON .)
+    CLOSECLASS      reduce using rule 49 (token -> COLON .)
+    ENDIF           reduce using rule 49 (token -> COLON .)
+    ELSE            reduce using rule 49 (token -> COLON .)
+    CLOSEFUNC       reduce using rule 49 (token -> COLON .)
+    IN              reduce using rule 49 (token -> COLON .)
+    RPAREN          reduce using rule 49 (token -> COLON .)
+    COMMA           reduce using rule 49 (token -> COLON .)
+
+
+state 26
+
     (20) array_declaration -> ARRAY . type IDENTIFIER LSQUAREDBRACKET INTEGER RSQUAREDBRACKET
     (56) type -> . INT
     (57) type -> . FLT
@@ -1286,7 +1329,7 @@ state 25
 
     type                           shift and go to state 57
 
-state 26
+state 27
 
     (44) data -> INTEGER .
 
@@ -1329,54 +1372,11 @@ state 26
     COMMA           reduce using rule 44 (data -> INTEGER .)
 
 
-state 27
+state 28
 
     (22) class_declaration -> CLASS . IDENTIFIER COLON statements CLOSECLASS
 
     IDENTIFIER      shift and go to state 58
-
-
-state 28
-
-    (49) token -> COLON .
-
-    GREATERTHAN     reduce using rule 49 (token -> COLON .)
-    LESSTHAN        reduce using rule 49 (token -> COLON .)
-    GREATEREQUAL    reduce using rule 49 (token -> COLON .)
-    LESSEQUAL       reduce using rule 49 (token -> COLON .)
-    EQUALEQUAL      reduce using rule 49 (token -> COLON .)
-    NOTEQUAL        reduce using rule 49 (token -> COLON .)
-    PLUS            reduce using rule 49 (token -> COLON .)
-    MINUS           reduce using rule 49 (token -> COLON .)
-    TIMES           reduce using rule 49 (token -> COLON .)
-    DIVIDE          reduce using rule 49 (token -> COLON .)
-    EQUAL           reduce using rule 49 (token -> COLON .)
-    IDENTIFIER      reduce using rule 49 (token -> COLON .)
-    PRINT           reduce using rule 49 (token -> COLON .)
-    FUNC            reduce using rule 49 (token -> COLON .)
-    ARRAY           reduce using rule 49 (token -> COLON .)
-    CLASS           reduce using rule 49 (token -> COLON .)
-    MAIN            reduce using rule 49 (token -> COLON .)
-    IF              reduce using rule 49 (token -> COLON .)
-    FOR             reduce using rule 49 (token -> COLON .)
-    WHILE           reduce using rule 49 (token -> COLON .)
-    COLON           reduce using rule 49 (token -> COLON .)
-    INTEGER         reduce using rule 49 (token -> COLON .)
-    FLOAT           reduce using rule 49 (token -> COLON .)
-    STRING          reduce using rule 49 (token -> COLON .)
-    INT             reduce using rule 49 (token -> COLON .)
-    FLT             reduce using rule 49 (token -> COLON .)
-    STR             reduce using rule 49 (token -> COLON .)
-    TRUE            reduce using rule 49 (token -> COLON .)
-    FALSE           reduce using rule 49 (token -> COLON .)
-    $end            reduce using rule 49 (token -> COLON .)
-    CLOSECLASS      reduce using rule 49 (token -> COLON .)
-    ENDIF           reduce using rule 49 (token -> COLON .)
-    ELSE            reduce using rule 49 (token -> COLON .)
-    CLOSEFUNC       reduce using rule 49 (token -> COLON .)
-    IN              reduce using rule 49 (token -> COLON .)
-    RPAREN          reduce using rule 49 (token -> COLON .)
-    COMMA           reduce using rule 49 (token -> COLON .)
 
 
 state 29
@@ -1420,9 +1420,9 @@ state 31
     (28) bool -> . TRUE
     (29) bool -> . FALSE
 
-    COLON           shift and go to state 28
+    COLON           shift and go to state 25
     EQUAL           shift and go to state 17
-    INTEGER         shift and go to state 26
+    INTEGER         shift and go to state 27
     FLOAT           shift and go to state 33
     STRING          shift and go to state 22
     IDENTIFIER      shift and go to state 62
@@ -1460,9 +1460,9 @@ state 32
     (28) bool -> . TRUE
     (29) bool -> . FALSE
 
-    COLON           shift and go to state 28
+    COLON           shift and go to state 25
     EQUAL           shift and go to state 17
-    INTEGER         shift and go to state 26
+    INTEGER         shift and go to state 27
     FLOAT           shift and go to state 33
     STRING          shift and go to state 22
     IDENTIFIER      shift and go to state 62
@@ -1723,9 +1723,9 @@ state 41
     (28) bool -> . TRUE
     (29) bool -> . FALSE
 
-    COLON           shift and go to state 28
+    COLON           shift and go to state 25
     EQUAL           shift and go to state 17
-    INTEGER         shift and go to state 26
+    INTEGER         shift and go to state 27
     FLOAT           shift and go to state 33
     STRING          shift and go to state 22
     IDENTIFIER      shift and go to state 62
@@ -1763,9 +1763,9 @@ state 42
     (28) bool -> . TRUE
     (29) bool -> . FALSE
 
-    COLON           shift and go to state 28
+    COLON           shift and go to state 25
     EQUAL           shift and go to state 17
-    INTEGER         shift and go to state 26
+    INTEGER         shift and go to state 27
     FLOAT           shift and go to state 33
     STRING          shift and go to state 22
     IDENTIFIER      shift and go to state 62
@@ -1803,9 +1803,9 @@ state 43
     (28) bool -> . TRUE
     (29) bool -> . FALSE
 
-    COLON           shift and go to state 28
+    COLON           shift and go to state 25
     EQUAL           shift and go to state 17
-    INTEGER         shift and go to state 26
+    INTEGER         shift and go to state 27
     FLOAT           shift and go to state 33
     STRING          shift and go to state 22
     IDENTIFIER      shift and go to state 62
@@ -1843,9 +1843,9 @@ state 44
     (28) bool -> . TRUE
     (29) bool -> . FALSE
 
-    COLON           shift and go to state 28
+    COLON           shift and go to state 25
     EQUAL           shift and go to state 17
-    INTEGER         shift and go to state 26
+    INTEGER         shift and go to state 27
     FLOAT           shift and go to state 33
     STRING          shift and go to state 22
     IDENTIFIER      shift and go to state 62
@@ -1883,9 +1883,9 @@ state 45
     (28) bool -> . TRUE
     (29) bool -> . FALSE
 
-    COLON           shift and go to state 28
+    COLON           shift and go to state 25
     EQUAL           shift and go to state 17
-    INTEGER         shift and go to state 26
+    INTEGER         shift and go to state 27
     FLOAT           shift and go to state 33
     STRING          shift and go to state 22
     IDENTIFIER      shift and go to state 62
@@ -1923,9 +1923,9 @@ state 46
     (28) bool -> . TRUE
     (29) bool -> . FALSE
 
-    COLON           shift and go to state 28
+    COLON           shift and go to state 25
     EQUAL           shift and go to state 17
-    INTEGER         shift and go to state 26
+    INTEGER         shift and go to state 27
     FLOAT           shift and go to state 33
     STRING          shift and go to state 22
     IDENTIFIER      shift and go to state 62
@@ -1963,9 +1963,9 @@ state 47
     (28) bool -> . TRUE
     (29) bool -> . FALSE
 
-    COLON           shift and go to state 28
+    COLON           shift and go to state 25
     EQUAL           shift and go to state 17
-    INTEGER         shift and go to state 26
+    INTEGER         shift and go to state 27
     FLOAT           shift and go to state 33
     STRING          shift and go to state 22
     IDENTIFIER      shift and go to state 62
@@ -2003,9 +2003,9 @@ state 48
     (28) bool -> . TRUE
     (29) bool -> . FALSE
 
-    COLON           shift and go to state 28
+    COLON           shift and go to state 25
     EQUAL           shift and go to state 17
-    INTEGER         shift and go to state 26
+    INTEGER         shift and go to state 27
     FLOAT           shift and go to state 33
     STRING          shift and go to state 22
     IDENTIFIER      shift and go to state 62
@@ -2043,9 +2043,9 @@ state 49
     (28) bool -> . TRUE
     (29) bool -> . FALSE
 
-    COLON           shift and go to state 28
+    COLON           shift and go to state 25
     EQUAL           shift and go to state 17
-    INTEGER         shift and go to state 26
+    INTEGER         shift and go to state 27
     FLOAT           shift and go to state 33
     STRING          shift and go to state 22
     IDENTIFIER      shift and go to state 62
@@ -2083,9 +2083,9 @@ state 50
     (28) bool -> . TRUE
     (29) bool -> . FALSE
 
-    COLON           shift and go to state 28
+    COLON           shift and go to state 25
     EQUAL           shift and go to state 17
-    INTEGER         shift and go to state 26
+    INTEGER         shift and go to state 27
     FLOAT           shift and go to state 33
     STRING          shift and go to state 22
     IDENTIFIER      shift and go to state 62
@@ -2123,9 +2123,9 @@ state 51
     (28) bool -> . TRUE
     (29) bool -> . FALSE
 
-    COLON           shift and go to state 28
+    COLON           shift and go to state 25
     EQUAL           shift and go to state 17
-    INTEGER         shift and go to state 26
+    INTEGER         shift and go to state 27
     FLOAT           shift and go to state 33
     STRING          shift and go to state 22
     IDENTIFIER      shift and go to state 62
@@ -2163,9 +2163,9 @@ state 52
     (28) bool -> . TRUE
     (29) bool -> . FALSE
 
-    COLON           shift and go to state 28
+    COLON           shift and go to state 25
     EQUAL           shift and go to state 17
-    INTEGER         shift and go to state 26
+    INTEGER         shift and go to state 27
     FLOAT           shift and go to state 33
     STRING          shift and go to state 22
     IDENTIFIER      shift and go to state 62
@@ -2206,7 +2206,7 @@ state 54
 
 state 55
 
-    (21) function_declaration -> FUNC type . IDENTIFIER LPAREN argument_list RPAREN statements CLOSEFUNC
+    (21) function_declaration -> FUNC type . IDENTIFIER LPAREN argument_list RPAREN COLON statements CLOSEFUNC
 
     IDENTIFIER      shift and go to state 80
 
@@ -2289,9 +2289,9 @@ state 60
     (28) bool -> . TRUE
     (29) bool -> . FALSE
 
-    COLON           shift and go to state 28
+    COLON           shift and go to state 25
     EQUAL           shift and go to state 17
-    INTEGER         shift and go to state 26
+    INTEGER         shift and go to state 27
     FLOAT           shift and go to state 33
     STRING          shift and go to state 22
     IDENTIFIER      shift and go to state 62
@@ -3336,7 +3336,7 @@ state 79
 
 state 80
 
-    (21) function_declaration -> FUNC type IDENTIFIER . LPAREN argument_list RPAREN statements CLOSEFUNC
+    (21) function_declaration -> FUNC type IDENTIFIER . LPAREN argument_list RPAREN COLON statements CLOSEFUNC
 
     LPAREN          shift and go to state 90
 
@@ -3385,7 +3385,7 @@ state 82
     (51) assignment_statement -> . IDENTIFIER EQUAL expression
     (52) function_call -> . IDENTIFIER LPAREN argument_list RPAREN
     (30) print_statement -> . PRINT LPAREN STRING RPAREN
-    (21) function_declaration -> . FUNC type IDENTIFIER LPAREN argument_list RPAREN statements CLOSEFUNC
+    (21) function_declaration -> . FUNC type IDENTIFIER LPAREN argument_list RPAREN COLON statements CLOSEFUNC
     (19) variable_declaration -> . type IDENTIFIER
     (20) array_declaration -> . ARRAY type IDENTIFIER LSQUAREDBRACKET INTEGER RSQUAREDBRACKET
     (22) class_declaration -> . CLASS IDENTIFIER COLON statements CLOSECLASS
@@ -3430,15 +3430,15 @@ state 82
     IDENTIFIER      shift and go to state 20
     PRINT           shift and go to state 21
     FUNC            shift and go to state 23
-    ARRAY           shift and go to state 25
-    CLASS           shift and go to state 27
+    ARRAY           shift and go to state 26
+    CLASS           shift and go to state 28
     MAIN            shift and go to state 29
     IF              shift and go to state 30
     FOR             shift and go to state 31
     WHILE           shift and go to state 32
-    COLON           shift and go to state 28
+    COLON           shift and go to state 25
     EQUAL           shift and go to state 17
-    INTEGER         shift and go to state 26
+    INTEGER         shift and go to state 27
     FLOAT           shift and go to state 33
     STRING          shift and go to state 22
     INT             shift and go to state 35
@@ -3571,7 +3571,7 @@ state 86
     (51) assignment_statement -> . IDENTIFIER EQUAL expression
     (52) function_call -> . IDENTIFIER LPAREN argument_list RPAREN
     (30) print_statement -> . PRINT LPAREN STRING RPAREN
-    (21) function_declaration -> . FUNC type IDENTIFIER LPAREN argument_list RPAREN statements CLOSEFUNC
+    (21) function_declaration -> . FUNC type IDENTIFIER LPAREN argument_list RPAREN COLON statements CLOSEFUNC
     (19) variable_declaration -> . type IDENTIFIER
     (20) array_declaration -> . ARRAY type IDENTIFIER LSQUAREDBRACKET INTEGER RSQUAREDBRACKET
     (22) class_declaration -> . CLASS IDENTIFIER COLON statements CLOSECLASS
@@ -3620,15 +3620,15 @@ state 86
     IDENTIFIER      shift and go to state 20
     PRINT           shift and go to state 21
     FUNC            shift and go to state 23
-    ARRAY           shift and go to state 25
-    CLASS           shift and go to state 27
+    ARRAY           shift and go to state 26
+    CLASS           shift and go to state 28
     MAIN            shift and go to state 29
     IF              shift and go to state 30
     FOR             shift and go to state 31
     WHILE           shift and go to state 32
-    COLON           shift and go to state 28
+    COLON           shift and go to state 25
     EQUAL           shift and go to state 17
-    INTEGER         shift and go to state 26
+    INTEGER         shift and go to state 27
     FLOAT           shift and go to state 33
     STRING          shift and go to state 22
     INT             shift and go to state 35
@@ -3749,7 +3749,7 @@ state 89
 
 state 90
 
-    (21) function_declaration -> FUNC type IDENTIFIER LPAREN . argument_list RPAREN statements CLOSEFUNC
+    (21) function_declaration -> FUNC type IDENTIFIER LPAREN . argument_list RPAREN COLON statements CLOSEFUNC
     (53) argument_list -> . type IDENTIFIER COMMA argument_list
     (54) argument_list -> . type IDENTIFIER
     (55) argument_list -> . empty
@@ -3818,7 +3818,7 @@ state 93
     (51) assignment_statement -> . IDENTIFIER EQUAL expression
     (52) function_call -> . IDENTIFIER LPAREN argument_list RPAREN
     (30) print_statement -> . PRINT LPAREN STRING RPAREN
-    (21) function_declaration -> . FUNC type IDENTIFIER LPAREN argument_list RPAREN statements CLOSEFUNC
+    (21) function_declaration -> . FUNC type IDENTIFIER LPAREN argument_list RPAREN COLON statements CLOSEFUNC
     (19) variable_declaration -> . type IDENTIFIER
     (20) array_declaration -> . ARRAY type IDENTIFIER LSQUAREDBRACKET INTEGER RSQUAREDBRACKET
     (22) class_declaration -> . CLASS IDENTIFIER COLON statements CLOSECLASS
@@ -3867,15 +3867,15 @@ state 93
     IDENTIFIER      shift and go to state 20
     PRINT           shift and go to state 21
     FUNC            shift and go to state 23
-    ARRAY           shift and go to state 25
-    CLASS           shift and go to state 27
+    ARRAY           shift and go to state 26
+    CLASS           shift and go to state 28
     MAIN            shift and go to state 29
     IF              shift and go to state 30
     FOR             shift and go to state 31
     WHILE           shift and go to state 32
-    COLON           shift and go to state 28
+    COLON           shift and go to state 25
     EQUAL           shift and go to state 17
-    INTEGER         shift and go to state 26
+    INTEGER         shift and go to state 27
     FLOAT           shift and go to state 33
     STRING          shift and go to state 22
     INT             shift and go to state 35
@@ -3989,9 +3989,9 @@ state 96
     (28) bool -> . TRUE
     (29) bool -> . FALSE
 
-    COLON           shift and go to state 28
+    COLON           shift and go to state 25
     EQUAL           shift and go to state 17
-    INTEGER         shift and go to state 26
+    INTEGER         shift and go to state 27
     FLOAT           shift and go to state 33
     STRING          shift and go to state 22
     IDENTIFIER      shift and go to state 62
@@ -4055,7 +4055,7 @@ state 98
 
 state 99
 
-    (21) function_declaration -> FUNC type IDENTIFIER LPAREN argument_list . RPAREN statements CLOSEFUNC
+    (21) function_declaration -> FUNC type IDENTIFIER LPAREN argument_list . RPAREN COLON statements CLOSEFUNC
 
     RPAREN          shift and go to state 106
 
@@ -4165,7 +4165,7 @@ state 103
     (51) assignment_statement -> . IDENTIFIER EQUAL expression
     (52) function_call -> . IDENTIFIER LPAREN argument_list RPAREN
     (30) print_statement -> . PRINT LPAREN STRING RPAREN
-    (21) function_declaration -> . FUNC type IDENTIFIER LPAREN argument_list RPAREN statements CLOSEFUNC
+    (21) function_declaration -> . FUNC type IDENTIFIER LPAREN argument_list RPAREN COLON statements CLOSEFUNC
     (19) variable_declaration -> . type IDENTIFIER
     (20) array_declaration -> . ARRAY type IDENTIFIER LSQUAREDBRACKET INTEGER RSQUAREDBRACKET
     (22) class_declaration -> . CLASS IDENTIFIER COLON statements CLOSECLASS
@@ -4211,15 +4211,15 @@ state 103
     IDENTIFIER      shift and go to state 20
     PRINT           shift and go to state 21
     FUNC            shift and go to state 23
-    ARRAY           shift and go to state 25
-    CLASS           shift and go to state 27
+    ARRAY           shift and go to state 26
+    CLASS           shift and go to state 28
     MAIN            shift and go to state 29
     IF              shift and go to state 30
     FOR             shift and go to state 31
     WHILE           shift and go to state 32
-    COLON           shift and go to state 28
+    COLON           shift and go to state 25
     EQUAL           shift and go to state 17
-    INTEGER         shift and go to state 26
+    INTEGER         shift and go to state 27
     FLOAT           shift and go to state 33
     STRING          shift and go to state 22
     INT             shift and go to state 35
@@ -4307,143 +4307,10 @@ state 105
 
 state 106
 
-    (21) function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN . statements CLOSEFUNC
-    (1) statements -> . statement statements
-    (2) statements -> . statement
-    (3) statements -> . empty
-    (4) statement -> . conditional
-    (5) statement -> . expression
-    (6) statement -> . assignment_statement
-    (7) statement -> . function_call
-    (8) statement -> . print_statement
-    (9) statement -> . function_declaration
-    (10) statement -> . variable_declaration
-    (11) statement -> . array_declaration
-    (12) statement -> . class_declaration
-    (13) statement -> . main_function
-    (14) statement -> . empty
-    (59) empty -> .
-    (16) conditional -> . inline_if_statement
-    (17) conditional -> . for_statement
-    (18) conditional -> . while_statement
-    (31) expression -> . expression GREATERTHAN expression
-    (32) expression -> . expression LESSTHAN expression
-    (33) expression -> . expression GREATEREQUAL expression
-    (34) expression -> . expression LESSEQUAL expression
-    (35) expression -> . expression EQUALEQUAL expression
-    (36) expression -> . expression NOTEQUAL expression
-    (37) expression -> . expression PLUS expression
-    (38) expression -> . expression MINUS expression
-    (39) expression -> . expression TIMES expression
-    (40) expression -> . expression DIVIDE expression
-    (41) expression -> . expression EQUAL expression
-    (42) expression -> . token
-    (43) expression -> . data
-    (51) assignment_statement -> . IDENTIFIER EQUAL expression
-    (52) function_call -> . IDENTIFIER LPAREN argument_list RPAREN
-    (30) print_statement -> . PRINT LPAREN STRING RPAREN
-    (21) function_declaration -> . FUNC type IDENTIFIER LPAREN argument_list RPAREN statements CLOSEFUNC
-    (19) variable_declaration -> . type IDENTIFIER
-    (20) array_declaration -> . ARRAY type IDENTIFIER LSQUAREDBRACKET INTEGER RSQUAREDBRACKET
-    (22) class_declaration -> . CLASS IDENTIFIER COLON statements CLOSECLASS
-    (15) main_function -> . MAIN LPAREN RPAREN COLON statements
-    (23) inline_if_statement -> . IF LPAREN expression RPAREN COLON statements ENDIF
-    (24) inline_if_statement -> . IF LPAREN expression RPAREN COLON statements ELSE COLON statements ENDIF
-    (25) for_statement -> . FOR expression IN range_expression
-    (27) while_statement -> . WHILE expression COLON statements
-    (49) token -> . COLON
-    (50) token -> . EQUAL
-    (44) data -> . INTEGER
-    (45) data -> . FLOAT
-    (46) data -> . STRING
-    (47) data -> . IDENTIFIER
-    (48) data -> . bool
-    (56) type -> . INT
-    (57) type -> . FLT
-    (58) type -> . STR
-    (28) bool -> . TRUE
-    (29) bool -> . FALSE
+    (21) function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN . COLON statements CLOSEFUNC
 
-  ! shift/reduce conflict for IDENTIFIER resolved as shift
-  ! shift/reduce conflict for PRINT resolved as shift
-  ! shift/reduce conflict for FUNC resolved as shift
-  ! shift/reduce conflict for ARRAY resolved as shift
-  ! shift/reduce conflict for CLASS resolved as shift
-  ! shift/reduce conflict for MAIN resolved as shift
-  ! shift/reduce conflict for IF resolved as shift
-  ! shift/reduce conflict for FOR resolved as shift
-  ! shift/reduce conflict for WHILE resolved as shift
-  ! shift/reduce conflict for COLON resolved as shift
-  ! shift/reduce conflict for EQUAL resolved as shift
-  ! shift/reduce conflict for INTEGER resolved as shift
-  ! shift/reduce conflict for FLOAT resolved as shift
-  ! shift/reduce conflict for STRING resolved as shift
-  ! shift/reduce conflict for INT resolved as shift
-  ! shift/reduce conflict for FLT resolved as shift
-  ! shift/reduce conflict for STR resolved as shift
-  ! shift/reduce conflict for TRUE resolved as shift
-  ! shift/reduce conflict for FALSE resolved as shift
-    CLOSEFUNC       reduce using rule 59 (empty -> .)
-    IDENTIFIER      shift and go to state 20
-    PRINT           shift and go to state 21
-    FUNC            shift and go to state 23
-    ARRAY           shift and go to state 25
-    CLASS           shift and go to state 27
-    MAIN            shift and go to state 29
-    IF              shift and go to state 30
-    FOR             shift and go to state 31
-    WHILE           shift and go to state 32
-    COLON           shift and go to state 28
-    EQUAL           shift and go to state 17
-    INTEGER         shift and go to state 26
-    FLOAT           shift and go to state 33
-    STRING          shift and go to state 22
-    INT             shift and go to state 35
-    FLT             shift and go to state 36
-    STR             shift and go to state 37
-    TRUE            shift and go to state 38
-    FALSE           shift and go to state 39
+    COLON           shift and go to state 110
 
-  ! IDENTIFIER      [ reduce using rule 59 (empty -> .) ]
-  ! PRINT           [ reduce using rule 59 (empty -> .) ]
-  ! FUNC            [ reduce using rule 59 (empty -> .) ]
-  ! ARRAY           [ reduce using rule 59 (empty -> .) ]
-  ! CLASS           [ reduce using rule 59 (empty -> .) ]
-  ! MAIN            [ reduce using rule 59 (empty -> .) ]
-  ! IF              [ reduce using rule 59 (empty -> .) ]
-  ! FOR             [ reduce using rule 59 (empty -> .) ]
-  ! WHILE           [ reduce using rule 59 (empty -> .) ]
-  ! COLON           [ reduce using rule 59 (empty -> .) ]
-  ! EQUAL           [ reduce using rule 59 (empty -> .) ]
-  ! INTEGER         [ reduce using rule 59 (empty -> .) ]
-  ! FLOAT           [ reduce using rule 59 (empty -> .) ]
-  ! STRING          [ reduce using rule 59 (empty -> .) ]
-  ! INT             [ reduce using rule 59 (empty -> .) ]
-  ! FLT             [ reduce using rule 59 (empty -> .) ]
-  ! STR             [ reduce using rule 59 (empty -> .) ]
-  ! TRUE            [ reduce using rule 59 (empty -> .) ]
-  ! FALSE           [ reduce using rule 59 (empty -> .) ]
-
-    type                           shift and go to state 24
-    statements                     shift and go to state 110
-    statement                      shift and go to state 2
-    empty                          shift and go to state 3
-    conditional                    shift and go to state 4
-    expression                     shift and go to state 5
-    assignment_statement           shift and go to state 6
-    function_call                  shift and go to state 7
-    print_statement                shift and go to state 8
-    function_declaration           shift and go to state 9
-    variable_declaration           shift and go to state 10
-    array_declaration              shift and go to state 11
-    class_declaration              shift and go to state 12
-    main_function                  shift and go to state 13
-    inline_if_statement            shift and go to state 14
-    for_statement                  shift and go to state 15
-    while_statement                shift and go to state 16
-    token                          shift and go to state 18
-    data                           shift and go to state 19
-    bool                           shift and go to state 34
 
 state 107
 
@@ -4510,9 +4377,9 @@ state 109
     (28) bool -> . TRUE
     (29) bool -> . FALSE
 
-    COLON           shift and go to state 28
+    COLON           shift and go to state 25
     EQUAL           shift and go to state 17
-    INTEGER         shift and go to state 26
+    INTEGER         shift and go to state 27
     FLOAT           shift and go to state 33
     STRING          shift and go to state 22
     IDENTIFIER      shift and go to state 62
@@ -4526,10 +4393,143 @@ state 109
 
 state 110
 
-    (21) function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN statements . CLOSEFUNC
+    (21) function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN COLON . statements CLOSEFUNC
+    (1) statements -> . statement statements
+    (2) statements -> . statement
+    (3) statements -> . empty
+    (4) statement -> . conditional
+    (5) statement -> . expression
+    (6) statement -> . assignment_statement
+    (7) statement -> . function_call
+    (8) statement -> . print_statement
+    (9) statement -> . function_declaration
+    (10) statement -> . variable_declaration
+    (11) statement -> . array_declaration
+    (12) statement -> . class_declaration
+    (13) statement -> . main_function
+    (14) statement -> . empty
+    (59) empty -> .
+    (16) conditional -> . inline_if_statement
+    (17) conditional -> . for_statement
+    (18) conditional -> . while_statement
+    (31) expression -> . expression GREATERTHAN expression
+    (32) expression -> . expression LESSTHAN expression
+    (33) expression -> . expression GREATEREQUAL expression
+    (34) expression -> . expression LESSEQUAL expression
+    (35) expression -> . expression EQUALEQUAL expression
+    (36) expression -> . expression NOTEQUAL expression
+    (37) expression -> . expression PLUS expression
+    (38) expression -> . expression MINUS expression
+    (39) expression -> . expression TIMES expression
+    (40) expression -> . expression DIVIDE expression
+    (41) expression -> . expression EQUAL expression
+    (42) expression -> . token
+    (43) expression -> . data
+    (51) assignment_statement -> . IDENTIFIER EQUAL expression
+    (52) function_call -> . IDENTIFIER LPAREN argument_list RPAREN
+    (30) print_statement -> . PRINT LPAREN STRING RPAREN
+    (21) function_declaration -> . FUNC type IDENTIFIER LPAREN argument_list RPAREN COLON statements CLOSEFUNC
+    (19) variable_declaration -> . type IDENTIFIER
+    (20) array_declaration -> . ARRAY type IDENTIFIER LSQUAREDBRACKET INTEGER RSQUAREDBRACKET
+    (22) class_declaration -> . CLASS IDENTIFIER COLON statements CLOSECLASS
+    (15) main_function -> . MAIN LPAREN RPAREN COLON statements
+    (23) inline_if_statement -> . IF LPAREN expression RPAREN COLON statements ENDIF
+    (24) inline_if_statement -> . IF LPAREN expression RPAREN COLON statements ELSE COLON statements ENDIF
+    (25) for_statement -> . FOR expression IN range_expression
+    (27) while_statement -> . WHILE expression COLON statements
+    (49) token -> . COLON
+    (50) token -> . EQUAL
+    (44) data -> . INTEGER
+    (45) data -> . FLOAT
+    (46) data -> . STRING
+    (47) data -> . IDENTIFIER
+    (48) data -> . bool
+    (56) type -> . INT
+    (57) type -> . FLT
+    (58) type -> . STR
+    (28) bool -> . TRUE
+    (29) bool -> . FALSE
 
-    CLOSEFUNC       shift and go to state 114
+  ! shift/reduce conflict for IDENTIFIER resolved as shift
+  ! shift/reduce conflict for PRINT resolved as shift
+  ! shift/reduce conflict for FUNC resolved as shift
+  ! shift/reduce conflict for ARRAY resolved as shift
+  ! shift/reduce conflict for CLASS resolved as shift
+  ! shift/reduce conflict for MAIN resolved as shift
+  ! shift/reduce conflict for IF resolved as shift
+  ! shift/reduce conflict for FOR resolved as shift
+  ! shift/reduce conflict for WHILE resolved as shift
+  ! shift/reduce conflict for COLON resolved as shift
+  ! shift/reduce conflict for EQUAL resolved as shift
+  ! shift/reduce conflict for INTEGER resolved as shift
+  ! shift/reduce conflict for FLOAT resolved as shift
+  ! shift/reduce conflict for STRING resolved as shift
+  ! shift/reduce conflict for INT resolved as shift
+  ! shift/reduce conflict for FLT resolved as shift
+  ! shift/reduce conflict for STR resolved as shift
+  ! shift/reduce conflict for TRUE resolved as shift
+  ! shift/reduce conflict for FALSE resolved as shift
+    CLOSEFUNC       reduce using rule 59 (empty -> .)
+    IDENTIFIER      shift and go to state 20
+    PRINT           shift and go to state 21
+    FUNC            shift and go to state 23
+    ARRAY           shift and go to state 26
+    CLASS           shift and go to state 28
+    MAIN            shift and go to state 29
+    IF              shift and go to state 30
+    FOR             shift and go to state 31
+    WHILE           shift and go to state 32
+    COLON           shift and go to state 25
+    EQUAL           shift and go to state 17
+    INTEGER         shift and go to state 27
+    FLOAT           shift and go to state 33
+    STRING          shift and go to state 22
+    INT             shift and go to state 35
+    FLT             shift and go to state 36
+    STR             shift and go to state 37
+    TRUE            shift and go to state 38
+    FALSE           shift and go to state 39
 
+  ! IDENTIFIER      [ reduce using rule 59 (empty -> .) ]
+  ! PRINT           [ reduce using rule 59 (empty -> .) ]
+  ! FUNC            [ reduce using rule 59 (empty -> .) ]
+  ! ARRAY           [ reduce using rule 59 (empty -> .) ]
+  ! CLASS           [ reduce using rule 59 (empty -> .) ]
+  ! MAIN            [ reduce using rule 59 (empty -> .) ]
+  ! IF              [ reduce using rule 59 (empty -> .) ]
+  ! FOR             [ reduce using rule 59 (empty -> .) ]
+  ! WHILE           [ reduce using rule 59 (empty -> .) ]
+  ! COLON           [ reduce using rule 59 (empty -> .) ]
+  ! EQUAL           [ reduce using rule 59 (empty -> .) ]
+  ! INTEGER         [ reduce using rule 59 (empty -> .) ]
+  ! FLOAT           [ reduce using rule 59 (empty -> .) ]
+  ! STRING          [ reduce using rule 59 (empty -> .) ]
+  ! INT             [ reduce using rule 59 (empty -> .) ]
+  ! FLT             [ reduce using rule 59 (empty -> .) ]
+  ! STR             [ reduce using rule 59 (empty -> .) ]
+  ! TRUE            [ reduce using rule 59 (empty -> .) ]
+  ! FALSE           [ reduce using rule 59 (empty -> .) ]
+
+    type                           shift and go to state 24
+    statements                     shift and go to state 114
+    statement                      shift and go to state 2
+    empty                          shift and go to state 3
+    conditional                    shift and go to state 4
+    expression                     shift and go to state 5
+    assignment_statement           shift and go to state 6
+    function_call                  shift and go to state 7
+    print_statement                shift and go to state 8
+    function_declaration           shift and go to state 9
+    variable_declaration           shift and go to state 10
+    array_declaration              shift and go to state 11
+    class_declaration              shift and go to state 12
+    main_function                  shift and go to state 13
+    inline_if_statement            shift and go to state 14
+    for_statement                  shift and go to state 15
+    while_statement                shift and go to state 16
+    token                          shift and go to state 18
+    data                           shift and go to state 19
+    bool                           shift and go to state 34
 
 state 111
 
@@ -4624,32 +4624,9 @@ state 113
 
 state 114
 
-    (21) function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN statements CLOSEFUNC .
+    (21) function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN COLON statements . CLOSEFUNC
 
-    IDENTIFIER      reduce using rule 21 (function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN statements CLOSEFUNC .)
-    PRINT           reduce using rule 21 (function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN statements CLOSEFUNC .)
-    FUNC            reduce using rule 21 (function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN statements CLOSEFUNC .)
-    ARRAY           reduce using rule 21 (function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN statements CLOSEFUNC .)
-    CLASS           reduce using rule 21 (function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN statements CLOSEFUNC .)
-    MAIN            reduce using rule 21 (function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN statements CLOSEFUNC .)
-    IF              reduce using rule 21 (function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN statements CLOSEFUNC .)
-    FOR             reduce using rule 21 (function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN statements CLOSEFUNC .)
-    WHILE           reduce using rule 21 (function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN statements CLOSEFUNC .)
-    COLON           reduce using rule 21 (function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN statements CLOSEFUNC .)
-    EQUAL           reduce using rule 21 (function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN statements CLOSEFUNC .)
-    INTEGER         reduce using rule 21 (function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN statements CLOSEFUNC .)
-    FLOAT           reduce using rule 21 (function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN statements CLOSEFUNC .)
-    STRING          reduce using rule 21 (function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN statements CLOSEFUNC .)
-    INT             reduce using rule 21 (function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN statements CLOSEFUNC .)
-    FLT             reduce using rule 21 (function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN statements CLOSEFUNC .)
-    STR             reduce using rule 21 (function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN statements CLOSEFUNC .)
-    TRUE            reduce using rule 21 (function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN statements CLOSEFUNC .)
-    FALSE           reduce using rule 21 (function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN statements CLOSEFUNC .)
-    $end            reduce using rule 21 (function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN statements CLOSEFUNC .)
-    CLOSECLASS      reduce using rule 21 (function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN statements CLOSEFUNC .)
-    ENDIF           reduce using rule 21 (function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN statements CLOSEFUNC .)
-    ELSE            reduce using rule 21 (function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN statements CLOSEFUNC .)
-    CLOSEFUNC       reduce using rule 21 (function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN statements CLOSEFUNC .)
+    CLOSEFUNC       shift and go to state 116
 
 
 state 115
@@ -4689,7 +4666,7 @@ state 115
     (51) assignment_statement -> . IDENTIFIER EQUAL expression
     (52) function_call -> . IDENTIFIER LPAREN argument_list RPAREN
     (30) print_statement -> . PRINT LPAREN STRING RPAREN
-    (21) function_declaration -> . FUNC type IDENTIFIER LPAREN argument_list RPAREN statements CLOSEFUNC
+    (21) function_declaration -> . FUNC type IDENTIFIER LPAREN argument_list RPAREN COLON statements CLOSEFUNC
     (19) variable_declaration -> . type IDENTIFIER
     (20) array_declaration -> . ARRAY type IDENTIFIER LSQUAREDBRACKET INTEGER RSQUAREDBRACKET
     (22) class_declaration -> . CLASS IDENTIFIER COLON statements CLOSECLASS
@@ -4734,15 +4711,15 @@ state 115
     IDENTIFIER      shift and go to state 20
     PRINT           shift and go to state 21
     FUNC            shift and go to state 23
-    ARRAY           shift and go to state 25
-    CLASS           shift and go to state 27
+    ARRAY           shift and go to state 26
+    CLASS           shift and go to state 28
     MAIN            shift and go to state 29
     IF              shift and go to state 30
     FOR             shift and go to state 31
     WHILE           shift and go to state 32
-    COLON           shift and go to state 28
+    COLON           shift and go to state 25
     EQUAL           shift and go to state 17
-    INTEGER         shift and go to state 26
+    INTEGER         shift and go to state 27
     FLOAT           shift and go to state 33
     STRING          shift and go to state 22
     INT             shift and go to state 35
@@ -4772,7 +4749,7 @@ state 115
   ! FALSE           [ reduce using rule 59 (empty -> .) ]
 
     expression                     shift and go to state 5
-    statements                     shift and go to state 116
+    statements                     shift and go to state 117
     statement                      shift and go to state 2
     empty                          shift and go to state 3
     conditional                    shift and go to state 4
@@ -4794,12 +4771,42 @@ state 115
 
 state 116
 
-    (24) inline_if_statement -> IF LPAREN expression RPAREN COLON statements ELSE COLON statements . ENDIF
+    (21) function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN COLON statements CLOSEFUNC .
 
-    ENDIF           shift and go to state 117
+    IDENTIFIER      reduce using rule 21 (function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN COLON statements CLOSEFUNC .)
+    PRINT           reduce using rule 21 (function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN COLON statements CLOSEFUNC .)
+    FUNC            reduce using rule 21 (function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN COLON statements CLOSEFUNC .)
+    ARRAY           reduce using rule 21 (function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN COLON statements CLOSEFUNC .)
+    CLASS           reduce using rule 21 (function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN COLON statements CLOSEFUNC .)
+    MAIN            reduce using rule 21 (function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN COLON statements CLOSEFUNC .)
+    IF              reduce using rule 21 (function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN COLON statements CLOSEFUNC .)
+    FOR             reduce using rule 21 (function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN COLON statements CLOSEFUNC .)
+    WHILE           reduce using rule 21 (function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN COLON statements CLOSEFUNC .)
+    COLON           reduce using rule 21 (function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN COLON statements CLOSEFUNC .)
+    EQUAL           reduce using rule 21 (function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN COLON statements CLOSEFUNC .)
+    INTEGER         reduce using rule 21 (function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN COLON statements CLOSEFUNC .)
+    FLOAT           reduce using rule 21 (function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN COLON statements CLOSEFUNC .)
+    STRING          reduce using rule 21 (function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN COLON statements CLOSEFUNC .)
+    INT             reduce using rule 21 (function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN COLON statements CLOSEFUNC .)
+    FLT             reduce using rule 21 (function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN COLON statements CLOSEFUNC .)
+    STR             reduce using rule 21 (function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN COLON statements CLOSEFUNC .)
+    TRUE            reduce using rule 21 (function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN COLON statements CLOSEFUNC .)
+    FALSE           reduce using rule 21 (function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN COLON statements CLOSEFUNC .)
+    $end            reduce using rule 21 (function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN COLON statements CLOSEFUNC .)
+    CLOSECLASS      reduce using rule 21 (function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN COLON statements CLOSEFUNC .)
+    ENDIF           reduce using rule 21 (function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN COLON statements CLOSEFUNC .)
+    ELSE            reduce using rule 21 (function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN COLON statements CLOSEFUNC .)
+    CLOSEFUNC       reduce using rule 21 (function_declaration -> FUNC type IDENTIFIER LPAREN argument_list RPAREN COLON statements CLOSEFUNC .)
 
 
 state 117
+
+    (24) inline_if_statement -> IF LPAREN expression RPAREN COLON statements ELSE COLON statements . ENDIF
+
+    ENDIF           shift and go to state 118
+
+
+state 118
 
     (24) inline_if_statement -> IF LPAREN expression RPAREN COLON statements ELSE COLON statements ENDIF .
 
@@ -5069,25 +5076,25 @@ WARNING: shift/reduce conflict for FLT in state 103 resolved as shift
 WARNING: shift/reduce conflict for STR in state 103 resolved as shift
 WARNING: shift/reduce conflict for TRUE in state 103 resolved as shift
 WARNING: shift/reduce conflict for FALSE in state 103 resolved as shift
-WARNING: shift/reduce conflict for IDENTIFIER in state 106 resolved as shift
-WARNING: shift/reduce conflict for PRINT in state 106 resolved as shift
-WARNING: shift/reduce conflict for FUNC in state 106 resolved as shift
-WARNING: shift/reduce conflict for ARRAY in state 106 resolved as shift
-WARNING: shift/reduce conflict for CLASS in state 106 resolved as shift
-WARNING: shift/reduce conflict for MAIN in state 106 resolved as shift
-WARNING: shift/reduce conflict for IF in state 106 resolved as shift
-WARNING: shift/reduce conflict for FOR in state 106 resolved as shift
-WARNING: shift/reduce conflict for WHILE in state 106 resolved as shift
-WARNING: shift/reduce conflict for COLON in state 106 resolved as shift
-WARNING: shift/reduce conflict for EQUAL in state 106 resolved as shift
-WARNING: shift/reduce conflict for INTEGER in state 106 resolved as shift
-WARNING: shift/reduce conflict for FLOAT in state 106 resolved as shift
-WARNING: shift/reduce conflict for STRING in state 106 resolved as shift
-WARNING: shift/reduce conflict for INT in state 106 resolved as shift
-WARNING: shift/reduce conflict for FLT in state 106 resolved as shift
-WARNING: shift/reduce conflict for STR in state 106 resolved as shift
-WARNING: shift/reduce conflict for TRUE in state 106 resolved as shift
-WARNING: shift/reduce conflict for FALSE in state 106 resolved as shift
+WARNING: shift/reduce conflict for IDENTIFIER in state 110 resolved as shift
+WARNING: shift/reduce conflict for PRINT in state 110 resolved as shift
+WARNING: shift/reduce conflict for FUNC in state 110 resolved as shift
+WARNING: shift/reduce conflict for ARRAY in state 110 resolved as shift
+WARNING: shift/reduce conflict for CLASS in state 110 resolved as shift
+WARNING: shift/reduce conflict for MAIN in state 110 resolved as shift
+WARNING: shift/reduce conflict for IF in state 110 resolved as shift
+WARNING: shift/reduce conflict for FOR in state 110 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 110 resolved as shift
+WARNING: shift/reduce conflict for COLON in state 110 resolved as shift
+WARNING: shift/reduce conflict for EQUAL in state 110 resolved as shift
+WARNING: shift/reduce conflict for INTEGER in state 110 resolved as shift
+WARNING: shift/reduce conflict for FLOAT in state 110 resolved as shift
+WARNING: shift/reduce conflict for STRING in state 110 resolved as shift
+WARNING: shift/reduce conflict for INT in state 110 resolved as shift
+WARNING: shift/reduce conflict for FLT in state 110 resolved as shift
+WARNING: shift/reduce conflict for STR in state 110 resolved as shift
+WARNING: shift/reduce conflict for TRUE in state 110 resolved as shift
+WARNING: shift/reduce conflict for FALSE in state 110 resolved as shift
 WARNING: shift/reduce conflict for EQUAL in state 113 resolved as shift
 WARNING: shift/reduce conflict for IDENTIFIER in state 115 resolved as shift
 WARNING: shift/reduce conflict for PRINT in state 115 resolved as shift

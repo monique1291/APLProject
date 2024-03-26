@@ -1,21 +1,3 @@
-def get_value_type(value):
-    if isinstance(value, int):
-        return 'int'
-    elif isinstance(value, str):
-        return 'str'
-    elif isinstance(value, float):
-        return 'float'
-    # elif isinstance(value, bool): #do we need boolean?
-    #    return 'bool'
-    else:
-        return None
-
-
-def visit_print_statement(text):
-    print(text)
-    pass
-
-
 class SemanticAnalyzer:
     def __init__(self):
         self.symbol_table = {}
@@ -35,16 +17,14 @@ class SemanticAnalyzer:
         for statement in statements:
             self.visit(statement)
 
-    def visit_assignment_statement(self, identifier, *expressions):
-        if len(expressions) == 1:
-            # Regular assignment
-            value = expressions[0]
-            # Perform semantic analysis for regular assignment
-        elif len(expressions) == 3:
-            # Array assignment
-            index = expressions[0]
-            value = expressions[1]
-            # Perform semantic analysis for array assignment
+    def visit_assignment_statement(self, identifier, value):
+        var_name = identifier
+        if var_name not in self.symbol_table:
+            raise NameError(f"Variable '{var_name}' is not defined")
+        expected_type = self.symbol_table[var_name]
+        actual_type = self.get_value_type(value)
+        if actual_type != expected_type:
+            raise TypeError(f"Type mismatch: Variable '{var_name}' expected {expected_type}, got {actual_type}")
 
     def visit_variable_declaration(self, datatype, identifier):
         var_name = identifier
@@ -68,95 +48,73 @@ class SemanticAnalyzer:
     def visit_main_function(self, statements):
         self.visit(statements)
 
-    # Define visit_conditional method
-        # Define visit_conditional method
-    def visit_conditional(self, if_statement, else_statement=None):
-        # Extract the condition expression and true/false statements from the AST node
-        condition_expr = if_statement[0]
-        true_statements = if_statement[1]
-        false_statements = else_statement[0] if else_statement else None
-
-        # Analyze the condition expression
-        self.visit(condition_expr)
-
-        # Analyze the true statements
-        self.visit(true_statements)
-
-        # Analyze the false statements if present
-        if false_statements:
-            self.visit(false_statements)
-
-    def visit_expression(self, left_operand, operator, right_operand):
-        # Perform semantic analysis on the expression
-        left_type = self.visit(left_operand)
-        right_type = self.visit(right_operand)
-
-        # Add your semantic analysis logic here
-        # For simplicity, let's assume the operands are of the same type
-        if left_type != right_type:
-            raise TypeError("Type mismatch in expression")
-
-        # Return the type of the expression
-        return left_type
-
-    def visit_function_call(self, *args):
-        # Handling function calls
+    def visit_conditional(self, *args):
         pass
 
+    def visit_expression(self, left_operand, operator, right_operand):
+        left_type = self.visit(left_operand)
+        right_type = self.visit(right_operand)
+        if left_type != right_type:
+            raise TypeError("Type mismatch in expression")
+        return left_type
+
+    def visit_function_call(self, function_name, argument_list):
+        # Check if the function is defined in the symbol table
+        if function_name not in self.symbol_table:
+            raise NameError(f"Function '{function_name}' is not defined")
+
+        # Get the expected argument types and return type from the symbol table
+        expected_arg_types, return_type = self.symbol_table[function_name]
+
+        # Get the actual argument types from the argument list
+        actual_arg_types = [self.visit(arg) for arg in argument_list]
+
+        # Check if the number of arguments matches the expected number
+        if len(expected_arg_types) != len(actual_arg_types):
+            raise TypeError(f"Function '{function_name}' expects {len(expected_arg_types)} arguments, "
+                            f"but {len(actual_arg_types)} were provided")
+
+        # Check if the types of arguments match the expected types
+        for expected_type, actual_type in zip(expected_arg_types, actual_arg_types):
+            if expected_type != actual_type:
+                raise TypeError(f"Type mismatch in function call '{function_name}': "
+                                f"expected {expected_type}, got {actual_type}")
+
     def visit_range_expression(self, *args):
-        # Handling range expressions
         pass
 
     def visit_while_statement(self, *args):
-        # Handling while statements
         pass
 
     def visit_for_statement(self, *args):
-        # Handling for statements
         pass
 
-    def visit_inline_if_statement(self, condition_expr, true_statements, false_statements=None):
-        # Analyze the condition expression
-        self.visit(condition_expr)
+    def visit_inline_if_statement(self, *args):
+        pass
 
-        # Analyze the true statements
-        self.visit(true_statements)
-
-        # Analyze the false statements if present
-        if false_statements:
-            self.visit(false_statements)
-
-    def visit_array_declaration(self, datatype, identifier, size):
-        # Check for duplicate declarations
-        if identifier in self.symbol_table:
-            raise NameError(f"Variable '{identifier}' is already defined")
-
-        # Check if the datatype is one of the supported types
-        supported_types = ['int', 'float', 'str', 'bool']
-        if datatype not in supported_types:
-            raise ValueError(f"Unsupported data type: {datatype}")
-
-        # Perform semantic analysis for the size of the array
-        if not isinstance(size, int) or size <= 0:
-            raise ValueError("Array size must be a positive integer")
-
-        # Store the array declaration information in the symbol table
-        self.symbol_table[identifier] = f'{datatype}[]'
+    def visit_array_declaration(self, *args):
+        pass
 
     def visit_bool(self, *args):
-        # Handling boolean values
         pass
 
-    def visit_type(self, type_name):
-        # Check if the type name is one of the supported types
-        supported_types = ['int', 'float', 'str', 'bool']
-        if type_name not in supported_types:
-            raise ValueError(f"Unsupported data type: {type_name}")
+    def visit_type(self, *args):
+        pass
 
-        # Return the type name if it is supported
-        return type_name
+    @staticmethod
+    def get_value_type(value):
+        if isinstance(value, int):
+            return 'int'
+        elif isinstance(value, str):
+            return 'str'
+        elif isinstance(value, float):
+            return 'float'
+        else:
+            return None
 
-    # Define visit_empty method
+    @staticmethod
+    def visit_print_statement(text):
+        print(text)
+
     def visit_empty(self):
-        # This method does nothing since the empty production doesn't produce any meaningful AST node
         pass

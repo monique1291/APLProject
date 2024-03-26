@@ -1,5 +1,3 @@
-int X
-X = 1
-if (X==1):
-print("X")
-endif
+func int X():
+    print("Waow")
+closefunc

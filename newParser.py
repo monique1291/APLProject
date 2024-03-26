@@ -73,10 +73,10 @@ def p_array_declaration(p):
 
 def p_function_declaration(p):
     """
-    function_declaration : FUNC type IDENTIFIER LPAREN argument_list RPAREN statements CLOSEFUNC
+    function_declaration : FUNC type IDENTIFIER LPAREN argument_list RPAREN COLON statements CLOSEFUNC
     """
-    if len(p) == 9:
-        p[0] = ('function_declaration', p[2], p[3], p[5], p[7])
+    if len(p) == 10:
+        p[0] = ('function_declaration', p[2], p[3], p[5], p[8])
 
 
 def p_class_declaration(p):
