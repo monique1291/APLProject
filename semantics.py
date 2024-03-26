@@ -35,14 +35,16 @@ class SemanticAnalyzer:
         for statement in statements:
             self.visit(statement)
 
-    def visit_assignment_statement(self, identifier, value):
-        var_name = identifier
-        if var_name not in self.symbol_table:
-            raise NameError(f"Variable '{var_name}' is not defined")
-        expected_type = self.symbol_table[var_name]
-        actual_type = get_value_type(value)
-        if actual_type != expected_type:
-            raise TypeError(f"Type mismatch: Variable '{var_name}' expected {expected_type}, got {actual_type}")
+    def visit_assignment_statement(self, identifier, *expressions):
+        if len(expressions) == 1:
+            # Regular assignment
+            value = expressions[0]
+            # Perform semantic analysis for regular assignment
+        elif len(expressions) == 3:
+            # Array assignment
+            index = expressions[0]
+            value = expressions[1]
+            # Perform semantic analysis for array assignment
 
     def visit_variable_declaration(self, datatype, identifier):
         var_name = identifier
@@ -124,17 +126,35 @@ class SemanticAnalyzer:
         if false_statements:
             self.visit(false_statements)
 
-    def visit_array_declaration(self, *args):
-        # Handling array declarations
-        pass
+    def visit_array_declaration(self, datatype, identifier, size):
+        # Check for duplicate declarations
+        if identifier in self.symbol_table:
+            raise NameError(f"Variable '{identifier}' is already defined")
+
+        # Check if the datatype is one of the supported types
+        supported_types = ['int', 'float', 'str', 'bool']
+        if datatype not in supported_types:
+            raise ValueError(f"Unsupported data type: {datatype}")
+
+        # Perform semantic analysis for the size of the array
+        if not isinstance(size, int) or size <= 0:
+            raise ValueError("Array size must be a positive integer")
+
+        # Store the array declaration information in the symbol table
+        self.symbol_table[identifier] = f'{datatype}[]'
 
     def visit_bool(self, *args):
         # Handling boolean values
         pass
 
-    def visit_type(self, *args):
-        # Handling types
-        pass
+    def visit_type(self, type_name):
+        # Check if the type name is one of the supported types
+        supported_types = ['int', 'float', 'str', 'bool']
+        if type_name not in supported_types:
+            raise ValueError(f"Unsupported data type: {type_name}")
+
+        # Return the type name if it is supported
+        return type_name
 
     # Define visit_empty method
     def visit_empty(self):
