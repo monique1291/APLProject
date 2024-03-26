@@ -1,6 +1,3 @@
-import ply.yacc as yacc
-import ply.lex as lex
-
 reserved = {
     'if': 'IF',
     'then': 'THEN',
@@ -10,11 +7,10 @@ reserved = {
     'for': 'FOR',
     'do': 'DO',
     'until': 'UNTIL',
-    'Int': 'INT',
-    'Str': 'Str',
-    'Double': 'Double',
-    'Float': 'Float',
-    'Bool': 'Bool',
+    'int': 'INT',
+    'str': 'STR',
+    'float': 'FLT',
+    'bool': 'BOOL',
     'func': 'FUNC',
     'return': 'RETURN',
     'main': 'MAIN',
@@ -32,12 +28,16 @@ reserved = {
     'def': 'DEF',
     'break': 'BREAK',
     'case': 'CASE',
-    'switch': 'SWITCH'
-
+    'switch': 'SWITCH',
+    'variable': 'VARIABLE',
+    'array': 'ARRAY',
+    'closeclass': 'CLOSECLASS',
+    'endif': 'ENDIF',
+    'closefunc': 'CLOSEFUNC',
+    'print': 'PRINT'
 }
-literals = ['+', '-', '*', '/', '=', '<', '>', '(', ')', '{', '}', '[', ']', ',', ]
+
 tokens = [
-             'RESERVEDWORD',
              'INTEGER',
              'STRING',
              'FLOAT',
@@ -53,7 +53,7 @@ tokens = [
              'MINUS',
              'TIMES',
              'DIVIDE',
-             'EQUALSIGN',
+             'EQUAL',
              'PLUSEQUAL',
              'MINUSEQUAL',
              'TIMESEQUAL',
@@ -69,17 +69,21 @@ tokens = [
              'COMMA',
              'DOUBLEQUOTES',
              'SINGLEQUOTES',
+             'COLON',
              # Identifier
              'IDENTIFIER',
              'COMMENTS',
-         ] + list(reserved.values())  # + literals #may be able to remove literals
+             'RULE_OPEN',
+             'RULE_CLOSE',
+             'RANGE',
+         ] + list(reserved.values())  # + literals
 
 # Regular expression rules for simple tokens
 t_PLUS = r'\+'
-t_MINUS = r'-'
+t_MINUS = r'\-'
 t_TIMES = r'\*'
 t_DIVIDE = r'/'
-t_EQUALSIGN = r'\='
+t_EQUAL = r'\='
 t_PLUSEQUAL = r'\+='
 t_MINUSEQUAL = r'-='
 t_TIMESEQUAL = r'\*='
@@ -93,14 +97,15 @@ t_RSQUAREDBRACKET = r'\]'
 t_COMMA = r'\,'
 t_DOUBLEQUOTES = r'\"'
 t_SINGLEQUOTES = r'\''
+t_COLON = r'\:'
 
 # Regular expression rule for comparison operators
-t_EQUALEQUAL = r'=='
-t_NOTEQUAL = r'!='
-t_LESSTHAN = r'<'
-t_GREATERTHAN = r'>'
-t_LESSEQUAL = r'<='
-t_GREATEREQUAL = r'>='
+t_EQUALEQUAL = r'\=='
+t_NOTEQUAL = r'\!='
+t_LESSTHAN = r'\<'
+t_GREATERTHAN = r'\>'
+t_LESSEQUAL = r'\<='
+t_GREATEREQUAL = r'\>='
 
 
 # Regular expression rule for comments
@@ -129,24 +134,15 @@ def t_newline(t):
 
 
 def t_STRING(t):
-    r'\"[a-zA-Z_][a-zA-Z_0-9]*\"'  # should i let all strings have same rules as identifiers?
-    t.value = t.value
+    r'\".*?\"'
+    t.value = t.value[1:-1]
     return t
 
 
 def t_IDENTIFIER(t):
     r'[a-zA-Z_][a-zA-Z_0-9]*'
-    t.type = 'IDENTIFIER'
+    t.type = reserved.get(t.value, 'IDENTIFIER')
     return t
-
-
-# noticing an error, if an identifier starts with lower cse it will accept it as a reserved word
-#might be fixed. Needs more testing.
-def t_RESERVEDWORD(t):
-    r'\b(?:' + '|'.join(reserved.keys()) + r')\b'
-    t.type = reserved.get(t.value, 'RESERVEDWORD')
-    return t
-
 
 
 # A string containing ignored characters (spaces and tabs)
@@ -155,7 +151,5 @@ t_ignore = ' \t'
 
 # Error handling rule
 def t_error(t):
-    print(f"Illegal character '{t.value[0]}' at line {t.lineno}")  # prints illegal char and line num
+    print(f"Illegal character '{t.value[0]}' at line {t.lineno}")
     t.lexer.skip(1)
-
-
