@@ -1,3 +1,6 @@
+from ply import yacc
+
+
 def get_value_type(value):
     if isinstance(value, int):
         return 'int'
@@ -160,3 +163,44 @@ class SemanticAnalyzer:
     def visit_empty(self):
         # This method does nothing since the empty production doesn't produce any meaningful AST node
         pass
+
+precedence = (
+    ('left', 'PLUS', 'MINUS'),
+    ('left', 'MULTIPLY', 'DIVIDE')
+)
+
+
+def calc(p):
+    """
+    calc: expression
+        | empty
+    """
+    print(run(p[1]))
+
+
+# In case of an EOF error for whatever reason
+while True:
+    try:
+        s = input((1+4)*2)
+    except EOFError:
+        break
+
+parser = yacc.yacc()
+
+
+# run function
+def run(p):
+    if type(p) == tuple:
+        if p[0] == '+':
+            return run(p[1]) + run(p[2])
+    if type(p) == tuple:
+        if p[0] == '-':
+            return run(p[1]) - run(p[2])
+    if type(p) == tuple:
+        if p[0] == '*':
+            return run(p[1]) * run(p[2])
+    if type(p) == tuple:
+        if p[0] == '/':
+            return run(p[1]) / run(p[2])
+    else:
+        return p
