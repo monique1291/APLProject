@@ -5,19 +5,11 @@ func int X (int a)
     print("Sigh")
 closefunc
 
-#if x<5:
-#    print("waow")
-#else:
-#    print("Yummy")
-#endif
+if (x<5):
+    print("waow")
+else:
+    print("Yummy")
+endif
 
-#main():
-#    print("FUCK THIS")
-#z [2] = [9,8]
-
-while true:
-    print("it's true")
-endwhile
-for i = 2 in range 0,9:
-    print("in for loop")
-endfor
+main():
+    print("FUCK THIS")

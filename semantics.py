@@ -1,16 +1,3 @@
-def get_value_type(value):
-    if isinstance(value, int):
-        return 'int'
-    elif isinstance(value, str):
-        return 'str'
-    elif isinstance(value, float):
-        return 'float'
-    # elif isinstance(value, bool): #do we need boolean?
-    #    return 'bool'
-    else:
-        return None
-
-
 class SemanticAnalyzer:
     def __init__(self):
         self.symbol_table = {}
@@ -35,7 +22,7 @@ class SemanticAnalyzer:
         if var_name not in self.symbol_table:
             raise NameError(f"Variable '{var_name}' is not defined")
         expected_type = self.symbol_table[var_name]
-        actual_type = get_value_type(value)
+        actual_type = self.get_value_type(value)
         if actual_type != expected_type:
             raise TypeError(f"Type mismatch: Variable '{var_name}' expected {expected_type}, got {actual_type}")
 
@@ -62,50 +49,72 @@ class SemanticAnalyzer:
         self.visit(statements)
 
     def visit_conditional(self, *args):
-        # Handling conditionals is not explicitly specified in the example. You can add the logic here if needed.
         pass
 
-    def visit_expression(self, *args):
-        # Handling expressions
-        pass
+    def visit_expression(self, left_operand, operator, right_operand):
+        left_type = self.visit(left_operand)
+        right_type = self.visit(right_operand)
+        if left_type != right_type:
+            raise TypeError("Type mismatch in expression")
+        return left_type
 
-    def visit_function_call(self, *args):
-        # Handling function calls
-        pass
+    def visit_function_call(self, function_name, argument_list):
+        # Check if the function is defined in the symbol table
+        if function_name not in self.symbol_table:
+            raise NameError(f"Function '{function_name}' is not defined")
 
-    def visit_print_statement(self, text):
-        print(text)
-        pass
+        # Get the expected argument types and return type from the symbol table
+        expected_arg_types, return_type = self.symbol_table[function_name]
+
+        # Get the actual argument types from the argument list
+        actual_arg_types = [self.visit(arg) for arg in argument_list]
+
+        # Check if the number of arguments matches the expected number
+        if len(expected_arg_types) != len(actual_arg_types):
+            raise TypeError(f"Function '{function_name}' expects {len(expected_arg_types)} arguments, "
+                            f"but {len(actual_arg_types)} were provided")
+
+        # Check if the types of arguments match the expected types
+        for expected_type, actual_type in zip(expected_arg_types, actual_arg_types):
+            if expected_type != actual_type:
+                raise TypeError(f"Type mismatch in function call '{function_name}': "
+                                f"expected {expected_type}, got {actual_type}")
 
     def visit_range_expression(self, *args):
-        # Handling range expressions
         pass
 
     def visit_while_statement(self, *args):
-        # Handling while statements
         pass
 
     def visit_for_statement(self, *args):
-        # Handling for statements
         pass
 
     def visit_inline_if_statement(self, *args):
-        # Handling inline if statements
         pass
 
     def visit_array_declaration(self, *args):
-        # Handling array declarations
         pass
 
     def visit_bool(self, *args):
-        # Handling boolean values
         pass
 
     def visit_type(self, *args):
-        # Handling types
         pass
 
-    # Define visit_empty method
+    @staticmethod
+    def get_value_type(value):
+        if isinstance(value, int):
+            return 'int'
+        elif isinstance(value, str):
+            return 'str'
+        elif isinstance(value, float):
+            return 'float'
+        else:
+            return None
+
+    @staticmethod
+    def visit_print_statement(text):
+        print(text)
+
     def visit_empty(self):
-        # This method does nothing since the empty production doesn't produce any meaningful AST node
         pass
