@@ -25,12 +25,13 @@ def p_statement(p):
     """
     statement : conditional
               | expression
+              | array_assignment_statement
               | assignment_statement
               | function_call
               | print_statement
               | function_declaration
-              | variable_declaration
               | array_declaration
+              | variable_declaration
               | class_declaration
               | main_function
               | empty
@@ -66,9 +67,12 @@ def p_variable_declaration(p):
 def p_array_declaration(p):
     """
     array_declaration : ARRAY type IDENTIFIER LSQUAREDBRACKET INTEGER RSQUAREDBRACKET
+                      | ARRAY type IDENTIFIER LSQUAREDBRACKET INTEGER RSQUAREDBRACKET EQUAL LSQUAREDBRACKET array_values RSQUAREDBRACKET
     """
     if len(p) == 7:
         p[0] = ('array_declaration', p[2], p[3], p[5])
+    if len(p) == 11:
+        p[0] = ('array_declaration', p[2], p[3], p[5], p[9])
 
 
 def p_function_declaration(p):
@@ -88,32 +92,32 @@ def p_class_declaration(p):
 
 
 def p_inline_if_statement(p):
-    """inline_if_statement : IF LPAREN expression RPAREN COLON statements ENDIF
-                           | IF LPAREN expression RPAREN COLON statements ELSE COLON statements ENDIF
+    """inline_if_statement : IF expression COLON statements ENDIF
+                           | IF expression COLON statements ELSE COLON statements ENDIF
                            """
-    if len(p) == 8:
-        p[0] = ('inline_if_statement', p[3], p[6])
-    elif len(p) == 11:
-        p[0] = ('inline_if_statement', p[3], p[6], p[9])
+    if len(p) == 6:
+        p[0] = ('inline_if_statement', p[2], p[4])
+    elif len(p) == 9:
+        p[0] = ('inline_if_statement', p[2], p[4], p[7])
 
 
 def p_for_statement(p):
     """
-    for_statement : FOR expression IN range_expression
+    for_statement : FOR expression IN range_expression COLON statements ENDFOR
     """
     p[0] = ('for_statement', p[2], p[4])
 
 
 def p_range_expression(p):
     """
-    range_expression : RANGE expression COMMA expression
+    range_expression : RANGE INTEGER COMMA INTEGER
     """
     p[0] = ('range_expression', p[2], p[4])
 
 
 def p_while_statement(p):
     """
-    while_statement : WHILE expression COLON statements
+    while_statement : WHILE expression COLON statements ENDWHILE
     """
     p[0] = ('while_statement', p[2], p[4])
 
@@ -139,13 +143,13 @@ def p_expression(p):
                | expression LESSTHAN expression
                | expression GREATEREQUAL expression
                | expression LESSEQUAL expression
+               | expression EQUAL expression
                | expression EQUALEQUAL expression
                | expression NOTEQUAL expression
                | expression PLUS expression
                | expression MINUS expression
                | expression TIMES expression
                | expression DIVIDE expression
-               | expression EQUAL expression
                | token
                | data
     """
@@ -187,9 +191,23 @@ def p_tokens(p):
     p[0] = ('token', p[1])
 
 
+def p_array_values(p):
+    """array_values : data
+                    | COMMA data"""
+    if len(p) == 3:
+        p[0] = ('array_values', p[2])
+    elif len(p) == 2:
+        p[0] = ('array_values', p[1])
+
+
 def p_assignment_statement(p):
     """assignment_statement : IDENTIFIER EQUAL expression"""
     p[0] = ('assignment_statement', p[1], p[3])
+
+
+def p_array_assignment_statement(p):
+    """array_assignment_statement : IDENTIFIER LSQUAREDBRACKET INTEGER RSQUAREDBRACKET EQUAL LSQUAREDBRACKET array_values RSQUAREDBRACKET"""
+    p[0] = ('array_assignment_statement', p[1], p[3], p[7])
 
 
 def p_function_call(p):

@@ -33,8 +33,11 @@ reserved = {
     'array': 'ARRAY',
     'closeclass': 'CLOSECLASS',
     'endif': 'ENDIF',
+    'endfor': 'ENDFOR',
+    'endwhile': 'ENDWHILE',
     'closefunc': 'CLOSEFUNC',
-    'print': 'PRINT'
+    'print': 'PRINT',
+    'range': 'RANGE'
 }
 
 tokens = [
